@@ -1,0 +1,237 @@
+version: '2'
+
+services:
+  free5gc-upf-1:
+    container_name: upf1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfg1.yaml
+    privileged: true
+    volumes:
+      - "./config:/config"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.101
+
+  free5gc-upf-2:
+    container_name: upf2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfg2.yaml
+    privileged: true
+    volumes:
+      - "./config:/config"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.103
+
+  free5gc-upf-b:
+    container_name: upfb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfgb.yaml
+    privileged: true
+    volumes:
+      - "./config:/config"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.102
+
+  db:
+    container_name: mongodb
+    image: mongo
+    command: mongod --port 27017
+    expose:
+      - "27017"
+    volumes:
+      - ./mongodb:/data/db
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.1
+
+  free5gc-nrf:
+    container_name: nrf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./nrf -nrfcfg /config/nrfcfg.conf
+    expose:
+      - "29510"
+    volumes:
+      - "./config:/config"
+    environment:
+      DB_URI: mongodb://db/free5gc
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.2
+    depends_on:
+      - db
+
+  free5gc-amf:
+    container_name: amf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./amf -amfcfg /config/amfcfg.conf
+    expose:
+      - "29518"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.3
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-ausf:
+    container_name: ausf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./ausf -ausfcfg /config/ausfcfg.conf
+    expose:
+      - "29509"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.4
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-nssf:
+    container_name: nssf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./nssf -nssfcfg /config/nssfcfg.conf
+    expose:
+      - "29531"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.5
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-pcf:
+    container_name: pcf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./pcf -pcfcfg /config/pcfcfg.conf
+    expose:
+      - "29507"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.6
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-smf:
+    container_name: smf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./smf -smfcfg /config/smfcfg.conf -uerouting /config/uerouting.yaml
+    expose:
+      - "29502"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.7
+    depends_on:
+      - free5gc-nrf
+      - free5gc-upf-1
+      - free5gc-upf-2
+      - free5gc-upf-b
+
+  free5gc-udm:
+    container_name: udm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./udm -udmcfg /config/udmcfg.conf
+    expose:
+      - "29503"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.8
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-udr:
+    container_name: udr
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./udr -udrcfg /config/udrcfg.conf
+    expose:
+      - "29504"
+    volumes:
+      - "./config:/config"
+    environment:
+      DB_URI: mongodb://db/free5gc
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.9
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-n3iwf:
+    container_name: n3iwf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: |
+      /bin/bash -c "
+        ip l add name ipsec0 type vti local 10.200.200.10 remote 0.0.0.0 key 5
+        ip a add 10.0.0.1/24 dev ipsec0
+        ip l set dev ipsec0 up
+        ./n3iwf -n3iwfcfg /config/n3iwfcfg.conf
+      "
+    privileged: true
+    #cap_add:
+    #  - NET_ADMIN
+    #devices:
+    #  - "/dev/net/tun:/dev/net/tun"
+    expose:
+      - "29504"
+    volumes:
+      - "./config:/config"
+    networks:
+      privnet:
+        ipv4_address: 10.200.200.10
+    depends_on:
+      - free5gc-amf
+
+networks:
+  privnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.200.200.0/24
+          gateway: 10.200.200.254
