@@ -16,7 +16,7 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
-        ipv4_address: 10.200.200.101
+        ipv4_address: 10.100.200.101
 
   free5gc-upf-2:
     container_name: upf2
@@ -33,7 +33,7 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
-        ipv4_address: 10.200.200.103
+        ipv4_address: 10.100.200.103
 
   free5gc-upf-b:
     container_name: upfb
@@ -50,7 +50,7 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
-        ipv4_address: 10.200.200.102
+        ipv4_address: 10.100.200.102
 
   db:
     container_name: mongodb
@@ -62,7 +62,7 @@ services:
       - ./mongodb:/data/db
     networks:
       privnet:
-        ipv4_address: 10.200.200.1
+        ipv4_address: 10.100.200.1
 
   free5gc-nrf:
     container_name: nrf
@@ -78,7 +78,7 @@ services:
       DB_URI: mongodb://db/free5gc
     networks:
       privnet:
-        ipv4_address: 10.200.200.2
+        ipv4_address: 10.100.200.2
     depends_on:
       - db
 
@@ -94,7 +94,7 @@ services:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.3
+        ipv4_address: 10.100.200.3
     depends_on:
       - free5gc-nrf
 
@@ -110,7 +110,7 @@ services:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.4
+        ipv4_address: 10.100.200.4
     depends_on:
       - free5gc-nrf
 
@@ -126,7 +126,7 @@ services:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.5
+        ipv4_address: 10.100.200.5
     depends_on:
       - free5gc-nrf
 
@@ -142,7 +142,7 @@ services:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.6
+        ipv4_address: 10.100.200.6
     depends_on:
       - free5gc-nrf
 
@@ -158,7 +158,7 @@ services:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.7
+        ipv4_address: 10.100.200.7
     depends_on:
       - free5gc-nrf
       - free5gc-upf-1
@@ -177,7 +177,7 @@ services:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.8
+        ipv4_address: 10.100.200.8
     depends_on:
       - db
       - free5gc-nrf
@@ -196,7 +196,7 @@ services:
       DB_URI: mongodb://db/free5gc
     networks:
       privnet:
-        ipv4_address: 10.200.200.9
+        ipv4_address: 10.100.200.9
     depends_on:
       - db
       - free5gc-nrf
@@ -208,7 +208,7 @@ services:
       dockerfile: Dockerfile
     command: |
       /bin/bash -c "
-        ip l add name ipsec0 type vti local 10.200.200.10 remote 0.0.0.0 key 5
+        ip l add name ipsec0 type vti local 10.100.200.10 remote 0.0.0.0 key 5
         ip a add 10.0.0.1/24 dev ipsec0
         ip l set dev ipsec0 up
         ./n3iwf -n3iwfcfg /config/n3iwfcfg.conf
@@ -218,13 +218,11 @@ services:
     #  - NET_ADMIN
     #devices:
     #  - "/dev/net/tun:/dev/net/tun"
-    expose:
-      - "29504"
     volumes:
       - "./config:/config"
     networks:
       privnet:
-        ipv4_address: 10.200.200.10
+        ipv4_address: 10.100.200.10
     depends_on:
       - free5gc-amf
 
@@ -233,5 +231,5 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.200.200.0/24
-          gateway: 10.200.200.254
+        - subnet: 10.100.200.0/24
+          gateway: 10.100.200.254

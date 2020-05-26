@@ -4,7 +4,7 @@ info:
 
 ueRoutingInfo:
   - SUPI: imsi-2089300007487
-    AN: 10.200.200.101
+    AN: upf1
     PathList:
       - DestinationIP: 10.0.0.10
         DestinationPort: 8888
@@ -19,7 +19,7 @@ ueRoutingInfo:
           - AnchorUPF2
 
   - SUPI: imsi-2089300007486
-    AN: 10.200.200.102
+    AN: upf2
     PathList:
       - DestinationIP: 10.0.0.10
         DestinationPort: 8888
