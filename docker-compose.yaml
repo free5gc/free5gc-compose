@@ -214,10 +214,6 @@ services:
         ./n3iwf -n3iwfcfg /config/n3iwfcfg.conf
       "
     privileged: true
-    #cap_add:
-    #  - NET_ADMIN
-    #devices:
-    #  - "/dev/net/tun:/dev/net/tun"
     volumes:
       - "./config:/config"
     networks:
@@ -225,6 +221,8 @@ services:
         ipv4_address: 10.100.200.10
     depends_on:
       - free5gc-amf
+      - free5gc-smf
+      - free5gc-upf-b
 
 networks:
   privnet:

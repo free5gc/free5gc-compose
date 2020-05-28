@@ -97,14 +97,13 @@ For my default setting.
 |:-:|:-:|:-:|:-:|:-:|
 | amf | 10.100.200.3 | 29518 | nrf | nrfUri: https://nrf:29510 |
 | ausf | 10.100.200.4 | 29509 | nrf | nrfUri: https://nrf:29510 |
-| n3iwf |
 | nrf | 10.100.200.2 | 29510 | db | MongoDBUrl: mongodb://db:27017 |
 | nssf | 10.100.200.5 | 29531 | nrf | nrfUri: https://nrf:29510gg/,<br/>nrfId: https://nrf:29510/nnrf-nfm/v1/nf-instances |
 | pcf | 10.100.200.6 | 29507 | nrf | nrfUri: https://nrf:29510 |
 | smf | 10.100.200.7 | 29502 | nrf, upf | nrfUri: https://nrf:29510,<br/>node_id: upf1, node_id: upf2, node_id: upf3 |
 | udm | 10.100.200.8 | 29503 | nrf | nrfUri: https://nrf:29510 |
 | udr | 10.100.200.9 | 29504 | nrf, db | nrfUri: https://nrf:29510,<br/>url: mongodb://db:27017 |
-| n3iwf | 10.100.200.10 | N/A | amf |  |
+| n3iwf | 10.100.200.10 | N/A | amf, smf, upf |  |
 | upf1 | 10.100.200.101 | N/A | pfcp, gtpu, apn | pfcp: upf1, gtpu: upf1, apn: internet |
 | upf2 | 10.100.200.103 | N/A | pfcp, gtpu, apn | pfcp: upf2, gtpu: upf2, apn: internet |
 | upfb (ulcl) | 10.100.200.102 | N/A | pfcp, gtpu, apn | pfcp: upfb, gtpu: upfb, apn: intranet |
