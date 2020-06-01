@@ -18,7 +18,8 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
-        ipv4_address: 10.100.200.101
+        aliases:
+          - upf1
 
   free5gc-upf-2:
     container_name: upf2
@@ -37,7 +38,8 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
-        ipv4_address: 10.100.200.103
+        aliases:
+          - upf2
 
   free5gc-upf-b:
     container_name: upfb
@@ -56,7 +58,8 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
-        ipv4_address: 10.100.200.102
+        aliases:
+          - upfb
 
   db:
     container_name: mongodb
@@ -68,7 +71,8 @@ services:
       - dbdata:/data/db
     networks:
       privnet:
-        ipv4_address: 10.100.200.1
+        aliases:
+          - db
 
   free5gc-nrf:
     container_name: nrf
@@ -85,7 +89,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.2
+        aliases:
+          - nrf
     depends_on:
       - db
 
@@ -103,7 +108,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.3
+        aliases:
+          - amf
     depends_on:
       - free5gc-nrf
 
@@ -121,7 +127,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.4
+        aliases:
+          - ausf
     depends_on:
       - free5gc-nrf
 
@@ -139,7 +146,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.5
+        aliases:
+          - nssf
     depends_on:
       - free5gc-nrf
 
@@ -157,7 +165,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.6
+        aliases:
+          - pcf
     depends_on:
       - free5gc-nrf
 
@@ -175,7 +184,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.7
+        aliases:
+          - smf
     depends_on:
       - free5gc-nrf
       - free5gc-upf-1
@@ -196,7 +206,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.8
+        aliases:
+          - udm
     depends_on:
       - db
       - free5gc-nrf
@@ -218,7 +229,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.9
+        aliases:
+          - udr
     depends_on:
       - db
       - free5gc-nrf
@@ -230,7 +242,7 @@ services:
       dockerfile: Dockerfile
     command: |
       /bin/bash -c "
-        ip l add name ipsec0 type vti local 10.100.200.10 remote 0.0.0.0 key 5
+        ip l add name ipsec0 type vti local $$(hostname -I | awk '{print $$1}') remote 0.0.0.0 key 5
         ip a add 10.0.0.1/24 dev ipsec0
         ip l set dev ipsec0 up
         ./n3iwf -n3iwfcfg /config/n3iwfcfg.conf
@@ -242,7 +254,8 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        ipv4_address: 10.100.200.10
+        aliases:
+          - n3iwf
     depends_on:
       - free5gc-amf
       - free5gc-smf
