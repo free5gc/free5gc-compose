@@ -7,15 +7,12 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfg1.yaml
-    privileged: true
     volumes:
       - "./config:/config"
     environment:
       GIN_MODE: release
     cap_add:
       - NET_ADMIN
-    devices:
-      - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
         aliases:
@@ -27,15 +24,12 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfg2.yaml
-    privileged: true
     volumes:
       - "./config:/config"
     environment:
       GIN_MODE: release
     cap_add:
       - NET_ADMIN
-    devices:
-      - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
         aliases:
@@ -47,15 +41,12 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfgb.yaml
-    privileged: true
     volumes:
       - "./config:/config"
     environment:
       GIN_MODE: release
     cap_add:
       - NET_ADMIN
-    devices:
-      - "/dev/net/tun:/dev/net/tun"
     networks:
       privnet:
         aliases:
@@ -247,11 +238,12 @@ services:
         ip l set dev ipsec0 up
         ./n3iwf -n3iwfcfg /config/n3iwfcfg.conf
       "
-    privileged: true
     volumes:
       - "./config:/config"
     environment:
       GIN_MODE: release
+    cap_add:
+      - NET_ADMIN
     networks:
       privnet:
         aliases:
