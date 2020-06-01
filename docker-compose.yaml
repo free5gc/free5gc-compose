@@ -10,6 +10,8 @@ services:
     privileged: true
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     cap_add:
       - NET_ADMIN
     devices:
@@ -27,6 +29,8 @@ services:
     privileged: true
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     cap_add:
       - NET_ADMIN
     devices:
@@ -44,6 +48,8 @@ services:
     privileged: true
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     cap_add:
       - NET_ADMIN
     devices:
@@ -76,6 +82,7 @@ services:
       - "./config:/config"
     environment:
       DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.2
@@ -92,6 +99,8 @@ services:
       - "29518"
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.3
@@ -108,6 +117,8 @@ services:
       - "29509"
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.4
@@ -124,6 +135,8 @@ services:
       - "29531"
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.5
@@ -140,6 +153,8 @@ services:
       - "29507"
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.6
@@ -156,6 +171,8 @@ services:
       - "29502"
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.7
@@ -175,6 +192,8 @@ services:
       - "29503"
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.8
@@ -190,10 +209,13 @@ services:
     command: ./udr -udrcfg /config/udrcfg.conf
     expose:
       - "29504"
+    environment:
+      GIN_MODE: release
     volumes:
       - "./config:/config"
     environment:
       DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.9
@@ -216,6 +238,8 @@ services:
     privileged: true
     volumes:
       - "./config:/config"
+    environment:
+      GIN_MODE: release
     networks:
       privnet:
         ipv4_address: 10.100.200.10
