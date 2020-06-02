@@ -29,18 +29,22 @@ RUN cd $GOPATH/src/free5gc/src/upf \
 
 # Build WebUI
 RUN cd $GOPATH/src/free5gc/webconsole \
+    && git checkout --detach cbf7ec1 \
     && go build -o webui -x server.go
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
 FROM alpine
 
 WORKDIR /free5gc
-RUN mkdir -p config/ support/TLS/
+RUN mkdir -p config/ support/TLS/ public
 
 # Copy executables
 COPY --from=builder /go/src/free5gc/bin/* ./
 COPY --from=builder /go/src/free5gc/src/upf/build/bin/* ./
 COPY --from=builder /go/src/free5gc/webconsole/webui ./
+
+# Copy static files (webui frontend)
+COPY --from=builder /go/src/free5gc/webconsole/public ./public
 
 # Copy linked libs
 COPY --from=builder /go/src/free5gc/src/upf/build/libgtp5gnl/lib/libgtp5gnl.so.0 ./

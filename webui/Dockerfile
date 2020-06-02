@@ -13,10 +13,11 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y v
 
 # Set working dir
 WORKDIR /free5gc
-RUN mkdir -p config/ ${F5GC_MODULE}/
+RUN mkdir -p config/ ${F5GC_MODULE}/public
 
-# Copy executable and default configuration 
+# Copy executable, frontend static files and default configuration
 COPY --from=builder /free5gc/${F5GC_MODULE} ./${F5GC_MODULE}/
+COPY --from=builder /free5gc/public ./${F5GC_MODULE}/public
 
 # Move to the executable location
 WORKDIR /free5gc/${F5GC_MODULE}
