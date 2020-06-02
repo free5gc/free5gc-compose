@@ -6,7 +6,6 @@ ENV GO111MODULE=off
 
 RUN apt-get update
 RUN apt-get -y install gcc cmake autoconf libtool pkg-config libmnl-dev libyaml-dev
-RUN apt-get -y install netcat tcpdump iproute2 netbase
 RUN apt-get clean
 
 # Get Free5GC
