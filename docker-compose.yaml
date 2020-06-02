@@ -1,14 +1,15 @@
-version: '2'
+version: '3.8'
 
 services:
   free5gc-upf-1:
     container_name: upf1
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfg1.yaml
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg1.yaml
     volumes:
-      - "./config:/config"
+      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg1.yaml"
     environment:
       GIN_MODE: release
     cap_add:
@@ -21,11 +22,12 @@ services:
   free5gc-upf-2:
     container_name: upf2
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfg2.yaml
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg2.yaml
     volumes:
-      - "./config:/config"
+      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg2.yaml
     environment:
       GIN_MODE: release
     cap_add:
@@ -38,11 +40,12 @@ services:
   free5gc-upf-b:
     container_name: upfb
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ../src/upf/build/bin/free5gc-upfd -f /config/upfcfgb.yaml
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfgb.yaml
     volumes:
-      - "./config:/config"
+      - ./config/upfcfgb.yaml:/free5gc/config/upfcfgb.yaml
     environment:
       GIN_MODE: release
     cap_add:
@@ -68,13 +71,15 @@ services:
   free5gc-nrf:
     container_name: nrf
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./nrf -nrfcfg /config/nrfcfg.conf
+      context: ./nf_nrf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./nrf -nrfcfg ../config/nrfcfg.conf
     expose:
       - "29510"
     volumes:
-      - "./config:/config"
+      - ./config/nrfcfg.conf:/free5gc/config/nrfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -88,13 +93,15 @@ services:
   free5gc-amf:
     container_name: amf
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./amf -amfcfg /config/amfcfg.conf
+      context: ./nf_amf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./amf -amfcfg ../config/amfcfg.conf
     expose:
       - "29518"
     volumes:
-      - "./config:/config"
+      - ./config/amfcfg.conf:/free5gc/config/amfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
@@ -107,13 +114,15 @@ services:
   free5gc-ausf:
     container_name: ausf
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./ausf -ausfcfg /config/ausfcfg.conf
+      context: ./nf_ausf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./ausf -ausfcfg ../config/ausfcfg.conf
     expose:
       - "29509"
     volumes:
-      - "./config:/config"
+      - ./config/ausfcfg.conf:/free5gc/config/ausfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
@@ -126,13 +135,15 @@ services:
   free5gc-nssf:
     container_name: nssf
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./nssf -nssfcfg /config/nssfcfg.conf
+      context: ./nf_nssf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./nssf -nssfcfg ../config/nssfcfg.conf
     expose:
       - "29531"
     volumes:
-      - "./config:/config"
+      - ./config/nssfcfg.conf:/free5gc/config/nssfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
@@ -145,13 +156,15 @@ services:
   free5gc-pcf:
     container_name: pcf
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./pcf -pcfcfg /config/pcfcfg.conf
+      context: ./nf_pcf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./pcf -pcfcfg ../config/pcfcfg.conf
     expose:
       - "29507"
     volumes:
-      - "./config:/config"
+      - ./config/pcfcfg.conf:/free5gc/config/pcfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
@@ -164,13 +177,16 @@ services:
   free5gc-smf:
     container_name: smf
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./smf -smfcfg /config/smfcfg.conf -uerouting /config/uerouting.yaml
+      context: ./nf_smf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./smf -smfcfg ../config/smfcfg.conf -uerouting ../config/uerouting.yaml
     expose:
       - "29502"
     volumes:
-      - "./config:/config"
+      - ./config/smfcfg.conf:/free5gc/config/smfcfg.conf
+      - ./config/uerouting.yaml:/free5gc/config/uerouting.yaml
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
@@ -186,13 +202,15 @@ services:
   free5gc-udm:
     container_name: udm
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./udm -udmcfg /config/udmcfg.conf
+      context: ./nf_udm
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./udm -udmcfg ../config/udmcfg.conf
     expose:
       - "29503"
     volumes:
-      - "./config:/config"
+      - ./config/udmcfg.conf:/free5gc/config/udmcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
@@ -206,15 +224,17 @@ services:
   free5gc-udr:
     container_name: udr
     build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./udr -udrcfg /config/udrcfg.conf
+      context: ./nf_udr
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./udr -udrcfg ../config/udrcfg.conf
     expose:
       - "29504"
     environment:
       GIN_MODE: release
     volumes:
-      - "./config:/config"
+      - ./config/udrcfg.conf:/free5gc/config/udrcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -229,17 +249,19 @@ services:
   free5gc-n3iwf:
     container_name: n3iwf
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./nf_n3iwf
+      args:
+        DEBUG_TOOLS: "false"
     command: |
       /bin/bash -c "
         ip l add name ipsec0 type vti local $$(hostname -I | awk '{print $$1}') remote 0.0.0.0 key 5
         ip a add 10.0.0.1/24 dev ipsec0
         ip l set dev ipsec0 up
-        ./n3iwf -n3iwfcfg /config/n3iwfcfg.conf
+        ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
       "
     volumes:
-      - "./config:/config"
+      - ./config/n3iwfcfg.conf:/free5gc/config/n3iwfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     cap_add:
@@ -253,13 +275,33 @@ services:
       - free5gc-smf
       - free5gc-upf-b
 
+  webui:
+    container_name: webui
+    build:
+      context: ./webui
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./webui
+    volumes:
+      - ./config/webuicfg.conf:/free5gc/config/webuicfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      - GIN_MODE=debug
+    networks:
+      privnet:
+        aliases:
+          - webui
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
 networks:
   privnet:
-    driver: bridge
     ipam:
+      driver: default
       config:
         - subnet: 10.100.200.0/24
-          gateway: 10.100.200.254
 
 volumes:
   dbdata:
