@@ -133,6 +133,7 @@ For my default setting.
 | upf1 | N/A | pfcp, gtpu, apn | pfcp: upf1, gtpu: upf1, apn: internet |
 | upf2 | N/A | pfcp, gtpu, apn | pfcp: upf2, gtpu: upf2, apn: internet |
 | upfb (ulcl) | N/A | pfcp, gtpu, apn | pfcp: upfb, gtpu: upfb, apn: intranet |
+| webui | 5000 | db | MongoDBUrl: mongodb://db:27017  |
 
 ## Reference
 - https://github.com/open5gs/nextepc/tree/master/docker
