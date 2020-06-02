@@ -1,10 +1,30 @@
-# free5GC Compose
+# Free5GC Compose
 
 This repository is a docker compose version of [free5GC](https://github.com/free5gc/free5gc) for stage 3. It's inspire by [free5gc-docker-compose](https://github.com/calee0219/free5gc-docker-compose) and also reference to [docker-free5GC](https://github.com/abousselmi/docker-free5gc).
 
 You can change your own config in [config](./config) folder and [docker-compose.yaml](docker-compose.yaml)
 
-## Pre-request
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [How to use it: bare metal](#how-to-use-it-bare-metal)
+  - [Prerequisites](#prerequisites)
+  - [Install Docker](#install-docker)
+    - [Ubuntu](#ubuntu)
+    - [CentOS](#centos)
+  - [Install docker-compose](#install-docker-compose)
+  - [Run Up](#run-up)
+- [How to use it: vagrant box](#how-to-use-it-vagrant-box)
+- [Troubleshooting](#troubleshooting)
+- [NF](#nf)
+- [Reference](#reference)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## How to use it: bare metal
+
+### Prerequisites
 
 Due to the UPF issue, the host must using kernel `5.0.0-23-generic`. And it should contain `gtp5g` kernel module.
 
@@ -16,8 +36,7 @@ make
 sudo make install
 ```
 
-## How to use it
-### Install docker.
+### Install Docker
 
 #### Ubuntu
 Reference: https://docs.docker.com/install/linux/docker-ce/ubuntu/
@@ -68,12 +87,19 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 ### Run Up
 Because we need to create tunnel interface, we need to use privileged container with root permission.
 ```bash
-$ git clone https://github.com/calee0219/free5gc-docker.git
+$ git clone https://github.com/free5gc/free5gc-compose.git
 $ cd free5gc-docker
+$ make base
 $ docker-compose build
 $ sudo docker-compose up # Recommand use with tmux to run in frontground
-$ sudo docker-compose up -d # Run in backbround if need
+$ sudo docker-compose up -d # Run in backbround if needed
 ```
+
+## How to use it: vagrant box
+You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box.
+
+Please find follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
+
 
 ## Troubleshooting
 Sometimes, you need to drop data from DB(See #Troubleshooting from https://www.free5gc.org/installation).
