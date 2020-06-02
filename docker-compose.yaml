@@ -10,8 +10,6 @@ services:
     command: ./free5gc-upfd -f ../config/upfcfg1.yaml
     volumes:
       - "./config/upfcfg1.yaml:/free5gc/config/upfcfg1.yaml"
-    environment:
-      GIN_MODE: release
     cap_add:
       - NET_ADMIN
     networks:
@@ -28,8 +26,6 @@ services:
     command: ./free5gc-upfd -f ../config/upfcfg2.yaml
     volumes:
       - ./config/upfcfg2.yaml:/free5gc/config/upfcfg2.yaml
-    environment:
-      GIN_MODE: release
     cap_add:
       - NET_ADMIN
     networks:
@@ -46,8 +42,6 @@ services:
     command: ./free5gc-upfd -f ../config/upfcfgb.yaml
     volumes:
       - ./config/upfcfgb.yaml:/free5gc/config/upfcfgb.yaml
-    environment:
-      GIN_MODE: release
     cap_add:
       - NET_ADMIN
     networks:
