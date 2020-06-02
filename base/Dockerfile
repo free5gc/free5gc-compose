@@ -12,7 +12,6 @@ RUN apt-get clean
 RUN cd $GOPATH/src \
     && git clone --recursive -b v3.0.2 -j 33 https://github.com/free5gc/free5gc.git \
     && cd free5gc \
-    && git submodule update --init -j 33 \
     && ./install_env.sh
 
 # Build NF (AMF, AUSF, N3IWF, NRF, NSSF, PCF, SMF, UDM, UDR)
