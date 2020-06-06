@@ -30,3 +30,5 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29507
+
+CMD [ "./pcf", "-pcfcfg", "../config/pcfcfg.conf" ]

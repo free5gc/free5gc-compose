@@ -26,3 +26,5 @@ VOLUME [ "/free5gc/config" ]
 
 # WebUI uses the port 5000
 EXPOSE 5000
+
+CMD [ "./webui" ]

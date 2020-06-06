@@ -30,3 +30,5 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29531
+
+CMD [ "./nssf", "-nssfcfg", "../config/nssfcfg.conf" ]

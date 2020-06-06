@@ -30,3 +30,5 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29502
+
+CMD [ "./smf", "-smfcfg", "../config/smfcfg.conf", "-uerouting", "../config/uerouting.yaml" ]

@@ -7,9 +7,8 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg1.yaml
     volumes:
-      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg1.yaml"
+      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
     cap_add:
       - NET_ADMIN
     networks:
@@ -23,9 +22,8 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg2.yaml
     volumes:
-      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg2.yaml
+      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
     cap_add:
       - NET_ADMIN
     networks:
@@ -39,9 +37,8 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfgb.yaml
     volumes:
-      - ./config/upfcfgb.yaml:/free5gc/config/upfcfgb.yaml
+      - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
     cap_add:
       - NET_ADMIN
     networks:
@@ -68,7 +65,6 @@ services:
       context: ./nf_nrf
       args:
         DEBUG_TOOLS: "false"
-    command: ./nrf -nrfcfg ../config/nrfcfg.conf
     expose:
       - "29510"
     volumes:
@@ -90,7 +86,6 @@ services:
       context: ./nf_amf
       args:
         DEBUG_TOOLS: "false"
-    command: ./amf -amfcfg ../config/amfcfg.conf
     expose:
       - "29518"
     volumes:
@@ -111,7 +106,6 @@ services:
       context: ./nf_ausf
       args:
         DEBUG_TOOLS: "false"
-    command: ./ausf -ausfcfg ../config/ausfcfg.conf
     expose:
       - "29509"
     volumes:
@@ -132,7 +126,6 @@ services:
       context: ./nf_nssf
       args:
         DEBUG_TOOLS: "false"
-    command: ./nssf -nssfcfg ../config/nssfcfg.conf
     expose:
       - "29531"
     volumes:
@@ -153,7 +146,6 @@ services:
       context: ./nf_pcf
       args:
         DEBUG_TOOLS: "false"
-    command: ./pcf -pcfcfg ../config/pcfcfg.conf
     expose:
       - "29507"
     volumes:
@@ -174,7 +166,6 @@ services:
       context: ./nf_smf
       args:
         DEBUG_TOOLS: "false"
-    command: ./smf -smfcfg ../config/smfcfg.conf -uerouting ../config/uerouting.yaml
     expose:
       - "29502"
     volumes:
@@ -199,7 +190,6 @@ services:
       context: ./nf_udm
       args:
         DEBUG_TOOLS: "false"
-    command: ./udm -udmcfg ../config/udmcfg.conf
     expose:
       - "29503"
     volumes:
@@ -221,7 +211,6 @@ services:
       context: ./nf_udr
       args:
         DEBUG_TOOLS: "false"
-    command: ./udr -udrcfg ../config/udrcfg.conf
     expose:
       - "29504"
     environment:
@@ -246,13 +235,6 @@ services:
       context: ./nf_n3iwf
       args:
         DEBUG_TOOLS: "false"
-    command: |
-      /bin/sh -c "
-        ip l add name ipsec0 type vti local $$(hostname -i | awk '{print $$1}') remote 0.0.0.0 key 5
-        ip a add 10.0.0.1/24 dev ipsec0
-        ip l set dev ipsec0 up
-        ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
-      "
     volumes:
       - ./config/n3iwfcfg.conf:/free5gc/config/n3iwfcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
@@ -275,12 +257,11 @@ services:
       context: ./webui
       args:
         DEBUG_TOOLS: "false"
-    command: ./webui
     volumes:
       - ./config/webuicfg.conf:/free5gc/config/webuicfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
-      - GIN_MODE=debug
+      - GIN_MODE=release
     networks:
       privnet:
         aliases:
