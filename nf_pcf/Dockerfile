@@ -1,15 +1,14 @@
 FROM free5gc-base-v3:latest AS builder
-FROM ubuntu:18.04
+FROM alpine:3.8
 
 LABEL description="Free5GC open source 5G Core Network" \
     version="Stage 3"
 
 ENV F5GC_MODULE pcf
-ENV DEBIAN_FRONTEND noninteractive
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
-RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y vim strace net-tools iputils-ping curl netcat ; fi
+RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl netcat-openbsd ; fi
 
 # Set working dir
 WORKDIR /free5gc

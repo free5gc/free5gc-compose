@@ -1,6 +1,6 @@
 FROM golang:1.12.9-stretch AS builder
 
-MAINTAINER free5GC <support@free5gc.org>
+LABEL maintainer="Free5GC <support@free5gc.org>""
 
 ENV GO111MODULE=off
 
@@ -16,7 +16,7 @@ RUN cd $GOPATH/src \
 
 # Build NF (AMF, AUSF, N3IWF, NRF, NSSF, PCF, SMF, UDM, UDR)
 RUN cd $GOPATH/src/free5gc/src \
-    && for d in * ; do if [ -f "$d/$d.go" ] ; then go build -o ../bin/"$d" -x "$d/$d.go" ; fi ; done ;
+    && for d in * ; do if [ -f "$d/$d.go" ] ; then CGO_ENABLED=0 go build -a -installsuffix nocgo -o ../bin/"$d" -x "$d/$d.go" ; fi ; done ;
 
 # Build UPF
 #RUN go get -u -v "github.com/sirupsen/logrus"

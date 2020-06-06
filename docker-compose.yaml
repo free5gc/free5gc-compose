@@ -247,8 +247,8 @@ services:
       args:
         DEBUG_TOOLS: "false"
     command: |
-      /bin/bash -c "
-        ip l add name ipsec0 type vti local $$(hostname -I | awk '{print $$1}') remote 0.0.0.0 key 5
+      /bin/sh -c "
+        ip l add name ipsec0 type vti local $$(hostname -i | awk '{print $$1}') remote 0.0.0.0 key 5
         ip a add 10.0.0.1/24 dev ipsec0
         ip l set dev ipsec0 up
         ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
