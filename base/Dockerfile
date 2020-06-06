@@ -1,6 +1,6 @@
 FROM golang:1.12.9-stretch AS builder
 
-LABEL maintainer="Free5GC <support@free5gc.org>""
+LABEL maintainer="Free5GC <support@free5gc.org>"
 
 ENV GO111MODULE=off
 
