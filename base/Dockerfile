@@ -29,7 +29,7 @@ RUN cd $GOPATH/src/free5gc/src/upf \
 # Build WebUI
 RUN cd $GOPATH/src/free5gc/webconsole \
     && git checkout --detach cbf7ec1 \
-    && go build -o webui -x server.go
+    && CGO_ENABLED=0 go build -a -installsuffix nocgo -o webui -x server.go
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
 FROM alpine
