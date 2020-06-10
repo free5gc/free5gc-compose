@@ -1,4 +1,4 @@
-FROM free5gc-base-v3:latest AS builder
+FROM free5gc/base:latest AS builder
 FROM ubuntu:18.04
 
 LABEL description="Free5GC open source 5G Core Network" \
@@ -20,7 +20,7 @@ RUN apt-get update \
 WORKDIR /free5gc
 RUN mkdir -p ${F5GC_MODULE}/config/
 
-# Copy executable and default configuration 
+# Copy executable and default configuration
 COPY --from=builder /free5gc/${F5GC_MODULE} ./${F5GC_MODULE}/
 
 # Copy linked libs

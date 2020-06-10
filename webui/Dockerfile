@@ -1,4 +1,4 @@
-FROM free5gc-base-v3:latest AS builder
+FROM free5gc/base:latest AS builder
 FROM ubuntu:18.04
 
 LABEL description="Free5GC open source 5G Core Network" \
