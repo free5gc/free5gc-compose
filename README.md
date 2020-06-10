@@ -77,6 +77,17 @@ $ sudo systemctl start docker
 $ sudo systemctl enable docker
 ```
 
+#### Add docker group
+To let you use docker without root permission.
+
+Reference: https://docs.docker.com/engine/install/linux-postinstall/
+```bash
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+$ sudo reboot
+```
+
+
 ### Install docker-compose
 Reference: https://docs.docker.com/compose/install/
 ```bash
@@ -88,7 +99,7 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 Because we need to create tunnel interface, we need to use privileged container with root permission.
 ```bash
 $ git clone https://github.com/free5gc/free5gc-compose.git
-$ cd free5gc-docker
+$ cd free5gc-compose
 $ make base
 $ docker-compose build
 $ sudo docker-compose up # Recommand use with tmux to run in frontground
