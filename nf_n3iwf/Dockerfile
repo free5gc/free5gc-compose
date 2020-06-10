@@ -25,13 +25,8 @@ COPY --from=builder /free5gc/support/TLS/${F5GC_MODULE}.key ./support/TLS/
 # Move to the binary path
 WORKDIR /free5gc/${F5GC_MODULE}
 
-RUN printf "#!/bin/sh \n\n### Start n3iwf \n\nip l add name ipsec0 type vti local \$(hostname -i | awk '{print \$1}') remote 0.0.0.0 key 5 \nip a add 10.0.0.1/24 dev ipsec0 \nip l set dev ipsec0 up \n\n./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf\n" > start-n3iwf.sh \
-    && chmod +x start-n3iwf.sh
-
 # Config files volume
 VOLUME [ "/free5gc/config" ]
 
 # Certificates (if not using default) volume
 VOLUME [ "/free5gc/support/TLS" ]
-
-CMD [ "./start-n3iwf.sh" ]
