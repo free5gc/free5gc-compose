@@ -30,5 +30,3 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29509
-
-CMD [ "./ausf", "-ausfcfg", "../config/ausfcfg.conf" ]

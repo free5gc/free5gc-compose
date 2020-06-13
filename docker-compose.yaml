@@ -7,6 +7,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
       - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
     cap_add:
@@ -22,6 +23,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
       - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
     cap_add:
@@ -37,6 +39,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
       - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
     cap_add:
@@ -65,6 +68,7 @@ services:
       context: ./nf_nrf
       args:
         DEBUG_TOOLS: "false"
+    command: ./nrf -nrfcfg ../config/nrfcfg.conf
     expose:
       - "29510"
     volumes:
@@ -86,6 +90,7 @@ services:
       context: ./nf_amf
       args:
         DEBUG_TOOLS: "false"
+    command: ./amf -amfcfg ../config/amfcfg.conf
     expose:
       - "29518"
     volumes:
@@ -106,6 +111,7 @@ services:
       context: ./nf_ausf
       args:
         DEBUG_TOOLS: "false"
+    command: ./ausf -ausfcfg ../config/ausfcfg.conf
     expose:
       - "29509"
     volumes:
@@ -126,6 +132,7 @@ services:
       context: ./nf_nssf
       args:
         DEBUG_TOOLS: "false"
+    command: ./nssf -nssfcfg ../config/nssfcfg.conf
     expose:
       - "29531"
     volumes:
@@ -146,6 +153,7 @@ services:
       context: ./nf_pcf
       args:
         DEBUG_TOOLS: "false"
+    command: ./pcf -pcfcfg ../config/pcfcfg.conf
     expose:
       - "29507"
     volumes:
@@ -166,6 +174,7 @@ services:
       context: ./nf_smf
       args:
         DEBUG_TOOLS: "false"
+    command: ./smf -smfcfg ../config/smfcfg.conf -uerouting ../config/uerouting.yaml
     expose:
       - "29502"
     volumes:
@@ -190,6 +199,7 @@ services:
       context: ./nf_udm
       args:
         DEBUG_TOOLS: "false"
+    command: ./udm -udmcfg ../config/udmcfg.conf
     expose:
       - "29503"
     volumes:
@@ -211,6 +221,7 @@ services:
       context: ./nf_udr
       args:
         DEBUG_TOOLS: "false"
+    command: ./udr -udrcfg ../config/udrcfg.conf
     expose:
       - "29504"
     environment:
@@ -235,9 +246,11 @@ services:
       context: ./nf_n3iwf
       args:
         DEBUG_TOOLS: "false"
+    command: ./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
     volumes:
       - ./config/n3iwfcfg.conf:/free5gc/config/n3iwfcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh
     environment:
       GIN_MODE: release
     cap_add:
@@ -257,6 +270,7 @@ services:
       context: ./webui
       args:
         DEBUG_TOOLS: "false"
+    command: ./webui
     volumes:
       - ./config/webuicfg.conf:/free5gc/config/webuicfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf

@@ -30,5 +30,3 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29510
-
-CMD [ "./nrf", "-nrfcfg", "../config/nrfcfg.conf" ]

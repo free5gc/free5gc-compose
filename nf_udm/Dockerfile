@@ -30,5 +30,3 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29503
-
-CMD [ "./udm", "-udmcfg", "../config/udmcfg.conf" ]

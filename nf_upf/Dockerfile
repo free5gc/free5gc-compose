@@ -32,5 +32,3 @@ WORKDIR /free5gc/${F5GC_MODULE}
 
 # Update links
 RUN ldconfig
-
-CMD [ "./free5gc-upfd", "-f", "../config/upfcfg.yaml" ]

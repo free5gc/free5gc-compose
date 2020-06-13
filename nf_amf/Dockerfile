@@ -30,5 +30,3 @@ VOLUME [ "/free5gc/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29518
-
-CMD [ "./amf", "-amfcfg", "../config/amfcfg.conf" ]
