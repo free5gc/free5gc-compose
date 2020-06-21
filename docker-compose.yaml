@@ -7,9 +7,9 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg1.yaml
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
-      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg1.yaml"
+      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
     cap_add:
       - NET_ADMIN
     networks:
@@ -23,9 +23,9 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg2.yaml
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
-      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg2.yaml
+      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
     cap_add:
       - NET_ADMIN
     networks:
@@ -39,9 +39,9 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfgb.yaml
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
-      - ./config/upfcfgb.yaml:/free5gc/config/upfcfgb.yaml
+      - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
     cap_add:
       - NET_ADMIN
     networks:
@@ -246,16 +246,11 @@ services:
       context: ./nf_n3iwf
       args:
         DEBUG_TOOLS: "false"
-    command: |
-      /bin/bash -c "
-        ip l add name ipsec0 type vti local $$(hostname -I | awk '{print $$1}') remote 0.0.0.0 key 5
-        ip a add 10.0.0.1/24 dev ipsec0
-        ip l set dev ipsec0 up
-        ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
-      "
+    command: ./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
     volumes:
       - ./config/n3iwfcfg.conf:/free5gc/config/n3iwfcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh
     environment:
       GIN_MODE: release
     cap_add:
@@ -280,7 +275,7 @@ services:
       - ./config/webuicfg.conf:/free5gc/config/webuicfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
-      - GIN_MODE=debug
+      - GIN_MODE=release
     networks:
       privnet:
         aliases:
