@@ -246,7 +246,7 @@ services:
       context: ./nf_n3iwf
       args:
         DEBUG_TOOLS: "false"
-    command: ./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf
+    command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf"
     volumes:
       - ./config/n3iwfcfg.conf:/free5gc/config/n3iwfcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
