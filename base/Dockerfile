@@ -10,7 +10,7 @@ RUN apt-get clean
 
 # Get Free5GC
 RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.0.2 -j 33 https://github.com/free5gc/free5gc.git \
+    && git clone --recursive -b v3.0.3 -j 33 https://github.com/free5gc/free5gc.git \
     && cd free5gc \
     && ./install_env.sh
 
