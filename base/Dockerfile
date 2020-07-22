@@ -1,8 +1,6 @@
-FROM golang:1.12.9-stretch AS builder
+FROM golang:1.14.4-stretch AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
-
-ENV GO111MODULE=off
 
 RUN apt-get update
 RUN apt-get -y install gcc cmake autoconf libtool pkg-config libmnl-dev libyaml-dev
@@ -12,7 +10,7 @@ RUN apt-get clean
 RUN cd $GOPATH/src \
     && git clone --recursive -b v3.0.3 -j 33 https://github.com/free5gc/free5gc.git \
     && cd free5gc \
-    && ./install_env.sh
+    && go mod download
 
 # Build NF (AMF, AUSF, N3IWF, NRF, NSSF, PCF, SMF, UDM, UDR)
 RUN cd $GOPATH/src/free5gc/src \
@@ -28,7 +26,6 @@ RUN cd $GOPATH/src/free5gc/src/upf \
 
 # Build WebUI
 RUN cd $GOPATH/src/free5gc/webconsole \
-    && git checkout --detach cbf7ec1 \
     && CGO_ENABLED=0 go build -a -installsuffix nocgo -o webui -x server.go
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
