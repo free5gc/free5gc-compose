@@ -5,17 +5,16 @@ info:
 configuration:
   amfName: AMF
   ngapIpList:
-    - 172.16.0.1
+    - amf
   sbi:
     scheme: https
-    ipv4Addr: 10.1.1.2
+    ipv4Addr: amf
     port: 29518
   serviceNameList:
     - namf-comm
     - namf-evts
     - namf-mt
     - namf-loc
-    - namf-oam
   servedGuamiList:
     - plmnId:
         mcc: 208
@@ -37,7 +36,7 @@ configuration:
           sd: 112233
   supportDnnList:
     - internet
-  nrfUri: https://10.1.1.10:29510
+  nrfUri: https://nrf:29510
   security:
     integrityOrder:
       - NIA2
