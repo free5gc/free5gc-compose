@@ -15,7 +15,7 @@ services:
     networks:
       privnet:
         aliases:
-          - upf1
+          - upf1.free5gc.org
 
   free5gc-upf-2:
     container_name: upf2
@@ -31,7 +31,7 @@ services:
     networks:
       privnet:
         aliases:
-          - upf2
+          - upf2.free5gc.org
 
   free5gc-upf-b:
     container_name: upfb
@@ -47,7 +47,7 @@ services:
     networks:
       privnet:
         aliases:
-          - upfb
+          - upfb.free5gc.org
 
   db:
     container_name: mongodb
@@ -80,7 +80,7 @@ services:
     networks:
       privnet:
         aliases:
-          - nrf
+          - nrf.free5gc.org
     depends_on:
       - db
 
@@ -101,7 +101,7 @@ services:
     networks:
       privnet:
         aliases:
-          - amf
+          - amf.free5gc.org
     depends_on:
       - free5gc-nrf
 
@@ -122,7 +122,7 @@ services:
     networks:
       privnet:
         aliases:
-          - ausf
+          - ausf.free5gc.org
     depends_on:
       - free5gc-nrf
 
@@ -143,7 +143,7 @@ services:
     networks:
       privnet:
         aliases:
-          - nssf
+          - nssf.free5gc.org
     depends_on:
       - free5gc-nrf
 
@@ -164,7 +164,7 @@ services:
     networks:
       privnet:
         aliases:
-          - pcf
+          - pcf.free5gc.org
     depends_on:
       - free5gc-nrf
 
@@ -186,7 +186,7 @@ services:
     networks:
       privnet:
         aliases:
-          - smf
+          - smf.free5gc.org
     depends_on:
       - free5gc-nrf
       - free5gc-upf-1
@@ -210,7 +210,7 @@ services:
     networks:
       privnet:
         aliases:
-          - udm
+          - udm.free5gc.org
     depends_on:
       - db
       - free5gc-nrf
@@ -235,7 +235,7 @@ services:
     networks:
       privnet:
         aliases:
-          - udr
+          - udr.free5gc.org
     depends_on:
       - db
       - free5gc-nrf
@@ -258,7 +258,7 @@ services:
     networks:
       privnet:
         aliases:
-          - n3iwf
+          - n3iwf.free5gc.org
     depends_on:
       - free5gc-amf
       - free5gc-smf

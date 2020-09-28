@@ -7,17 +7,17 @@ configuration:
   debugLevel: info
 
   pfcp:
-    - addr: upf2
+    - addr: upf2.free5gc.org
 
   gtpu:
-    - addr: upf2
+    - addr: upf2.free5gc.org
     # [optional] gtpu.name
     # - name: upf.5gc.nctu.me
     # [optional] gtpu.ifname
     # - ifname: gtpif
 
-  apn_list:
-    - apn: internet
+  dnn_list:
+    - dnn: internet
       cidr: 60.60.0.0/24
       # [optional] apn_list[*].natifname
       # natifname: eth0

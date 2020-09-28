@@ -8,21 +8,15 @@ RUN apt-get clean
 
 # Get Free5GC
 RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.0.3 -j 33 https://github.com/free5gc/free5gc.git \
+    && git clone --recursive -b v3.0.4 -j 33 https://github.com/free5gc/free5gc.git \
     && cd free5gc \
     && go mod download
 
-# Build NF (AMF, AUSF, N3IWF, NRF, NSSF, PCF, SMF, UDM, UDR)
-RUN cd $GOPATH/src/free5gc/src \
-    && for d in * ; do if [ -f "$d/$d.go" ] ; then CGO_ENABLED=0 go build -a -installsuffix nocgo -o ../bin/"$d" -x "$d/$d.go" ; fi ; done ;
+COPY Makefile $GOPATH/src/free5gc/Makefile
 
-# Build UPF
-#RUN go get -u -v "github.com/sirupsen/logrus"
-RUN cd $GOPATH/src/free5gc/src/upf \
-    && mkdir -p build \
-    && cd build \
-    && cmake .. \
-    && make -j `nproc`
+# Build NFs (AMF, AUSF, N3IWF, NRF, NSSF, PCF, SMF, UDM, UDR, UPF)
+RUN cd $GOPATH/src/free5gc \
+    && make all
 
 # Build WebUI
 RUN cd $GOPATH/src/free5gc/webconsole \
@@ -43,7 +37,7 @@ COPY --from=builder /go/src/free5gc/webconsole/webui ./
 COPY --from=builder /go/src/free5gc/webconsole/public ./public
 
 # Copy linked libs
-COPY --from=builder /go/src/free5gc/src/upf/build/libgtp5gnl/lib/libgtp5gnl.so.0 ./
+COPY --from=builder /go/src/free5gc/src/upf/build/updk/src/third_party/libgtp5gnl/lib/libgtp5gnl.so.0 ./
 COPY --from=builder /go/src/free5gc/src/upf/build/utlt_logger/liblogger.so ./
 
 # Copy configuration files (not used for now)

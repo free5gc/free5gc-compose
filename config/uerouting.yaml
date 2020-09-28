@@ -3,8 +3,8 @@ info:
   description: Routing information for UE
 
 ueRoutingInfo:
-  - SUPI: imsi-2089300007487
-    AN: upf1
+  - SUPI: imsi-2089300000003
+    AN: upf1.free5gc.org
     PathList:
       - DestinationIP: 10.0.0.10
         DestinationPort: 8888
@@ -19,7 +19,7 @@ ueRoutingInfo:
           - AnchorUPF2
 
   - SUPI: imsi-2089300007486
-    AN: upf2
+    AN: upf2.free5gc.org
     PathList:
       - DestinationIP: 10.0.0.10
         DestinationPort: 8888
