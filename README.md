@@ -15,7 +15,6 @@ You can change your own config in [config](./config) folder and [docker-compose.
     - [CentOS](#centos)
   - [Install docker-compose](#install-docker-compose)
   - [Run Up](#run-up)
-- [How to use it: vagrant box](#how-to-use-it-vagrant-box)
 - [Troubleshooting](#troubleshooting)
 - [NF](#nf)
 - [Reference](#reference)
@@ -98,25 +97,17 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 ### Run Up
 Because we need to create tunnel interface, we need to use privileged container with root permission.
 ```bash
-$ git clone https://github.com/free5gc/free5gc-compose.git
-$ cd free5gc-compose
+$ git clone https://github.comLABORA-INF-UFG/my5Gcore-compose/my5gcore-compose.git
+$ cd my5gcore-compose
 $ make base
 $ docker-compose build
 $ sudo docker-compose up # Recommand use with tmux to run in frontground
 $ sudo docker-compose up -d # Run in backbround if needed
 ```
-
-## How to use it: vagrant box
-You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box.
-
-Please find follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
-
-
 ## Troubleshooting
-Sometimes, you need to drop data from DB(See #Troubleshooting from https://www.free5gc.org/installation).
 ```bash
 $ docker exec -it mongodb mongo
-> use free5gc
+> use my5gcore
 > db.subscribers.drop()
 > exit # (Or Ctrl-D)
 ```
