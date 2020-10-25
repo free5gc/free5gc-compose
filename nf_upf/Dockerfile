@@ -1,10 +1,10 @@
-FROM free5gc/base:latest AS builder
+FROM my5gcore/base:latest AS builder
 FROM ubuntu:18.04
 
-LABEL description="Free5GC open source 5G Core Network" \
+LABEL description="My5Gcore open source 5G Core Network" \
     version="Stage 3"
 
-ENV F5GC_MODULE free5gc-upfd
+ENV My5GC_MODULE my5Gcore-upfd
 ENV DEBIAN_FRONTEND noninteractive
 ARG DEBUG_TOOLS
 
@@ -17,18 +17,18 @@ RUN apt-get update \
     && apt-get clean
 
 # Set working dir
-WORKDIR /free5gc
-RUN mkdir -p ${F5GC_MODULE}/config/
+WORKDIR /my5Gcore
+RUN mkdir -p ${My5GC_MODULE}/config/
 
 # Copy executable and default configuration
-COPY --from=builder /free5gc/${F5GC_MODULE} ./${F5GC_MODULE}/
+COPY --from=builder /my5Gcore/${My5GC_MODULE} ./${My5GC_MODULE}/
 
 # Copy linked libs
-COPY --from=builder /free5gc/libgtp5gnl.so.0 /usr/local/lib
-COPY --from=builder /free5gc/liblogger.so /usr/local/lib
+COPY --from=builder /my5Gcore/libgtp5gnl.so.0 /usr/local/lib
+COPY --from=builder /my5Gcore/liblogger.so /usr/local/lib
 
 # Move to the executable location
-WORKDIR /free5gc/${F5GC_MODULE}
+WORKDIR /my5Gcore/${My5GC_MODULE}
 
 # Update links
 RUN ldconfig
