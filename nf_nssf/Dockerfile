@@ -1,4 +1,4 @@
-FROM my5ccore/base:latest AS builder
+FROM my5gcore/base:latest AS builder
 FROM alpine:3.8
 
 LABEL description="My5Gcore open source 5G Core Network" \

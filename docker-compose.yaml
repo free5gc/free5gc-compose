@@ -1,35 +1,35 @@
 version: '3.8'
 
 services:
-  my5Gcore-upf-1:
+  my5gcore-upf-1:
     container_name: upf1
     build:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: ./my5Gcore-upfd -f ../config-v3.0.3/upfcfg.yaml
+    command: ./free5gc-upfd -f ../config-v3.0.3/upfcfg.yaml
     volumes:
       - "./config-v3.0.3/upfcfg1.yaml:/my5Gcore/config-v3.0.3/upfcfg.yaml"
     cap_add:
       - NET_ADMIN
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - upf1.my5Gcore.org
   db:
     container_name: mongodb
     image: mongo
-    command: mongod --port 27017
+    #command: mongod --port 27017
     expose:
       - "27017"
     volumes:
       - dbdata:/data/db
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - db
 
-  my5Gcore-nrf:
+  my5gcore-nrf:
     container_name: nrf
     build:
       context: ./nf_nrf
@@ -45,13 +45,13 @@ services:
       DB_URI: mongodb://db/my5Gcore
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - nrf.my5Gcore.org
     depends_on:
       - db
 
-  my5Gcore-amf:
+  my5gcore-amf:
     container_name: amf
     build:
       context: ./nf_amf
@@ -66,13 +66,13 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - amf.my5Gcore.org
     depends_on:
-      - my5Gcore-nrf
+      - my5gcore-nrf
 
-  my5Gcore-ausf:
+  my5gcore-ausf:
     container_name: ausf
     build:
       context: ./nf_ausf
@@ -87,13 +87,13 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - ausf.my5Gcore.org
     depends_on:
-      - my5Gcore-nrf
+      - my5gcore-nrf
 
-  my5Gcore-nssf:
+  my5gcore-nssf:
     container_name: nssf
     build:
       context: ./nf_nssf
@@ -108,13 +108,13 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - nssf.my5Gcore.org
     depends_on:
-      - my5Gcore-nrf
+      - my5gcore-nrf
 
-  my5Gcore-pcf:
+  my5gcore-pcf:
     container_name: pcf
     build:
       context: ./nf_pcf
@@ -129,13 +129,13 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - pcf.my5Gcore.org
     depends_on:
-      - my5Gcore-nrf
+      - my5gcore-nrf
 
-  my5Gcore-smf:
+  my5gcore-smf:
     container_name: smf
     build:
       context: ./nf_smf
@@ -147,18 +147,18 @@ services:
     volumes:
       - ./config-v3.0.3/smfcfg.conf:/my5Gcore/config-v3.0.3/smfcfg.conf
       - ./config-v3.0.3/uerouting.yaml:/my5Gcore/config-v3.0.3/uerouting.yaml
-      - ./config-v3.0.3/my5Gcore.conf:/my5Gcore/config-v3.0.3/my5Gcore.conf
+      - ./config-v3.0.3/my5Gcore.conf:/my5Gcore/config-v3.0.3/free5gc.conf
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
+        ipv4_address: 10.100.200.100
         aliases:
           - smf.my5Gcore.org
     depends_on:
-      - my5Gcore-nrf
-      - my5Gcore-upf-1
+      - my5gcore-nrf
 
-  my5Gcore-udm:
+  my5gcore-udm:
     container_name: udm
     build:
       context: ./nf_udm
@@ -173,14 +173,14 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - udm.my5Gcore.org
     depends_on:
       - db
-      - my5Gcore-nrf
+      - my5gcore-nrf
 
-  my5Gcore-udr:
+  my5gcore-udr:
     container_name: udr
     build:
       context: ./nf_udr
@@ -198,14 +198,14 @@ services:
       DB_URI: mongodb://db/my5Gcore
       GIN_MODE: release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - udr.my5Gcore.org
     depends_on:
       - db
-      - my5Gcore-nrf
+      - my5gcore-nrf
 
-  my5Gcore-n3iwf:
+  my5gcore-n3iwf:
     container_name: n3iwf
     build:
       context: ./nf_n3iwf
@@ -214,31 +214,31 @@ services:
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config-v3.0.3/n3iwfcfg.conf"
     volumes:
       - ./config-v3.0.3/n3iwfcfg.conf:/my5Gcore/config-v3.0.3/n3iwfcfg.conf
-      - ./config-v3.0.3/my5Gcore.conf:/my5Gcore/config-v3.0.3/my5Gcore.conf
+      - ./config-v3.0.3/my5Gcore.conf:/my5Gcore/config-v3.0.3/free5gc.conf
       - ./config-v3.0.3/n3iwf-ipsec.sh:/my5Gcore/n3iwf/n3iwf-ipsec.sh
     environment:
       GIN_MODE: release
     cap_add:
       - NET_ADMIN
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - n3iwf.my5Gcore.org
 
-  my5Gcore-webui:
+  my5gcore-webui:
     container_name: webui
     build:
       context: ./webui
       args:
         DEBUG_TOOLS: "false"
-    command: ./webui
+    command: ./webui -free5gccfg ../config/free5gc.conf --webuicfg ../config/webuicfg.conf
     volumes:
-      - ./config-v3.0.3/webuicfg.conf:/my5Gcore/config-v3.0.3/webuicfg.conf
-      - ./config-v3.0.3/my5Gcore.conf:/my5Gcore/config-v3.0.3/my5Gcore.conf
+      - ./config-v3.0.3/webuicfg.conf:/my5Gcore/config/webuicfg.conf
+      - ./config-v3.0.3/my5Gcore.conf:/my5Gcore/config/free5gc.conf
     environment:
       - GIN_MODE=release
     networks:
-      privnet:
+      5gcorenetwork:
         aliases:
           - webui
     ports:
@@ -247,10 +247,10 @@ services:
       - db
 
 networks:
-  privnet:
+  5gcorenetwork:
     ipam:
       driver: default
-      config-v3.0.3:
+      config:
         - subnet: 10.100.200.0/24
 
 volumes:

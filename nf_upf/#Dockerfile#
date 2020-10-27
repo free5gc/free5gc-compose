@@ -4,7 +4,7 @@ FROM ubuntu:18.04
 LABEL description="My5Gcore open source 5G Core Network" \
     version="Stage 3"
 
-ENV My5GC_MODULE free5gc-upfd
+ENV My5GC_MODULE my5Gcore-upfd
 ENV DEBIAN_FRONTEND noninteractive
 ARG DEBUG_TOOLS
 
