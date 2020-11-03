@@ -8,7 +8,7 @@ RUN apt-get clean
 
 # Get My5Gcore
 RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.0.3 -j 33 https://github.com/LABORA-INF-UFG/my5Gcore.git \
+    && git clone --recursive -j 33 https://github.com/LABORA-INF-UFG/my5Gcore.git \
     && cd my5Gcore \
     && go mod download
 
@@ -43,7 +43,7 @@ COPY --from=builder /go/src/my5Gcore/webconsole/webui ./
 COPY --from=builder /go/src/my5Gcore/webconsole/public ./public
 
 # Copy linked libs
-COPY --from=builder /go/src/my5Gcore/src/upf/build/libgtp5gnl/lib/libgtp5gnl.so.0 ./
+COPY --from=builder /go/src/my5Gcore/src/upf/build/updk/src/third_party/libgtp5gnl/lib/libgtp5gnl.so.0 ./
 COPY --from=builder /go/src/my5Gcore/src/upf/build/utlt_logger/liblogger.so ./
 
 # Copy configuration files (not used for now)
