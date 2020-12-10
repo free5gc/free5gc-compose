@@ -224,8 +224,6 @@ services:
     command: ./udr -udrcfg ../config/udrcfg.conf
     expose:
       - "29504"
-    environment:
-      GIN_MODE: release
     volumes:
       - ./config/udrcfg.conf:/free5gc/config/udrcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
