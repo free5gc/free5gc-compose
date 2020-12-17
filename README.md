@@ -2,29 +2,27 @@
 
 This repository is a docker compose version of [free5GC](https://github.com/free5gc/free5gc) for stage 3. It's inspire by [free5gc-docker-compose](https://github.com/calee0219/free5gc-docker-compose) and also reference to [docker-free5GC](https://github.com/abousselmi/docker-free5gc).
 
-You can change your own config in [config](./config) folder and [docker-compose.yaml](docker-compose.yaml)
+You can setup your own config in [config](./config) folder and [docker-compose.yaml](docker-compose.yaml)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [How to use it: bare metal](#how-to-use-it-bare-metal)
-  - [Prerequisites](#prerequisites)
-  - [Install Docker](#install-docker)
-    - [Ubuntu](#ubuntu)
-    - [CentOS](#centos)
-  - [Install docker-compose](#install-docker-compose)
-  - [Run Up](#run-up)
-- [How to use it: vagrant box](#how-to-use-it-vagrant-box)
+- [Prerequisites](#prerequisites)
+  - [GTP5G kernel module](#gtp5g-kernel-module)
+  - [Docker engine](#docker-engine)
+  - [Docker compose](#docker-compose)
+- [Start Free5gc](#start-free5gc)
 - [Troubleshooting](#troubleshooting)
-- [NF](#nf)
+- [Vagrant Box Option](#vagrant-box-option)
+- [NF dependencies and ports](#nf-dependencies-and-ports)
 - [Reference](#reference)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## How to use it: bare metal
+## Prerequisites
 
-### Prerequisites
+### GTP5G kernel module
 
 Due to the UPF issue, the host must using kernel `5.0.0-23-generic`. And it should contain `gtp5g` kernel module.
 
@@ -36,84 +34,31 @@ make
 sudo make install
 ```
 
-### Install Docker
+### Docker engine
 
-#### Ubuntu
-Reference: https://docs.docker.com/install/linux/docker-ce/ubuntu/
-```bash
-$ sudo apt-get update
-$ sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
+To install docker on your favorite OS, you can follow instruction here: https://docs.docker.com/engine/install/
 
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+### Docker compose
 
-$ sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+You also need to install docker compose as detailed here: https://docs.docker.com/compose/install/
 
-$ sudo apt-get update
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io
-```
+## Start Free5gc
 
-#### CentOS
-Reference: https://docs.docker.com/install/linux/docker-ce/centos/
-```bash
-$ sudo yum install -y yum-utils \
-  device-mapper-persistent-data \
-  lvm2
-
-$ sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-
-$ sudo yum install docker-ce docker-ce-cli containerd.io
-
-$ sudo systemctl start docker
-$ sudo systemctl enable docker
-```
-
-#### Add docker group
-To let you use docker without root permission.
-
-Reference: https://docs.docker.com/engine/install/linux-postinstall/
-```bash
-$ sudo groupadd docker
-$ sudo usermod -aG docker $USER
-$ sudo reboot
-```
-
-
-### Install docker-compose
-Reference: https://docs.docker.com/compose/install/
-```bash
-$ sudo curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-$ sudo chmod +x /usr/local/bin/docker-compose
-```
-
-### Run Up
 Because we need to create tunnel interface, we need to use privileged container with root permission.
+
 ```bash
 $ git clone https://github.com/free5gc/free5gc-compose.git
 $ cd free5gc-compose
 $ make base
 $ docker-compose build
-$ sudo docker-compose up # Recommand use with tmux to run in frontground
+$ sudo docker-compose up # Recommend use with tmux to run in frontground
 $ sudo docker-compose up -d # Run in backbround if needed
 ```
 
-## How to use it: vagrant box
-You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box.
-
-Please find follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
-
-
 ## Troubleshooting
+
 Sometimes, you need to drop data from DB(See #Troubleshooting from https://www.free5gc.org/installation).
+
 ```bash
 $ docker exec -it mongodb mongo
 > use free5gc
@@ -121,14 +66,23 @@ $ docker exec -it mongodb mongo
 > exit # (Or Ctrl-D)
 ```
 
+You can see logs for each service using `docker logs` command. For example, to access the logs of the *SMF* you can use:
+
+```console
+docker logs smf
+```
+
 Another way to drop DB data is just remove db data. Outside your container, run:
 ```bash
 $ rm -rf ./mongodb
 ```
 
-## NF
+## Vagrant Box Option
 
-For my default setting.
+You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box. You can follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
+
+
+## NF dependencies and ports
 
 | NF | Exposed Ports | Dependencies | Dependencies URI |
 |:-:|:-:|:-:|:-:|
