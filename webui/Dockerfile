@@ -12,7 +12,7 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl n
 
 # Set working dir
 WORKDIR /my5Gcore
-RUN mkdir -p config/ webconsole/public
+RUN mkdir -p config/ webconsole/publicoo
 
 # Copy executable, frontend static files and default configuration
 COPY --from=builder /my5Gcore/${My5GC_MODULE} ./webconsole

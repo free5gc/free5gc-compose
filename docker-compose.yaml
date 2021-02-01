@@ -1,30 +1,39 @@
 version: '3.8'
 
 services:
-  my5gcore-upf-1:
-    container_name: upf1
+  my5gcore-upf1:
+    container_name: upf
     build:
       context: ./nf_upf
       args:
-        DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg.yaml
+        DEBUG_TOOLS: "true"
+    command: bash -c "./router-upf.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
     volumes:
-      - "${CONFIG}/upfcfg1.yaml:/my5Gcore/config/upfcfg.yaml"
+      - "${CONFIG}/upfcfg.yaml:/my5Gcore/config/upfcfg.yaml"
+      - "${CONFIG}/router-upf-lorawan.sh:/my5Gcore/free5gc-upfd/router-upf.sh"
     cap_add:
-      - NET_ADMIN
+      - ALL
+    ports:
+      - "2152:2152/udp"
+      - "8805:8805/udp"
     networks:
       5gcorenetwork:
-        ipv4_address: 10.100.200.101
+#       ipv4_address: ${UPF_LoRaWAN}
         aliases:
-          - upf1.my5Gcore.org
+          - upf.my5Gcore.org
+      lorawan:
+        aliases:
+          - upf.lorawan.org
   db:
     container_name: mongodb
     image: mongo
-    #command: mongod --port 27017
+    command: mongod --port 27017
     expose:
       - "27017"
+    ports:
+      - "27017:27017"
     volumes:
-      - dbdata:/data/db
+      - ./dbdata:/data/db
     networks:
       5gcorenetwork:
         aliases:
@@ -43,7 +52,7 @@ services:
       - ${CONFIG}/nrfcfg.conf:/my5Gcore/config/nrfcfg.conf
       - ${CONFIG}/my5Gcore.conf:/my5Gcore/config/free5GC.conf
     environment:
-      DB_URI: mongodb://db/my5Gcore
+      DB_URI: ${DBURI}
       GIN_MODE: release
     networks:
       5gcorenetwork:
@@ -145,25 +154,22 @@ services:
     command: ./smf -smfcfg ../config/smfcfg.conf -uerouting ../config/uerouting.yaml
     expose:
       - "29502"
+      - "8805/udp"
     volumes:
       - ${CONFIG}/smfcfg.conf:/my5Gcore/config/smfcfg.conf
       - ${CONFIG}/uerouting.yaml:/my5Gcore/config/uerouting.yaml
       - ${CONFIG}/my5Gcore.conf:/my5Gcore/config/free5GC.conf
     environment:
       GIN_MODE: release
-    ports:
-      - "8805:8805/udp"
     networks:
       5gcorenetwork:
-        ipv4_address: 10.100.200.100
+#       ipv4_address: ${SMF_IP}
         aliases:
           - smf.my5Gcore.org
-#    extra_hosts:
-#       - "upf1:10.101.200.3"
     depends_on:
       - my5gcore-nrf
       - my5gcore-amf
-      - my5gcore-upf-1
+      - my5gcore-upf1
 
   my5gcore-udm:
     container_name: udm
@@ -202,7 +208,7 @@ services:
       - ${CONFIG}/udrcfg.conf:/my5Gcore/config/udrcfg.conf
       - ${CONFIG}/my5Gcore.conf:/my5Gcore/config/free5GC.conf
     environment:
-      DB_URI: mongodb://db/my5Gcore
+      DB_URI: ${DBURI}
       GIN_MODE: release
     networks:
       5gcorenetwork:
@@ -219,6 +225,12 @@ services:
       args:
         DEBUG_TOOLS: "true"
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf"
+    expose:
+      - "500/udp"
+      - "4500/udp"
+    ports:
+      - "20000:20000"
+
     volumes:
       - ${CONFIG}/n3iwfcfg.conf:/my5Gcore/config/n3iwfcfg.conf
       - ${CONFIG}/my5Gcore.conf:/my5Gcore/config/free5GC.conf
@@ -229,6 +241,7 @@ services:
       - NET_ADMIN
     networks:
       5gcorenetwork:
+#       ipv4_address: 10.100.200.200
         aliases:
           - n3iwf.my5Gcore.org
     depends_on:
@@ -255,39 +268,17 @@ services:
     depends_on:
       - db
 
-  my5gcore-ue:
-    container_name: non3gpp-ue
-    build:
-      context: ./nf_ue
-      args:
-        DEBUG_TOOLS: "true"
-    ports:
-      - "10000:10000"
-    command: sh -c "./ipsec --ue ue --n3iwf n3iwf.my5Gcore.org  && ./bin/ue "
-    # command: sh -c " ./ipsec --ue ue --n3iwf n3iwf.my5Gcore.org && while true; do echo 'Hit CTRL+C'; sleep 10000; done "
-    volumes:
-      - ${CONFIG}/uecfg.conf:/my5gcore/config/uecfg.conf
-      - ${CONFIG}/free5GC.conf:/my5gcore/config/free5GC.conf
-      - ${CONFIG}/ue-ipsec.sh:/my5gcore/ue/ue-ipsec.sh
-      - ${CONFIG}/initial_registration.sh:/my5gcore/initial_registration.sh
-      - ${CONFIG}/ipsec:/my5gcore/ipsec
-    environment:
-      GIN_MODE: release
-    networks:
-      5gcorenetwork:
-         aliases:
-           - ue
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - my5gcore-n3iwf
-
 networks:
   5gcorenetwork:
     ipam:
       driver: default
       config:
         - subnet: 10.100.200.0/24
+  lorawan:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.200.200.0/24
 
 volumes:
   dbdata:

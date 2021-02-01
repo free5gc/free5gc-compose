@@ -1,0 +1,24 @@
+info:
+  version: 1.0.0
+  description: UPF configuration
+
+configuration:
+  # debugLevel: panic|fatal|error|warn|info|debug|trace
+  debugLevel: info
+  ReportCaller: false
+
+  pfcp:
+    - addr: 10.100.200.101
+
+  gtpu:
+    - addr: 10.100.200.101
+    # [optional] gtpu.name
+    # - name: upf.5gc.nctu.me
+    # [optional] gtpu.ifname
+    # - ifname: gtpif
+
+  dnn_list:
+    - dnn: internet
+      cidr: 60.60.0.0/24
+      # [optional] apn_list[*].natifname
+      # natifname: eth0

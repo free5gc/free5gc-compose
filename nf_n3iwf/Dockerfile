@@ -8,7 +8,7 @@ ENV My5GC_MODULE n3iwf
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
-RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl netcat-openbsd ; fi
+RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U tcpdump vim strace net-tools curl netcat-openbsd python3 ; fi
 
 # Install N3IWF dependencies
 RUN apk add -U iproute2

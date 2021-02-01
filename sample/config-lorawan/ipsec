@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+import socket
+import argparse
+import os
+import re
+
+def valid_ip(ip :str) -> bool:
+    psttern = r"^( ([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3} ([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+    return bool(re.match(regex, ip))
+
+def sh(command):
+    os.system(f"sh -c '{command}'")
+
+def nslookup(name) -> str:
+    if valid_ip(name):
+        return name
+    else:
+        resolved = socket.gethostbyname(name)
+        return resolved
+
+    raise ValueError("Error to resolver name")
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description="N3IWF interface config")
+    parser.add_argument("--n3iwf", help="N3IWF FQND or IP")
+    args = parser.parse_args()
+
+    if args.n3iwf:
+        n3iwf_ip = nslookup(args.n3iwf)
+    else:
+        raise ValueError("Error in UE or N3IWF")
+
+    commands = [ f'ip link add name ipsec0 type vti local {n3iwf_ip} remote 0.0.0.0 key 5',
+                  'ip link set ipsec0 up',
+                  'ip route add 10.0.0.0/24 dev ipsec0',
+                  'ip link set lo up',
+                  'sleep 5'
+    ]
+
+    for command in commands:
+            sh(command)
+
+
