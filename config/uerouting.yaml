@@ -2,33 +2,37 @@ info:
   version: 1.0.0
   description: Routing information for UE
 
-ueRoutingInfo:
-  - SUPI: imsi-2089300000003
-    AN: upf1.free5gc.org
-    PathList:
-      - DestinationIP: 10.0.0.10
-        DestinationPort: 8888
+ueRoutingInfo: # the list of UE routing information
+  - SUPI: imsi-2089300007487 # Subscription Permanent Identifier of the UE
+    AN: 10.200.200.101 # the IP address of RAN
+    PathList: # the pre-config paths for this SUPI
+      - DestinationIP: 60.60.0.100 # the destination IP address on Data Network (DN)
+        # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
+        # The UPF's name should be consistent with smfcfg.yaml
         UPF: !!seq
           - BranchingUPF
           - AnchorUPF1
 
-      - DestinationIP: 10.0.0.11
-        DestinationPort: 9999
+      - DestinationIP: 60.60.0.101 # the destination IP address on Data Network (DN)
+        # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
+        # The UPF's name should be consistent with smfcfg.yaml
         UPF: !!seq
           - BranchingUPF
           - AnchorUPF2
 
-  - SUPI: imsi-2089300007486
-    AN: upf2.free5gc.org
-    PathList:
-      - DestinationIP: 10.0.0.10
-        DestinationPort: 8888
+  - SUPI: imsi-2089300007486 # Subscription Permanent Identifier of the UE
+    AN: 10.200.200.102 # the IP address of RAN
+    PathList: # the pre-config paths for this SUPI
+      - DestinationIP: 10.10.0.10 # the destination IP address on Data Network (DN)
+        # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
+        # The UPF's name should be consistent with smfcfg.yaml
         UPF: !!seq
           - BranchingUPF
           - AnchorUPF1
 
-      - DestinationIP: 10.0.0.11
-        DestinationPort: 9999
+      - DestinationIP: 10.10.0.11 # the destination IP address on Data Network (DN)
+        # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
+        # The UPF's name should be consistent with smfcfg.yaml
         UPF: !!seq
           - BranchingUPF
           - AnchorUPF2
