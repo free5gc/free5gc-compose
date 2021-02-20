@@ -86,14 +86,14 @@ You can setup a working environment without the fuss of updating your kernel ver
 
 | NF | Exposed Ports | Dependencies | Dependencies URI |
 |:-:|:-:|:-:|:-:|
-| amf | 29518 | nrf | nrfUri: https://nrf:29510 |
-| ausf | 29509 | nrf | nrfUri: https://nrf:29510 |
-| nrf | 29510 | db | MongoDBUrl: mongodb://db:27017 |
-| nssf | 29531 | nrf | nrfUri: https://nrf:29510gg/,<br/>nrfId: https://nrf:29510/nnrf-nfm/v1/nf-instances |
-| pcf | 29507 | nrf | nrfUri: https://nrf:29510 |
-| smf | 29502 | nrf, upf | nrfUri: https://nrf:29510,<br/>node_id: upf1, node_id: upf2, node_id: upf3 |
-| udm | 29503 | nrf | nrfUri: https://nrf:29510 |
-| udr | 29504 | nrf, db | nrfUri: https://nrf:29510,<br/>url: mongodb://db:27017 |
+| amf | 8000 | nrf | nrfUri: https://nrf:8000 |
+| ausf | 8000 | nrf | nrfUri: https://nrf:8000 |
+| nrf | 8000 | db | MongoDBUrl: mongodb://db:27017 |
+| nssf | 8000 | nrf | nrfUri: https://nrf:8000/,<br/>nrfId: https://nrf:8000/nnrf-nfm/v1/nf-instances |
+| pcf | 8000 | nrf | nrfUri: https://nrf:8000 |
+| smf | 8000 | nrf, upf | nrfUri: https://nrf:8000,<br/>node_id: upf1, node_id: upf2, node_id: upf3 |
+| udm | 8000 | nrf | nrfUri: https://nrf:8000 |
+| udr | 8000 | nrf, db | nrfUri: https://nrf:8000,<br/>url: mongodb://db:27017 |
 | n3iwf | N/A | amf, smf, upf |  |
 | upf1 | N/A | pfcp, gtpu, apn | pfcp: upf1, gtpu: upf1, apn: internet |
 | upf2 | N/A | pfcp, gtpu, apn | pfcp: upf2, gtpu: upf2, apn: internet |
