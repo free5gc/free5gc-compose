@@ -36,7 +36,7 @@ configuration:
                     112233
   AMFSCTPAddresses: # the IP list of N2 interfaces (SCTP) on AMF when using NGAP
     - IP:
-      - n3iwf.free5gc.org
+      - amf.free5gc.org
 
 
   # --- Bind Interfaces ---
