@@ -1,5 +1,5 @@
 FROM free5gc/base:latest AS builder
-FROM ubuntu:18.04
+FROM bitnami/minideb:stretch
 
 LABEL description="Free5GC open source 5G Core Network" \
     version="Stage 3"
