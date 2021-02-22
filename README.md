@@ -10,8 +10,7 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 - [Prerequisites](#prerequisites)
   - [GTP5G kernel module](#gtp5g-kernel-module)
-  - [Docker engine](#docker-engine)
-  - [Docker compose](#docker-compose)
+  - [Docker](#docker)
 - [Start Free5gc](#start-free5gc)
 - [Troubleshooting](#troubleshooting)
 - [Vagrant Box Option](#vagrant-box-option)
@@ -24,7 +23,7 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 ### GTP5G kernel module
 
-Due to the UPF issue, the host must using kernel `5.0.0-23-generic`. And it should contain `gtp5g` kernel module.
+Due to the UPF issue, the host must be using kernel `5.0.0-23-generic`. And it should contain `gtp5g` kernel module.
 
 On you host OS:
 ```
@@ -34,13 +33,10 @@ make
 sudo make install
 ```
 
-### Docker engine
+### Docker
 
-To install docker on your favorite OS, you can follow instruction here: https://docs.docker.com/engine/install/
-
-### Docker compose
-
-You also need to install docker compose as detailed here: https://docs.docker.com/compose/install/
+- Engine: to install docker on your favorite OS, you can follow instruction here: https://docs.docker.com/engine/install/
+- Compose: you also need to install docker compose as detailed here: https://docs.docker.com/compose/install/
 
 ## Start Free5gc
 
