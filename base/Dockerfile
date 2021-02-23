@@ -1,4 +1,4 @@
- FROM golang:1.14.4-stretch AS builder
+FROM golang:1.14.4-stretch AS builder
 
 LABEL maintainer="My5Gcore <support@labora.inf.ufg.br>"
 
@@ -8,13 +8,8 @@ RUN apt-get clean
 
 # Get My5Gcore
 RUN cd $GOPATH/src \
-    && git clone https://github.com/my5G/my5Gcore.git \
+    && git clone -b vSBrT2020 --recursive -j 33 https://github.com/LABORA-INF-UFG/my5Gcore.git \
     && cd my5Gcore \
-    && git checkout master \
-    && git submodule sync \
-    && git submodule update --init --jobs `nproc` \
-    && git submodule foreach git checkout master \
-    && git submodule foreach git pull --jobs `nproc ` \
     && go mod download
 
 # Build NF (AMF, AUSF, N3IWF, NRF, NSSF, PCF, SMF, UDM, UDR)

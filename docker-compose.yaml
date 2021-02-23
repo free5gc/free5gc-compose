@@ -18,7 +18,7 @@ services:
       - "8805:8805/udp"
     networks:
       5gcorenetwork:
-#       ipv4_address: ${UPF_LoRaWAN}
+        ipv4_address: 10.100.200.3
         aliases:
           - upf.my5Gcore.org
       lorawan:
@@ -163,7 +163,6 @@ services:
       GIN_MODE: release
     networks:
       5gcorenetwork:
-#       ipv4_address: ${SMF_IP}
         aliases:
           - smf.my5Gcore.org
     depends_on:
@@ -225,11 +224,10 @@ services:
       args:
         DEBUG_TOOLS: "true"
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf"
-    expose:
-      - "500/udp"
-      - "4500/udp"
     ports:
       - "20000:20000"
+      - "500:500/udp"
+      - "4500:4500/udp"  
 
     volumes:
       - ${CONFIG}/n3iwfcfg.conf:/my5Gcore/config/n3iwfcfg.conf
@@ -241,7 +239,7 @@ services:
       - NET_ADMIN
     networks:
       5gcorenetwork:
-#       ipv4_address: 10.100.200.200
+        ipv4_address: 10.100.200.200
         aliases:
           - n3iwf.my5Gcore.org
     depends_on:
@@ -260,8 +258,8 @@ services:
     environment:
       - GIN_MODE=release
     networks:
-      5gcorenetwork:
-        aliases:
+        5gcorenetwork:
+         aliases:
           - webui
     ports:
       - "5000:5000"
