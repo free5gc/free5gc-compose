@@ -13,6 +13,7 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
   - [Docker](#docker)
 - [Start Free5gc](#start-free5gc)
 - [Troubleshooting](#troubleshooting)
+- [Integration with external eNB/UE simulators](#integration-with-external-enbue-simulators)
 - [Vagrant Box Option](#vagrant-box-option)
 - [NF dependencies and ports](#nf-dependencies-and-ports)
 - [Reference](#reference)
@@ -53,7 +54,7 @@ $ sudo docker-compose up -d # Run in backbround if needed
 
 ## Troubleshooting
 
-Sometimes, you need to drop data from DB(See #Troubleshooting from https://www.free5gc.org/installation).
+Sometimes, you need to drop data from DB:
 
 ```bash
 $ docker exec -it mongodb mongo
@@ -68,15 +69,17 @@ You can see logs for each service using `docker logs` command. For example, to a
 docker logs smf
 ```
 
-Another way to drop DB data is just remove db data. Outside your container, run:
-```bash
-$ rm -rf ./mongodb
-```
+Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more troubleshooting information.
+
+## Integration with external eNB/UE simulators
+
+The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE simulator is documented [here](https://www.free5gc.org/installations/stage-3-sim-install/). 
+
+You can also refer to this [issue](https://github.com/free5gc/free5gc-compose/issues/26) to find out how you can configure the UPF to forward traffic between the [UERANSIM](https://github.com/aligungr/UERANSIM) to the DN (eg. internet) in a docker environment.
 
 ## Vagrant Box Option
 
 You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box. You can follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
-
 
 ## NF dependencies and ports
 
