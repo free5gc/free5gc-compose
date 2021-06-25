@@ -13,7 +13,7 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y v
 
 # Install UPF dependencies
 RUN apt-get update \
-    && apt-get install -y libmnl0 libyaml-0-2 iproute2 \
+    && apt-get install -y libmnl0 libyaml-0-2 iproute2 iptables \
     && apt-get clean
 
 # Set working dir
