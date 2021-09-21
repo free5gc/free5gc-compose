@@ -48,8 +48,8 @@ $ git clone https://github.com/free5gc/free5gc-compose.git
 $ cd free5gc-compose
 $ make base
 $ docker-compose build
-$ sudo docker-compose up # Recommend use with tmux to run in frontground
-$ sudo docker-compose up -d # Run in backbround if needed
+$ sudo docker-compose up # Recommend use with tmux to run in foreground mode
+$ sudo docker-compose up -d # Run in background mode if needed
 ```
 
 ## Troubleshooting
