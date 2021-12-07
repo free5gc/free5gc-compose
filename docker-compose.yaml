@@ -1,53 +1,21 @@
 version: '3.8'
 
 services:
-  free5gc-upf-1:
-    container_name: upf1
+  free5gc-upf:
+    container_name: upf
     build:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
     command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
-      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
+      - "./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml"
     cap_add:
       - NET_ADMIN
     networks:
       privnet:
         aliases:
-          - upf1.free5gc.org
-
-  free5gc-upf-2:
-    container_name: upf2
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg.yaml
-    volumes:
-      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
-    cap_add:
-      - NET_ADMIN
-    networks:
-      privnet:
-        aliases:
-          - upf2.free5gc.org
-
-  free5gc-upf-b:
-    container_name: upfb
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg.yaml
-    volumes:
-      - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
-    cap_add:
-      - NET_ADMIN
-    networks:
-      privnet:
-        aliases:
-          - upfb.free5gc.org
+          - upf.free5gc.org
 
   db:
     container_name: mongodb
@@ -183,9 +151,7 @@ services:
           - smf.free5gc.org
     depends_on:
       - free5gc-nrf
-      - free5gc-upf-1
-      - free5gc-upf-2
-      - free5gc-upf-b
+      - free5gc-upf
 
   free5gc-udm:
     container_name: udm
@@ -251,7 +217,7 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-smf
-      - free5gc-upf-b
+      - free5gc-upf
 
   free5gc-webui:
     container_name: webui
