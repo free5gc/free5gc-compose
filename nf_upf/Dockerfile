@@ -1,5 +1,5 @@
 FROM free5gc/base:latest AS builder
-FROM bitnami/minideb:stretch
+FROM bitnami/minideb:bullseye
 
 LABEL description="Free5GC open source 5G Core Network" \
     version="Stage 3"

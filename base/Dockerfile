@@ -2,6 +2,8 @@ FROM golang:1.14.4-stretch AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install dependencies
 RUN apt-get update \
     && apt-get -y install gcc cmake autoconf libtool pkg-config libmnl-dev libyaml-dev apt-transport-https ca-certificates \
@@ -23,7 +25,7 @@ RUN cd $GOPATH/src/free5gc \
     && make all
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
-FROM alpine
+FROM alpine:3.15
 
 WORKDIR /free5gc
 RUN mkdir -p config/ support/TLS/ public
