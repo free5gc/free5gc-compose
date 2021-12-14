@@ -77,6 +77,8 @@ The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE
 
 You can also refer to this [issue](https://github.com/free5gc/free5gc-compose/issues/26) to find out how you can configure the UPF to forward traffic between the [UERANSIM](https://github.com/aligungr/UERANSIM) to the DN (eg. internet) in a docker environment.
 
+This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides detailed steps that might be useful.
+
 ## Vagrant Box Option
 
 You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box. You can follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
