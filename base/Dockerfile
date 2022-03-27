@@ -18,7 +18,7 @@ RUN apt-get clean
 
 # Get Free5GC
 RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.0.6 -j `nproc` https://github.com/free5gc/free5gc.git
+    && git clone --recursive -b v3.0.7 -j `nproc` https://github.com/free5gc/free5gc.git
 
 # Build Free5GC NFs & WebUI
 RUN cd $GOPATH/src/free5gc \
