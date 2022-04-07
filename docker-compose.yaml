@@ -7,7 +7,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
+    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -c ../config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
       - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
@@ -15,8 +15,9 @@ services:
       - NET_ADMIN
     networks:
       privnet:
-        aliases:
-          - upf.free5gc.org
+        ipv4_address: 10.100.200.25
+        # aliases:
+        #   - upf.free5gc.org
 
   db:
     container_name: mongodb
@@ -67,8 +68,9 @@ services:
       GIN_MODE: release
     networks:
       privnet:
-        aliases:
-          - amf.free5gc.org
+        ipv4_address: 10.100.200.17
+        # aliases:
+        #   - amf.free5gc.org
     depends_on:
       - free5gc-nrf
 
@@ -266,6 +268,7 @@ networks:
       driver: default
       config:
         - subnet: 10.100.200.0/24
+          gateway: 10.100.200.1
     driver_opts:
       com.docker.network.bridge.name: br-free5gc
 

@@ -11,7 +11,7 @@ gtpIp: gnb.free5gc.org    # gNB's local IP address for N3 Interface (Usually sam
 
 # List of AMF address information
 amfConfigs:
-  - address: amf.free5gc.org
+  - address: 10.100.200.17
     port: 38412
 
 # List of supported S-NSSAIs by this gNB

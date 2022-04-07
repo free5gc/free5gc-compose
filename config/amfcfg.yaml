@@ -5,11 +5,11 @@ info:
 configuration:
   amfName: AMF # the name of this AMF
   ngapIpList:  # the IP list of N2 interfaces on this AMF
-    - amf.free5gc.org
+    - 10.100.200.17
   sbi: # Service-based interface information
     scheme: http # the protocol for sbi (http or https)
-    registerIPv4: amf.free5gc.org # IP used to register to NRF
-    bindingIPv4: amf.free5gc.org  # IP used to bind the service
+    registerIPv4: 10.100.200.17 # IP used to register to NRF
+    bindingIPv4: 10.100.200.17  # IP used to bind the service
     port: 8000 # port used to bind the service
   serviceNameList: # the SBI services provided by this AMF, refer to TS 29.518
     - namf-comm # Namf_Communication service
