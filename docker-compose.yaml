@@ -7,7 +7,7 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -f ../config/upfcfg.yaml"
+    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -c ../config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
       - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
