@@ -5,6 +5,11 @@ info:
 configuration:
   # debugLevel: panic|fatal|error|warn|info|debug|trace
   debugLevel: info
+  ReportCaller: false
+
+  # packetBufferHoldTime should be longer than Paging retry-out time of AMF.
+  # unit: seconds
+  packetBufferHoldTime: 30
 
   pfcp:
     - addr: upf.free5gc.org
