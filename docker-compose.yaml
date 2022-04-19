@@ -20,7 +20,7 @@ services:
 
   db:
     container_name: mongodb
-    image: mongo
+    image: mongo:4.0
     command: mongod --port 27017
     expose:
       - "27017"
