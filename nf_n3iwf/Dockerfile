@@ -15,18 +15,15 @@ RUN apk add -U iproute2
 
 # Set working dir
 WORKDIR /free5gc
-RUN mkdir -p config/ log/ support/TLS/ ${F5GC_MODULE}/
+RUN mkdir -p config/ log/ config/TLS/
 
 # Copy executable and default certs
-COPY --from=builder /free5gc/${F5GC_MODULE} ./${F5GC_MODULE}
-COPY --from=builder /free5gc/support/TLS/${F5GC_MODULE}.pem ./support/TLS/
-COPY --from=builder /free5gc/support/TLS/${F5GC_MODULE}.key ./support/TLS/
-
-# Move to the binary path
-WORKDIR /free5gc/${F5GC_MODULE}
+COPY --from=builder /free5gc/${F5GC_MODULE} ./
+COPY --from=builder /free5gc/config/TLS/${F5GC_MODULE}.pem ./config/TLS/
+COPY --from=builder /free5gc/config/TLS/${F5GC_MODULE}.key ./config/TLS/
 
 # Config files volume
 VOLUME [ "/free5gc/config" ]
 
 # Certificates (if not using default) volume
-VOLUME [ "/free5gc/support/TLS" ]
+VOLUME [ "/free5gc/config/TLS" ]

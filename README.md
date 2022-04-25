@@ -28,6 +28,11 @@ docker-compose build
 sudo docker-compose up # add -d to run in background mode
 ```
 
+Destroy the established container resource after testing:
+```
+docker-compose rm
+```
+
 ## Troubleshooting
 
 Sometimes, you need to drop data from DB:

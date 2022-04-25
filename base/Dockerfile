@@ -18,7 +18,7 @@ RUN apt-get clean
 
 # Get Free5GC
 RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.0.7 -j `nproc` https://github.com/free5gc/free5gc.git
+    && git clone --recursive -b v3.1.1 -j `nproc` https://github.com/free5gc/free5gc.git
 
 # Build Free5GC NFs & WebUI
 RUN cd $GOPATH/src/free5gc \
@@ -28,7 +28,7 @@ RUN cd $GOPATH/src/free5gc \
 FROM alpine:3.15
 
 WORKDIR /free5gc
-RUN mkdir -p config/ support/TLS/ public
+RUN mkdir -p config/TLS/ public
 
 # Copy executables
 COPY --from=builder /go/src/free5gc/bin/* ./
@@ -47,4 +47,4 @@ COPY --from=builder /go/src/free5gc/config/* ./config/
 COPY --from=builder /go/src/free5gc/NFs/upf/build/config/* ./config/
 
 # Copy default certificates (not used for now)
-COPY --from=builder /go/src/free5gc/support/TLS/* ./support/TLS/
+COPY --from=builder /go/src/free5gc/config/TLS/* ./config/TLS/
