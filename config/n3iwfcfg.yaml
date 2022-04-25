@@ -40,11 +40,11 @@ configuration:
   FQDN: n3iwf.free5gc.org # FQDN of this N3IWF
 
   # --- Security ---
-  PrivateKey: ../config/TLS/n3iwf.key # Private key file path
+  Privatekey: ./config/TLS/n3iwf.key # Private key file path
 
-  CertificateAuthority: ../config/TLS/n3iwf.pem # Certificate Authority (CA) file path
+  CertificateAuthority: ./config/TLS/n3iwf.pem # Certificate Authority (CA) file path
 
-  Certificate: ../config/TLS/n3iwf.pem # Certificate file path
+  Certificate: ./config/TLS/n3iwf.pem # Certificate file path
 
 
 

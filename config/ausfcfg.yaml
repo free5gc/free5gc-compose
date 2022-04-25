@@ -9,8 +9,8 @@ configuration:
     bindingIPv4: ausf.free5gc.org  # IP used to bind the service
     port: 8000 # Port used to bind the service
     tls: # the local path of TLS key
-      pem: ../config/TLS/ausf.pem # AUSF TLS Certificate
-      key: ../config/TLS/ausf.key # AUSF TLS Private key
+      pem: ./config/TLS/ausf.pem # AUSF TLS Certificate
+      key: ./config/TLS/ausf.key # AUSF TLS Private key
   serviceNameList: # the SBI services provided by this AUSF, refer to TS 29.509
     - nausf-auth # Nausf_UEAuthentication service
   nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF

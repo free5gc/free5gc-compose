@@ -10,8 +10,8 @@ configuration:
     bindingIPv4: pcf.free5gc.org  # IP used to bind the service
     port: 8000              # port used to bind the service
     tls: # the local path of TLS key
-      pem: ../config/TLS/pcf.pem # PCF TLS Certificate
-      key: ../config/TLS/pcf.key # PCF TLS Private key
+      pem: ./config/TLS/pcf.pem # PCF TLS Certificate
+      key: ./config/TLS/pcf.key # PCF TLS Private key
   timeFormat: 2019-01-02 15:04:05 # time format of this PCF
   defaultBdtRefId: BdtPolicyId-   # BDT Reference ID, indicating transfer policies of background data transfer.
   nrfUri: http://nrf.free5gc.org:8000  # a valid URI of NRF

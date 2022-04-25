@@ -9,8 +9,8 @@ configuration:
     bindingIPv4: udr.free5gc.org  # IP used to bind the service
     port: 8000 # port used to bind the service
     tls: # the local path of TLS key
-      pem: ../config/TLS/udr.pem # UDR TLS Certificate
-      key: ../config/TLS/udr.key # UDR TLS Private key
+      pem: ./config/TLS/udr.pem # UDR TLS Certificate
+      key: ./config/TLS/udr.key # UDR TLS Private key
   mongodb:
     name: free5gc # Database name in MongoDB
     url: mongodb://db:27017 # URL of MongoDB

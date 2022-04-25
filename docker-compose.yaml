@@ -7,17 +7,17 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -c ../config/upfcfg.yaml"
+    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -c ./config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
-      - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
+      - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
     networks:
       privnet:
         aliases:
           - upf.free5gc.org
-          
+
   db:
     container_name: mongodb
     image: mongo
@@ -37,7 +37,7 @@ services:
       context: ./nf_nrf
       args:
         DEBUG_TOOLS: "false"
-    command: ./nrf -c ../config/nrfcfg.yaml
+    command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -58,7 +58,7 @@ services:
       context: ./nf_amf
       args:
         DEBUG_TOOLS: "false"
-    command: ./amf -c ../config/amfcfg.yaml
+    command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -78,7 +78,7 @@ services:
       context: ./nf_ausf
       args:
         DEBUG_TOOLS: "false"
-    command: ./ausf -c ../config/ausfcfg.yaml
+    command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -98,7 +98,7 @@ services:
       context: ./nf_nssf
       args:
         DEBUG_TOOLS: "false"
-    command: ./nssf -c ../config/nssfcfg.yaml
+    command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -118,7 +118,7 @@ services:
       context: ./nf_pcf
       args:
         DEBUG_TOOLS: "false"
-    command: ./pcf -c ../config/pcfcfg.yaml
+    command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -138,7 +138,7 @@ services:
       context: ./nf_smf
       args:
         DEBUG_TOOLS: "false"
-    command: ./smf -c ../config/smfcfg.yaml -u ../config/uerouting.yaml
+    command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
     volumes:
@@ -160,7 +160,7 @@ services:
       context: ./nf_udm
       args:
         DEBUG_TOOLS: "false"
-    command: ./udm -c ../config/udmcfg.yaml
+    command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -181,7 +181,7 @@ services:
       context: ./nf_udr
       args:
         DEBUG_TOOLS: "false"
-    command: ./udr -c ../config/udrcfg.yaml
+    command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
     volumes:
@@ -203,10 +203,10 @@ services:
       context: ./nf_n3iwf
       args:
         DEBUG_TOOLS: "false"
-    command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -c ../config/n3iwfcfg.yaml"
+    command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -c ./config/n3iwfcfg.yaml"
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
-      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh
+      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf-ipsec.sh
     environment:
       GIN_MODE: release
     cap_add:
@@ -226,7 +226,7 @@ services:
       context: ./webui
       args:
         DEBUG_TOOLS: "false"
-    command: ./webui -c ../config/webuicfg.yaml
+    command: ./webui -c ./config/webuicfg.yaml
     volumes:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
     environment:

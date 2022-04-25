@@ -15,8 +15,8 @@ configuration:
     bindingIPv4: udm.free5gc.org  # IP used to bind the service
     port: 8000 # Port used to bind the service
     tls: # the local path of TLS key
-      pem: ../config/TLS/udm.pem # UDM TLS Certificate
-      key: ../config/TLS/udm.key # UDM TLS Private key
+      pem: ./config/TLS/udm.pem # UDM TLS Certificate
+      key: ./config/TLS/udm.key # UDM TLS Private key
   nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
 
   # test data set from TS33501-f60 Annex C.4

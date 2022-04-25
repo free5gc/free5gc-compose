@@ -10,8 +10,8 @@ configuration:
     bindingIPv4: smf.free5gc.org  # IP used to bind the service
     port: 8000 # Port used to bind the service
     tls: # the local path of TLS key
-      key: ../config/TLS/smf.key # SMF TLS Certificate
-      pem: ../config/TLS/smf.pem # SMF TLS Private key
+      key: ./config/TLS/smf.key # SMF TLS Certificate
+      pem: ./config/TLS/smf.pem # SMF TLS Private key
   serviceNameList: # the SBI services provided by this SMF, refer to TS 29.502
     - nsmf-pdusession # Nsmf_PDUSession service
     - nsmf-event-exposure # Nsmf_EventExposure service

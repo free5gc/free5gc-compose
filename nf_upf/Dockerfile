@@ -18,17 +18,13 @@ RUN apt-get update \
 
 # Set working dir
 WORKDIR /free5gc
-RUN mkdir -p ${F5GC_MODULE}/config/
 
 # Copy executable and default configuration
-COPY --from=builder /free5gc/${F5GC_MODULE} ./${F5GC_MODULE}/
+COPY --from=builder /free5gc/${F5GC_MODULE} ./
 
 # Copy linked libs
 COPY --from=builder /free5gc/libgtp5gnl.so.0 /usr/local/lib
 COPY --from=builder /free5gc/liblogger.so /usr/local/lib
-
-# Move to the executable location
-WORKDIR /free5gc/${F5GC_MODULE}
 
 # Update links
 RUN ldconfig
