@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   free5gc-upf:
-    container_name: upf
+    container_name: branching-upf
     build:
       context: ./nf_upf
       args:
@@ -17,6 +17,40 @@ services:
       privnet:
         aliases:
           - upf.free5gc.org
+
+  free5gc-upf-anchor1:
+    container_name: upf-anchor1
+    build:
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -c ./config/upfcfg.yaml"
+    volumes:
+      - ./config/upfcfg-1.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - upf-1.free5gc.org
+
+  free5gc-upf-anchor2:
+    container_name: upf-anchor2
+    build:
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: bash -c "./upf-iptables.sh && ./free5gc-upfd -c ./config/upfcfg.yaml"
+    volumes:
+      - ./config/upfcfg-2.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - upf-2.free5gc.org
 
   db:
     container_name: mongodb
@@ -248,6 +282,7 @@ services:
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
       - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+      - ./config/uecfg-2.yaml:/ueransim/config/uecfg-2.yaml
     cap_add:
       - NET_ADMIN
     devices:

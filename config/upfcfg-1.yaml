@@ -12,10 +12,10 @@ configuration:
   packetBufferHoldTime: 30
 
   pfcp:
-    - addr: upf.free5gc.org
+    - addr: upf-1.free5gc.org
 
   gtpu:
-    - addr: upf.free5gc.org
+    - addr: upf-1.free5gc.org
     # [optional] gtpu.name
     # - name: upf.5gc.nctu.me
     # [optional] gtpu.ifname
@@ -24,7 +24,5 @@ configuration:
   dnn_list:
     - dnn: internet
       cidr: 10.60.0.0/16
-    - dnn: internet
-      cidr: 10.61.0.0/16
       # [optional] apn_list[*].natifname
       # natifname: eth0

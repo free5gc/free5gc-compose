@@ -10,4 +10,16 @@ ueRoutingInfo: # the list of UE routing information
     # default path derived from this topology
     # node name should be consistent with smfcfg.yaml
       - A: gNB
-        B: UPF
+        B: BranchingUPF
+      - A: BranchingUPF
+        B: AnchorUPF1
+  UE2: # Group Name
+    members:
+    - imsi-208930000000002 # Subscription Permanent Identifier of the UE
+    topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
+    # default path derived from this topology
+    # node name should be consistent with smfcfg.yaml
+      - A: gNB
+        B: BranchingUPF
+      - A: BranchingUPF
+        B: AnchorUPF2
