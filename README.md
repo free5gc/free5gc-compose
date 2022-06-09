@@ -60,6 +60,10 @@ You can also refer to this [issue](https://github.com/free5gc/free5gc-compose/is
 
 This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides detailed steps that might be useful.
 
+## Integration of WebUI with Nginx reverse proxy
+
+Here you can find helpful guidelines on the integration of Nginx reverse proxy to set it in front of the WebUI: https://github.com/free5gc/free5gc-compose/issues/55#issuecomment-1146648600
+
 ## Vagrant Box Option
 
 You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box. You can follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
