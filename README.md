@@ -66,7 +66,8 @@ Here you can find helpful guidelines on the integration of Nginx reverse proxy t
 
 ## Vagrant Box Option
 
-You can setup a working environment without the fuss of updating your kernel version just by using a vagrant box. You can follow the instructions provided here: https://github.com/abousselmi/vagrant-free5gc
+For Linux kernel version below 5.4 you can setup a working environment using a vagrant box: https://github.com/abousselmi/vagrant-free5gc
+Please refer to [GTP5G kernel module](https://github.com/free5gc/gtp5g) for more information.
 
 ## Reference
 - https://github.com/open5gs/nextepc/tree/master/docker
