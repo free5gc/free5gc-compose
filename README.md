@@ -69,6 +69,11 @@ Here you can find helpful guidelines on the integration of Nginx reverse proxy t
 For Linux kernel version below 5.4 you can setup a working environment using a vagrant box: https://github.com/abousselmi/vagrant-free5gc
 Please refer to [GTP5G kernel module](https://github.com/free5gc/gtp5g) for more information.
 
+## ULCL Configuration 
+You can check the following informations below:
+- [ulcl-example branch](https://github.com/free5gc/free5gc-compose/tree/ulcl-example), or
+- [patch file](https://github.com/ianchen0119/free5gc-compose-ulcl)
+
 ## Reference
 - https://github.com/open5gs/nextepc/tree/master/docker
 - https://github.com/abousselmi/docker-free5gc
