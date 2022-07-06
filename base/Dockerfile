@@ -18,7 +18,7 @@ RUN apt-get clean
 
 # Get Free5GC
 RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.1.1 -j `nproc` https://github.com/free5gc/free5gc.git
+    && git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
 
 # Build Free5GC NFs & WebUI
 RUN cd $GOPATH/src/free5gc \
@@ -32,19 +32,13 @@ RUN mkdir -p config/TLS/ public
 
 # Copy executables
 COPY --from=builder /go/src/free5gc/bin/* ./
-COPY --from=builder /go/src/free5gc/NFs/upf/build/bin/* ./
 COPY --from=builder /go/src/free5gc/webconsole/bin/webconsole ./webui
 
 # Copy static files (webui frontend)
 COPY --from=builder /go/src/free5gc/webconsole/public ./public
 
-# Copy linked libs
-COPY --from=builder /go/src/free5gc/NFs/upf/build/updk/src/third_party/libgtp5gnl/lib/libgtp5gnl.so.0 ./
-COPY --from=builder /go/src/free5gc/NFs/upf/build/utlt_logger/liblogger.so ./
-
 # Copy configuration files (not used for now)
 COPY --from=builder /go/src/free5gc/config/* ./config/
-COPY --from=builder /go/src/free5gc/NFs/upf/build/config/* ./config/
 
 # Copy default certificates (not used for now)
 COPY --from=builder /go/src/free5gc/config/TLS/* ./config/TLS/
