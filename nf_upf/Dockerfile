@@ -25,6 +25,3 @@ COPY --from=builder /free5gc/${F5GC_MODULE} ./
 
 # Config files volume
 VOLUME [ "/free5gc/config" ]
-
-# Exposed ports
-EXPOSE 8000
