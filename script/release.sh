@@ -15,5 +15,10 @@ done
 
 cd webui
 docker build --build-arg DEBUG_TOOLS=true -t free5gc/webconsole:${TAG} .
-docker image ls
 docker push free5gc/webconsole:${TAG}
+cd -
+
+cd ueransim
+docker build --build-arg DEBUG_TOOLS=true -t free5gc/ueransim:lastest .
+docker image ls
+docker push free5gc/ueransim:${TAG}
