@@ -1,11 +1,10 @@
-# free5GC Compose
+# free5GC compose
 
 This repository is a docker compose version of [free5GC](https://github.com/free5gc/free5gc) for stage 3. It's inspired by [free5gc-docker-compose](https://github.com/calee0219/free5gc-docker-compose) and also reference to [docker-free5gc](https://github.com/abousselmi/docker-free5gc).
 
 You can setup your own config in [config](./config) folder and [docker-compose.yaml](docker-compose.yaml)
 
 ## Prerequisites
-
 
 - [GTP5G kernel module](https://github.com/free5gc/gtp5g): needed to run the UPF
 - [Docker Engine](https://docs.docker.com/engine/install): needed to run the Free5GC containers
