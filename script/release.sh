@@ -1,5 +1,5 @@
 #!/bin/bash
-TAG=${1-"lastest"}
+TAG=${1-"latest"}
 
 make base
 
