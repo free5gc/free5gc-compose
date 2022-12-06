@@ -12,6 +12,12 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 ## Start free5gc
 
+### Pull docker images from docker hub
+
+```bash
+docker compose pull
+```
+
 ### [Optional] Build docker images in local
 
 ```bash
@@ -30,10 +36,12 @@ docker compose -f docker-compose-build.yaml build
 
 ### Run free5GC
 
+You can create free5GC containers based on local images or docker hub images:
 ```bash
-# Run it (Use local images)
+```bash
+# use local images
 docker compose -f docker-compose-build.yaml up
-# Or pull images from docker hub
+# use images from docker hub
 docker compose up # add -d to run in background mode
 ```
 
@@ -52,7 +60,7 @@ Sometimes, you need to drop data from DB:
 ```bash
 docker exec -it mongodb mongo
 > use free5gc
-> db.subscribers.drop()
+> db.dropDatabase()
 > exit # (Or Ctrl-D)
 ```
 
