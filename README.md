@@ -33,6 +33,27 @@ make base
 docker compose -f docker-compose-build.yaml build
 ```
 
+### [Optional 2] Build docker images from local sources
+
+```bash
+# Clone the project
+git clone https://github.com/free5gc/free5gc-compose.git
+cd free5gc-compose
+
+# clone free5gc sources (e.g. v3.2.1)
+cd base
+git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
+cd ..
+
+# Build the images
+make all
+docker compose -f docker-compose-build-nf.yaml build
+
+# Alternatively you can build specific NF image e.g.:
+make amf
+docker compose -f docker-compose-build-nf.yaml build free5gc-amf
+```
+
 
 ### Run free5GC
 
@@ -41,6 +62,8 @@ You can create free5GC containers based on local images or docker hub images:
 ```bash
 # use local images
 docker compose -f docker-compose-build.yaml up
+# use images built from local sources
+docker compose -f docker-compose-build-nf.yaml up
 # use images from docker hub
 docker compose up # add -d to run in background mode
 ```
