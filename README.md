@@ -12,6 +12,8 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 ## Start free5gc
 
+Because we need to create tunnel interface, we need to use privileged container with root permission.
+
 ### Pull docker images from docker hub
 
 ```bash
@@ -19,9 +21,6 @@ docker compose pull
 ```
 
 ### [Optional] Build docker images in local
-
-```bash
-Because we need to create tunnel interface, we need to use privileged container with root permission.
 
 ```bash
 # Clone the project
@@ -37,7 +36,7 @@ docker compose -f docker-compose-build.yaml build
 ### Run free5GC
 
 You can create free5GC containers based on local images or docker hub images:
-```bash
+
 ```bash
 # use local images
 docker compose -f docker-compose-build.yaml up
@@ -46,6 +45,7 @@ docker compose up # add -d to run in background mode
 ```
 
 Destroy the established container resource after testing:
+
 ```bash
 # Remove established containers (local images)
 docker compose -f docker-compose-build.yaml rm
