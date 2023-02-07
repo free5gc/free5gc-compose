@@ -16,7 +16,7 @@ ARG F5GC_MODULE
 COPY free5gc/ $GOPATH/src/free5gc/
 
 RUN cd $GOPATH/src/free5gc \
-    && make ${F5GC_MODULE}
+    && make all
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
 FROM alpine:3.15
@@ -26,6 +26,7 @@ RUN mkdir -p config/TLS/ public
 
 # Copy executables
 COPY --from=my-base /go/src/free5gc/bin/${F5GC_MODULE} ./
+COPY --from=my-base /go/src/free5gc/webconsole/bin/webconsole ./webui
 
 # Copy configuration files (not used for now)
 COPY --from=my-base /go/src/free5gc/config/* ./config/
