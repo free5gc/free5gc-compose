@@ -9,10 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
-RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y golang-go git vim strace net-tools iputils-ping curl netcat && \
-    git clone https://github.com/free5gc/go-gtp5gnl.git && mkdir "go-gtp5gnl/bin" && \
-    cd "go-gtp5gnl/cmd/gogtp5g-tunnel" &&  go build -o "go-gtp5gnl/bin/gtp5g-tunnel" . && \
-    cd - ; fi
+RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y golang-go git vim strace net-tools iputils-ping curl netcat ; fi
 
 # Install UPF dependencies
 RUN apt-get update \
@@ -25,6 +22,7 @@ RUN mkdir -p config/ log/
 
 # Copy executable
 COPY --from=builder /free5gc/${F5GC_MODULE} ./
+COPY --from=builder /free5gc/gtp5g-tunnel ./gtp5g-tunnel
 
 # Config files volume
 VOLUME [ "/free5gc/config" ]

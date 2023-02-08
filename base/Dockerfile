@@ -13,14 +13,16 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y nodejs yarn
 
+RUN git clone https://github.com/free5gc/go-gtp5gnl.git && mkdir "go-gtp5gnl/bin" && \
+    cd "go-gtp5gnl/cmd/gogtp5g-tunnel" &&  go build -o "${GOPATH}/gtp5g-tunnel" . && \
+    cd -
+
 # Clean apt cache
 RUN apt-get clean
 
 # Get Free5GC
-RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
+COPY free5gc/ $GOPATH/src/free5gc/
 
-# Build Free5GC NFs & WebUI
 RUN cd $GOPATH/src/free5gc \
     && make all
 
@@ -33,6 +35,7 @@ RUN mkdir -p config/TLS/ public
 # Copy executables
 COPY --from=builder /go/src/free5gc/bin/* ./
 COPY --from=builder /go/src/free5gc/webconsole/bin/webconsole ./webui
+COPY --from=builder /go/gtp5g-tunnel ./gtp5g-tunnel
 
 # Copy static files (webui frontend)
 COPY --from=builder /go/src/free5gc/webconsole/public ./public

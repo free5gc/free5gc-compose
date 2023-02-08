@@ -20,19 +20,7 @@ Because we need to create tunnel interface, we need to use privileged container 
 docker compose pull
 ```
 
-### [Optional] Build docker images in local
-
-```bash
-# Clone the project
-git clone https://github.com/free5gc/free5gc-compose.git
-cd free5gc-compose
-
-# Build the images
-make base
-docker compose -f docker-compose-build.yaml build
-```
-
-### [Optional 2] Build docker images from local sources
+### [Optional] Build docker images from local sources
 
 ```bash
 # Clone the project
