@@ -1,4 +1,10 @@
-FROM free5gc/base:latest AS builder
+FROM free5gc/base as my-base
+
+RUN git clone https://github.com/free5gc/go-gtp5gnl.git && mkdir "go-gtp5gnl/bin" && \
+    cd "go-gtp5gnl/cmd/gogtp5g-tunnel" &&  go build -o "${GOPATH}/gtp5g-tunnel" . && \
+    cd -
+
+FROM free5gc/upf-base:latest AS builder
 FROM bitnami/minideb:bullseye
 
 LABEL description="Free5GC open source 5G Core Network" \
@@ -22,7 +28,7 @@ RUN mkdir -p config/ log/
 
 # Copy executable
 COPY --from=builder /free5gc/${F5GC_MODULE} ./
-COPY --from=builder /free5gc/gtp5g-tunnel ./gtp5g-tunnel
+COPY --from=my-base /go/gtp5g-tunnel ./gtp5g-tunnel
 
 # Config files volume
 VOLUME [ "/free5gc/config" ]

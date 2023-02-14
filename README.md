@@ -41,6 +41,13 @@ make amf
 docker compose -f docker-compose-build.yaml build free5gc-amf
 ```
 
+Note:
+
+Dangling images may be created during the build process. It is advised to remove them from time to time to free up disk space.
+
+```bash
+docker rmi $(docker images -f "dangling=true" -q)
+```
 
 ### Run free5GC
 

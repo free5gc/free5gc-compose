@@ -1,4 +1,4 @@
-FROM free5gc/base:latest AS builder
+FROM free5gc/webconsole-base:latest AS builder
 FROM bitnami/minideb:bullseye
 
 LABEL description="Free5GC open source 5G Core Network" \
