@@ -1,4 +1,5 @@
-FROM free5gc/nssf-base:latest AS builder
+ARG F5GC_BASE
+FROM free5gc/${F5GC_BASE:-nssf-base}:latest AS builder
 FROM alpine:3.15
 
 LABEL description="Free5GC open source 5G Core Network" \

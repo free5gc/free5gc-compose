@@ -9,6 +9,9 @@ base:
 	docker build -t ${DOCKER_IMAGE_OWNER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ./base
 	docker image ls ${DOCKER_IMAGE_OWNER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
 
+github: base
+	docker build -t ${DOCKER_IMAGE_OWNER}/nf-base:${DOCKER_IMAGE_TAG} -f ./base/Dockerfile.github ./base
+
 smf: base
 	docker build --build-arg F5GC_MODULE=smf -t ${DOCKER_IMAGE_OWNER}/smf-base:${DOCKER_IMAGE_TAG} -f ./base/Dockerfile.nf ./base
 amf: base
