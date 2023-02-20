@@ -1,7 +1,13 @@
 # Note
-> All the images be built when `make all` command executed except `upf`, `ueransim` and `webui`.
+> All the images be built when `make all` command executed except `n3iwf`, `upf`, `ueransim` and `webui`.
 
-## Build the images (UPF, UERANSIM, WebUI)
+## Build the images (N3IWF, UPF, UERANSIM, WebUI)
+
+For N3IWF:
+```bash
+make n3iwf
+docker compose -f docker-compose-build.yaml build free5gc-n3iwf
+```
 
 For UPF:
 ```bash

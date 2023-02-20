@@ -25,7 +25,7 @@ nrf: base
 nssf: base
 	docker build --build-arg F5GC_MODULE=nssf --build-arg DEBUG_TOOLS=${DEBUG_ENABLE} -t ${DOCKER_IMAGE_OWNER}/nssf:${DOCKER_IMAGE_TAG} -f ./base/Dockerfile.nf ./base
 n3iwf: base
-	docker build --build-arg F5GC_MODULE=n3iwf --build-arg DEBUG_TOOLS=${DEBUG_ENABLE} -t ${DOCKER_IMAGE_OWNER}/n3iwf:${DOCKER_IMAGE_TAG} -f ./base/Dockerfile.nf ./base
+	docker build --build-arg F5GC_MODULE=n3iwf --build-arg DEBUG_TOOLS=false -t ${DOCKER_IMAGE_OWNER}/n3iwf-base:${DOCKER_IMAGE_TAG} -f ./base/Dockerfile.nf ./base
 pcf: base
 	docker build --build-arg F5GC_MODULE=pcf --build-arg DEBUG_TOOLS=${DEBUG_ENABLE} -t ${DOCKER_IMAGE_OWNER}/pcf:${DOCKER_IMAGE_TAG} -f ./base/Dockerfile.nf ./base
 ausf: base
