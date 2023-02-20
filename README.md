@@ -35,10 +35,6 @@ cd ..
 # Build the images
 make all
 docker compose -f docker-compose-build.yaml build
-
-# Alternatively you can build specific NF image e.g.:
-make amf
-docker compose -f docker-compose-build.yaml build free5gc-amf
 ```
 
 Note:
