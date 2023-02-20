@@ -4,7 +4,7 @@ services:
   free5gc-upf:
     container_name: upf
     build:
-      context: ./nf_upf
+      context: ./build_context/nf_upf
       args:
         DEBUG_TOOLS: "false"
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
@@ -33,10 +33,7 @@ services:
 
   free5gc-nrf:
     container_name: nrf
-    build:
-      context: ./nf_nrf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/nrf:latest
     command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
@@ -54,10 +51,7 @@ services:
 
   free5gc-amf:
     container_name: amf
-    build:
-      context: ./nf_amf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/amf:latest
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
@@ -74,10 +68,7 @@ services:
 
   free5gc-ausf:
     container_name: ausf
-    build:
-      context: ./nf_ausf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/ausf:latest
     command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
@@ -94,10 +85,7 @@ services:
 
   free5gc-nssf:
     container_name: nssf
-    build:
-      context: ./nf_nssf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/nssf:latest
     command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
@@ -114,10 +102,7 @@ services:
 
   free5gc-pcf:
     container_name: pcf
-    build:
-      context: ./nf_pcf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/pcf:latest
     command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
@@ -134,10 +119,7 @@ services:
 
   free5gc-smf:
     container_name: smf
-    build:
-      context: ./nf_smf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/smf:latest
     command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
@@ -156,10 +138,7 @@ services:
 
   free5gc-udm:
     container_name: udm
-    build:
-      context: ./nf_udm
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/udm:latest
     command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
@@ -177,10 +156,7 @@ services:
 
   free5gc-udr:
     container_name: udr
-    build:
-      context: ./nf_udr
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/udr:latest
     command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
@@ -199,10 +175,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
-    build:
-      context: ./nf_n3iwf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/n3iwf:latest
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -c ./config/n3iwfcfg.yaml"
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
@@ -223,7 +196,7 @@ services:
   free5gc-webui:
     container_name: webui
     build:
-      context: ./webui
+      context: ./build_context/webui
       args:
         DEBUG_TOOLS: "false"
     command: ./webui -c ./config/webuicfg.yaml
@@ -243,7 +216,7 @@ services:
   ueransim:
     container_name: ueransim
     build:
-      context: ./ueransim
+      context: ./build_context/ueransim
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml

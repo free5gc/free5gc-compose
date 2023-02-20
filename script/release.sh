@@ -1,24 +1,20 @@
 #!/bin/bash
 TAG=${1-"latest"}
 
-make base
-
 NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf"
 
-echo "Building docker images"
-for NF in ${NF_LIST}; do
-    cd nf_${NF}
-    docker build --build-arg DEBUG_TOOLS=true -t free5gc/${NF}:${TAG} .
-    docker push free5gc/${NF}:${TAG}
-    cd -
-done
-
-cd webui
-docker build --build-arg DEBUG_TOOLS=true -t free5gc/webconsole:${TAG} .
-docker push free5gc/webconsole:${TAG}
+cd base
+git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
 cd -
 
-cd ueransim
-docker build --build-arg DEBUG_TOOLS=true -t free5gc/ueransim:latest .
-docker image ls
+make all
+docker compose -f docker-compose-build.yaml build
+
+for NF in ${NF_LIST}; do
+    docker tag free5gc/${NF}:latest free5gc/${NF}:${TAG}
+    docker push free5gc/${NF}:${TAG}
+done
+
+docker tag free5gc/webconsole:latest free5gc/webconsole:${TAG}
+docker push free5gc/webconsole:${TAG}
 docker push free5gc/ueransim:${TAG}

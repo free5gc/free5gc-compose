@@ -17,7 +17,10 @@ RUN cd $GOPATH/src/free5gc \
 FROM alpine:3.15
 
 WORKDIR /free5gc
+ARG DEBUG_TOOLS
 RUN mkdir -p config/TLS/ public
+# Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
+RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl netcat-openbsd ; fi
 
 # Copy executables
 COPY --from=my-base /go/src/free5gc/bin/${F5GC_MODULE} ./
