@@ -1,5 +1,4 @@
-ARG F5GC_BASE
-FROM free5gc/${F5GC_BASE:-udr-base}:latest AS builder
+FROM free5gc/udr-base:latest AS builder
 FROM alpine:3.15
 
 LABEL description="Free5GC open source 5G Core Network" \

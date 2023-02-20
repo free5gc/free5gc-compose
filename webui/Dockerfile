@@ -1,5 +1,4 @@
-ARG F5GC_BASE
-FROM free5gc/${F5GC_BASE:-webconsole-base}:latest AS builder
+FROM free5gc/webconsole-base:latest AS builder
 FROM bitnami/minideb:bullseye
 
 LABEL description="Free5GC open source 5G Core Network" \
