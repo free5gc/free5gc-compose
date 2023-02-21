@@ -17,14 +17,14 @@ docker compose -f docker-compose-build.yaml build
 for NF in ${NF_LIST}; do
     # If $TAG not equal to latest
     if [ "${TAG}" != "latest" ]; then
-        docker tag free5gc/${NF}:latest free5gc/${NF}:${TAG}
+        docker tag free5gc-compose-free5gc-${NF}:latest free5gc/${NF}:${TAG}
     fi
     docker push free5gc/${NF}:${TAG}
 done
 
-if [ "${TAG}" != "latest" ]; then
-    docker tag free5gc/webconsole:latest free5gc/webconsole:${TAG}
-fi
+
+docker tag free5gc-compose-free5gc-webconsole:latest free5gc/webconsole:${TAG}
+docker tag free5gc-compose-ueransim:latest free5gc/ueransim:${TAG}
 
 docker push free5gc/webconsole:${TAG}
 docker push free5gc/ueransim:${TAG}
