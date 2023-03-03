@@ -4,11 +4,9 @@ TAG=${1-"latest"}
 NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf"
 
 cd base
-if [ "${TAG}" != "latest" ]; then
-    git clone --recursive -b ${TAG} -j `nproc` https://github.com/free5gc/free5gc.git
-else
-    git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
-fi
+
+git clone --recursive -b ${TAG} -j `nproc` https://github.com/free5gc/free5gc.git
+
 cd -
 
 make all
