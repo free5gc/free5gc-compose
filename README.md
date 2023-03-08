@@ -14,7 +14,7 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 Because we need to create tunnel interface, we need to use privileged container with root permission.
 
-### Pull docker images from docker hub
+### Pull docker images from Docker Hub
 
 ```bash
 docker compose pull
@@ -27,9 +27,9 @@ docker compose pull
 git clone https://github.com/free5gc/free5gc-compose.git
 cd free5gc-compose
 
-# clone free5gc sources (e.g. v3.2.1)
+# clone free5gc sources
 cd base
-git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
+git clone --recursive -j `nproc` https://github.com/free5gc/free5gc.git
 cd ..
 
 # Build the images
