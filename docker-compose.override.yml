@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  free5gc-upf:
+    container_name: upf
+    #image: put_image_req_here
+    build:
+      context: ./eupf
+    privileged: true
+    command: --iface eth0 --nodeid upf.free5gc.org
+    volumes:
+      - /sys/fs/bpf:/sys/fs/bpf
+    environment:
+      GIN_MODE: release
+    ulimits:
+      memlock: -1
+    cap_add:
+      - BPF
+#      - TRACING
+      - PERFMON
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE # setrlimit
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    sysctls:
+      - net.ipv4.conf.all.forwarding=1
+    networks:
+      privnet:
+        aliases:
+          - upf.free5gc.org
+
+
