@@ -1,5 +1,5 @@
 info:
-  version: 1.0.3
+  version: 1.0.5
   description: N3IWF initial local configuration
 
 configuration:
@@ -44,20 +44,17 @@ configuration:
   FQDN: n3iwf.free5gc.org # FQDN of this N3IWF
 
   # --- Security ---
-  PrivateKey: ./config/TLS/n3iwf.key # Private key file path
-  CertificateAuthority: ./config/TLS/n3iwf.pem # Certificate Authority (CA) file path
-  Certificate: ./config/TLS/n3iwf.pem # Certificate file path
+  PrivateKey: cert/n3iwf.key # Private key file path
+  CertificateAuthority: cert/n3iwf.pem # Certificate Authority (CA) file path
+  Certificate: cert/n3iwf.pem # Certificate file path
 
-# the kind of log output
-# debugLevel: how detailed to output, value: trace, debug, info, warn, error, fatal, panic
-# ReportCaller: enable the caller report or not, value: true or false
-logger:
-  N3IWF: # The default log level is DEBUG to print SA keys. Please change it to INFO when deployed.
-    debugLevel: debug
-    ReportCaller: false
-  NGAP:
-    debugLevel: info
-    ReportCaller: false
-  Aper:
-    debugLevel: info
-    ReportCaller: false
+  # sending dead peer detection message
+  LivenessCheck:
+    enable: true # true or false
+    transFreq: 60s # frequency of transmission
+    maxRetryTimes: 4 # the max number of DPD response of UE
+
+logger: # log output setting
+  enable: true # true or false
+  level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+  reportCaller: false # enable the caller report or not, value: true or false

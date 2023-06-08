@@ -3,7 +3,7 @@ version: '3.8'
 services:
   free5gc-upf:
     container_name: upf
-    image: free5gc/upf:v3.2.1
+    image: free5gc/upf:v3.3.0
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
@@ -30,7 +30,7 @@ services:
 
   free5gc-nrf:
     container_name: nrf
-    image: free5gc/nrf:v3.2.1
+    image: free5gc/nrf:v3.3.0
     command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
@@ -48,7 +48,7 @@ services:
 
   free5gc-amf:
     container_name: amf
-    image: free5gc/amf:v3.2.1
+    image: free5gc/amf:v3.3.0
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
@@ -65,7 +65,7 @@ services:
 
   free5gc-ausf:
     container_name: ausf
-    image: free5gc/ausf:v3.2.1
+    image: free5gc/ausf:v3.3.0
     command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
@@ -82,7 +82,7 @@ services:
 
   free5gc-nssf:
     container_name: nssf
-    image: free5gc/nssf:v3.2.1
+    image: free5gc/nssf:v3.3.0
     command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
@@ -99,7 +99,7 @@ services:
 
   free5gc-pcf:
     container_name: pcf
-    image: free5gc/pcf:v3.2.1
+    image: free5gc/pcf:v3.3.0
     command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
@@ -116,7 +116,7 @@ services:
 
   free5gc-smf:
     container_name: smf
-    image: free5gc/smf:v3.2.1
+    image: free5gc/smf:v3.3.0
     command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
@@ -135,7 +135,7 @@ services:
 
   free5gc-udm:
     container_name: udm
-    image: free5gc/udm:v3.2.1
+    image: free5gc/udm:v3.3.0
     command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
@@ -153,7 +153,7 @@ services:
 
   free5gc-udr:
     container_name: udr
-    image: free5gc/udr:v3.2.1
+    image: free5gc/udr:v3.3.0
     command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
@@ -172,7 +172,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
-    image: free5gc/n3iwf:v3.2.1
+    image: free5gc/n3iwf:v3.3.0
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -c ./config/n3iwfcfg.yaml"
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
@@ -192,7 +192,7 @@ services:
 
   free5gc-webui:
     container_name: webui
-    image: free5gc/webui:v3.2.1
+    image: free5gc/webui:v3.3.0
     command: ./webui -c ./config/webuicfg.yaml
     volumes:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
