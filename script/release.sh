@@ -9,7 +9,11 @@ NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf"
 
 cd base
 
-git clone --recursive -b ${TAG} -j `nproc` https://github.com/free5gc/free5gc.git
+if [ 'xlatest' != "x$TAG" ]; then
+    git clone --recursive -j `nproc` https://github.com/free5gc/free5gc.git
+else
+    git clone --recursive -b ${TAG} -j `nproc` https://github.com/free5gc/free5gc.git
+fi;
 
 cd -
 
