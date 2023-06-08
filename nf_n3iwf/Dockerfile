@@ -26,4 +26,4 @@ COPY --from=builder /free5gc/cert/${F5GC_MODULE}.key ./cert/
 VOLUME [ "/free5gc/config" ]
 
 # Certificates (if not using default) volume
-VOLUME [ "/free5gc/config/TLS" ]
+VOLUME [ "/free5gc/cert" ]

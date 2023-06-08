@@ -1,17 +1,14 @@
 #!/bin/bash
 TAG=${1-"latest"}
 
-if [ 'xlatest' != "x$TAG" ]; then
-    TAG=`echo "$TAG" | sed -e "s/refs\/tags\///g"`
-fi;
-
 NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf"
 
 cd base
 
-if [ 'xlatest' != "x$TAG" ]; then
+if [ 'xlatest' == "x$TAG" ]; then
     git clone --recursive -j `nproc` https://github.com/free5gc/free5gc.git
 else
+    TAG=`echo "$TAG" | sed -e "s/refs\/tags\///g"`
     git clone --recursive -b ${TAG} -j `nproc` https://github.com/free5gc/free5gc.git
 fi;
 
