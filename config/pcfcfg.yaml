@@ -1,5 +1,5 @@
 info:
-  version: 1.0.1
+  version: 1.0.2
   description: PCF initial local configuration
 
 configuration:
@@ -10,8 +10,8 @@ configuration:
     bindingIPv4: pcf.free5gc.org  # IP used to bind the service
     port: 8000              # port used to bind the service
     tls: # the local path of TLS key
-      pem: ./config/TLS/pcf.pem # PCF TLS Certificate
-      key: ./config/TLS/pcf.key # PCF TLS Private key
+      pem: cert/pcf.pem # PCF TLS Certificate
+      key: cert/pcf.key # PCF TLS Private key
   timeFormat: 2019-01-02 15:04:05 # time format of this PCF
   defaultBdtRefId: BdtPolicyId-   # BDT Reference ID, indicating transfer policies of background data transfer.
   nrfUri: http://nrf.free5gc.org:8000  # a valid URI of NRF
@@ -27,11 +27,9 @@ configuration:
   mongodb:       # the mongodb connected by this PCF
     name: free5gc                  # name of the mongodb
     url: mongodb://db:27017 # a valid URL of the mongodb
-  locality: area1
-# the kind of log output
-# debugLevel: how detailed to output, value: trace, debug, info, warn, error, fatal, panic
-# ReportCaller: enable the caller report or not, value: true or false
-logger:
-  PCF:
-    debugLevel: info
-    ReportCaller: false
+  locality: area1 # Name of the location where a set of AMF, SMF, PCF and UPFs are located
+
+logger: # log output setting
+  enable: true # true or false
+  level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+  reportCaller: false # enable the caller report or not, value: true or false

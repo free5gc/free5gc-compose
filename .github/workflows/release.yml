@@ -44,4 +44,4 @@ jobs:
 
     - name: Build NF's images
       if: github.ref == 'refs/heads/master'
-      run: ./script/release.sh ${{ steps.tag.outputs.result }}
+      run: ./script/release.sh
