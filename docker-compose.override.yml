@@ -13,6 +13,9 @@ services:
       privnet:
         aliases:
           - nat.free5gc.org
+      privnet_n6:
+        aliases:
+          - natn6.free5gc.org
 
 
   free5gc-upf:
@@ -21,7 +24,8 @@ services:
     build:
       context: ./eupf
     privileged: true
-    command: --iface eth0 --nodeid upf.free5gc.org
+    #command: --iface eth0 --iface eth1 --n3addr 1.2.3.4 --nodeid upf.free5gc.org
+    command: --iface eth0 --iface eth1 --n3addr 10.100.200.14 --nodeid 10.100.200.14 --attach generic
     volumes:
       - /sys/fs/bpf:/sys/fs/bpf
     environment:
@@ -41,7 +45,11 @@ services:
     sysctls:
       - net.ipv4.conf.all.forwarding=1
     networks:
+      privnet_n6:
+        aliases:
+          - upfn6.free5gc.org
       privnet:
+        ipv4_address: 10.100.200.14
         aliases:
           - upf.free5gc.org
 
@@ -69,9 +77,20 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
-      - ./grafana:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/etc/grafana/dashboards
     networks:
       privnet:
+
+networks:
+  privnet_n6:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.250.0/24
+    driver_opts:
+      com.docker.network.bridge.name: br-free5gc-n6
+
 
 volumes:
   prom_data:
