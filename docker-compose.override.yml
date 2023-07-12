@@ -17,14 +17,31 @@ services:
         aliases:
           - natn6.free5gc.org
 
-
   free5gc-upf:
-    container_name: upf
-    #image: put_image_req_here
-    build:
-      context: ./eupf
+    profiles: ["disabled"]
+
+  free5gc-smf:
+    depends_on: !reset []
+#      - free5gc-nrf
+#      - edgecom-upf
+
+  free5gc-n3iwf:
+    depends_on: !reset []
+#      - free5gc-amf
+#      - free5gc-smf
+#      - edgecom-upf
+
+  ueransim:
+    depends_on: !reset
+      - free5gc-amf
+      - edgecom-upf
+
+  edgecom-upf:
+    container_name: eupf
+    image: ghcr.io/edgecomllc/eupf:0.3.3
+#    build:
+#      context: ./eupf
     privileged: true
-    #command: --iface eth0 --iface eth1 --n3addr 1.2.3.4 --nodeid upf.free5gc.org
     command: --iface eth0 --iface eth1 --n3addr 10.100.200.14 --nodeid 10.100.200.14 --attach generic
     volumes:
       - /sys/fs/bpf:/sys/fs/bpf
@@ -33,9 +50,10 @@ services:
     ulimits:
       memlock: -1
     cap_add:
-      - BPF
-#      - TRACING
-      - PERFMON
+# Granular caps support depends on kernel version
+#      - BPF
+##      - TRACING
+#      - PERFMON
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE # setrlimit
