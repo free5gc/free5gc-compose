@@ -18,31 +18,23 @@ services:
           - natn6.free5gc.org
 
   free5gc-upf:
-    profiles: ["disabled"]
+    command: sleep 5
 
   free5gc-smf:
-    depends_on: !reset []
-#      - free5gc-nrf
-#      - edgecom-upf
-
-  free5gc-n3iwf:
-    depends_on: !reset []
-#      - free5gc-amf
-#      - free5gc-smf
-#      - edgecom-upf
+    depends_on:
+      - edgecom-upf
 
   ueransim:
-    depends_on: !reset
-      - free5gc-amf
+    image: free5gc/ueransim:v3.3.0
+    depends_on:
       - edgecom-upf
 
   edgecom-upf:
     container_name: eupf
-    image: ghcr.io/edgecomllc/eupf:0.3.3
-#    build:
-#      context: ./eupf
+    mage: ghcr.io/edgecomllc/eupf:0.3.4
+    #image: eupf-local:latest
     privileged: true
-    command: --iface eth0 --iface eth1 --n3addr 10.100.200.14 --nodeid 10.100.200.14 --attach generic
+    command: --iface eth0 --iface eth1 --n3addr 10.100.200.14 --nodeid 10.100.200.14 --paddr 10.100.200.14:8805 --attach generic
     volumes:
       - /sys/fs/bpf:/sys/fs/bpf
     environment:
