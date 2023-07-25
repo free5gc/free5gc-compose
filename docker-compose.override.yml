@@ -31,12 +31,13 @@ services:
 
   edgecom-upf:
     container_name: eupf
-    mage: ghcr.io/edgecomllc/eupf:0.3.4
+    image: ghcr.io/edgecomllc/eupf:0.3.4
     #image: eupf-local:latest
     privileged: true
     command: --iface eth0 --iface eth1 --n3addr 10.100.200.14 --nodeid 10.100.200.14 --paddr 10.100.200.14:8805 --attach generic
     volumes:
       - /sys/fs/bpf:/sys/fs/bpf
+      - ./eupf/entrypoint.sh:/app/bin/entrypoint.sh
     environment:
       GIN_MODE: release
     ulimits:
