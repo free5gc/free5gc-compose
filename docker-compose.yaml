@@ -170,6 +170,26 @@ services:
       - db
       - free5gc-nrf
 
+  free5gc-chf:
+    container_name: chf
+    image: free5gc/chf:v3.3.0
+    command: ./chf -c ./config/chfcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
+    environment:
+      DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - chf.free5gc.org
+    depends_on:
+      - db
+      - free5gc-nrf
+      - free5gc-webui
+
   free5gc-n3iwf:
     container_name: n3iwf
     image: free5gc/n3iwf:v3.3.0
@@ -194,6 +214,9 @@ services:
     container_name: webui
     image: free5gc/webui:v3.3.0
     command: ./webui -c ./config/webuicfg.yaml
+    expose:
+      - "2122"
+      - "2121"
     volumes:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
     environment:
@@ -204,6 +227,8 @@ services:
           - webui
     ports:
       - "5000:5000"
+      - "2122:2122"
+      - "2121:2121"
     depends_on:
       - db
 
