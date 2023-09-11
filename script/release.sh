@@ -1,7 +1,7 @@
 #!/bin/bash
 TAG=${1-"latest"}
 
-NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf"
+NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf"
 
 cd base
 
