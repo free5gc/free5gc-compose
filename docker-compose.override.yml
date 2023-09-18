@@ -31,7 +31,7 @@ services:
 
   edgecom-upf:
     container_name: eupf
-    image: ghcr.io/edgecomllc/eupf:0.4.0
+    image: ghcr.io/edgecomllc/eupf:0046d85093bac22c995979083ee7a946398767ac
     #image: eupf-local:latest
     privileged: true
     command: --iface eth0 --iface eth1 --n3addr 10.100.200.14 --nodeid 10.100.200.14 --paddr 10.100.200.14:8805 --attach generic
@@ -92,6 +92,19 @@ services:
       - ./grafana/dashboards:/etc/grafana/dashboards
     networks:
       privnet:
+  
+  ui:
+    container_name: ui
+    image: ghcr.io/edgecomllc/eupf-api-ui:74adead324e00eb83f97adfec40c7188c5f57a4a
+    command: >
+      sh -c "
+      sed -i 's#__API_PORT__#'\"$$API_PORT\"'#g' /usr/share/nginx/html/env.js
+      && nginx -g 'daemon off;'
+      "
+    ports:
+      - "8081:80"
+    environment:
+      - API_PORT=8080
 
 networks:
   privnet_n6:
