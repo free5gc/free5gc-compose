@@ -12,7 +12,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get -y install gcc cmake autoconf libtool pkg-config libmnl-dev libyaml-dev apt-transport-https ca-certificates \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash \
-    && bash -c 'source ~/.bashrc && nvm install --lts && npm install -g yarn'
+    && bash -c 'source ~/.bashrc && nvm install --lts && npm install -g yarn' \
+    && bash -c 'source ~/.bashrc && ln -s $(which node) $(which yarn) /usr/bin/'
 
 # Clean apt cache
 RUN apt-get clean
