@@ -238,7 +238,7 @@ services:
       privnet:
         aliases:
           - n3iwf.free5gc.org
-    depends_on:
+    depends_on: 
       - free5gc-amf
       - free5gc-smf
       - free5gc-upf
@@ -285,6 +285,23 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
+
+  n3iwue:
+    container_name: n3iwue
+    image: free5gc/n3iwue:latest
+    command: sleep infinity
+    volumes:
+      - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"  
+    networks:
+      privnet:
+        aliases:
+          - n3ue.free5gc.org
+    depends_on:
+      - free5gc-n3iwf
 
 networks:
   privnet:

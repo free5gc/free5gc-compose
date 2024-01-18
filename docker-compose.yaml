@@ -192,7 +192,8 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
-    image: free5gc/n3iwf:v3.3.0
+    image: free5gc/n3iwf-base:latest
+    #image: free5gc/n3iwf:v3.3.0
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -c ./config/n3iwfcfg.yaml"
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
@@ -232,24 +233,24 @@ services:
     depends_on:
       - db
 
-  ueransim:
-    container_name: ueransim
-    image: free5gc/ueransim:latest
-    command: ./nr-gnb -c ./config/gnbcfg.yaml
-    volumes:
-      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - "/dev/net/tun"
-    networks:
-      privnet:
-        aliases:
-          - gnb.free5gc.org
-    depends_on:
-      - free5gc-amf
-      - free5gc-upf
+  # ueransim:
+  #   container_name: ueransim
+  #   image: free5gc/ueransim:latest
+  #   command: ./nr-gnb -c ./config/gnbcfg.yaml
+  #   volumes:
+  #     - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
+  #     - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+  #   cap_add:
+  #     - NET_ADMIN
+  #   devices:
+  #     - "/dev/net/tun"
+  #   networks:
+  #     privnet:
+  #       aliases:
+  #         - gnb.free5gc.org
+  #   depends_on:
+  #     - free5gc-amf
+  #     - free5gc-upf
     
   n3iwue:
     container_name: n3iwue
@@ -260,7 +261,7 @@ services:
     cap_add:
       - NET_ADMIN
     devices:
-      - "/dev/net/tun"
+      - "/dev/net/tun"  
     networks:
       privnet:
         aliases:

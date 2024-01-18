@@ -32,7 +32,7 @@ configuration:
         Security:
             K: b73a90cbcf3afb622dba83c58a8415df
             RAND: b120f1c1a0102a2f507dd543de68281f
-            SQN: 16f3b3f71006
+            SQN: 16f3b3f71010
             AMF: 8000
             OP: b672047e003bb952dca6cb8af0e5b779
             OPC: df0c67868fa25f748b7044c6e7c245b8
