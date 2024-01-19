@@ -197,28 +197,28 @@ services:
       - db
       - free5gc-nrf
 
-  free5gc-chf:
-    container_name: chf
-    build:
-      context: ./nf_chf
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./chf -c ./config/chfcfg.yaml
-    expose:
-      - "8000"
-    volumes:
-      - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
-    environment:
-      DB_URI: mongodb://db/free5gc
-      GIN_MODE: release
-    networks:
-      privnet:
-        aliases:
-          - chf.free5gc.org
-    depends_on:
-      - db
-      - free5gc-nrf
-      - free5gc-webui
+  # free5gc-chf:
+  #   container_name: chf
+  #   build:
+  #     context: ./nf_chf
+  #     args:
+  #       DEBUG_TOOLS: "false"
+  #   command: ./chf -c ./config/chfcfg.yaml
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
+  #   environment:
+  #     DB_URI: mongodb://db/free5gc
+  #     GIN_MODE: release
+  #   networks:
+  #     privnet:
+  #       aliases:
+  #         - chf.free5gc.org
+  #   depends_on:
+  #     - db
+  #     - free5gc-nrf
+  #     - free5gc-webui
 
   free5gc-n3iwf:
     container_name: n3iwf
@@ -236,6 +236,7 @@ services:
       - NET_ADMIN
     networks:
       privnet:
+        ipv4_address: 10.100.200.15
         aliases:
           - n3iwf.free5gc.org
     depends_on: 
