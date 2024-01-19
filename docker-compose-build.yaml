@@ -290,7 +290,7 @@ services:
   n3iwue:
     container_name: n3iwue
     build:
-      context: ./n3iwf
+      context: ./n3iwue
     command: sleep infinity
     volumes:
       - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
