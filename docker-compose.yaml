@@ -204,6 +204,7 @@ services:
       - NET_ADMIN
     networks:
       privnet:
+        ipv4_address: 10.100.200.15
         aliases:
           - n3iwf.free5gc.org
     depends_on:
@@ -233,24 +234,24 @@ services:
     depends_on:
       - db
 
-  # ueransim:
-  #   container_name: ueransim
-  #   image: free5gc/ueransim:latest
-  #   command: ./nr-gnb -c ./config/gnbcfg.yaml
-  #   volumes:
-  #     - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-  #     - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-  #   cap_add:
-  #     - NET_ADMIN
-  #   devices:
-  #     - "/dev/net/tun"
-  #   networks:
-  #     privnet:
-  #       aliases:
-  #         - gnb.free5gc.org
-  #   depends_on:
-  #     - free5gc-amf
-  #     - free5gc-upf
+  ueransim:
+    container_name: ueransim
+    image: free5gc/ueransim:latest
+    command: ./nr-gnb -c ./config/gnbcfg.yaml
+    volumes:
+      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      privnet:
+        aliases:
+          - gnb.free5gc.org
+    depends_on:
+      - free5gc-amf
+      - free5gc-upf
     
   n3iwue:
     container_name: n3iwue

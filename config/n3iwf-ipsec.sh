@@ -12,5 +12,4 @@
 
 ip link add name ipsec0 type vti local $(hostname -i | awk '{print $1}') remote 0.0.0.0 key 5
 ip addr add 10.100.200.15/24 dev ipsec0
-#ip addr add n3iwf.free5gc.org dev ipsec0
 ip link set dev ipsec0 up
