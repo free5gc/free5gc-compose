@@ -192,8 +192,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
-    image: free5gc/n3iwf-base:latest
-    #image: free5gc/n3iwf:v3.3.0
+    image: free5gc/n3iwf:v3.3.0
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -c ./config/n3iwfcfg.yaml"
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml

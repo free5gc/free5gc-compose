@@ -27,6 +27,7 @@ WORKDIR /n3iwue
 RUN mkdir -p config/
 #Install runtime dependencies + ping
 
-COPY --from=builder go/n3iwue .
+COPY --from=builder go/n3iwue/n3iwue .
+COPY --from=builder go/n3iwue/run.sh .
 
 VOLUME [ "/n3iwue/config" ]
