@@ -11,9 +11,6 @@ RUN apt-get update \
     && git clone https://github.com/free5gc/n3iwue.git \
     && cd ./n3iwue \
     && make 
-    #&& echo ${PWD}
-
-#RUN echo ${PWD} && ls
 
 FROM bitnami/minideb:bullseye
 

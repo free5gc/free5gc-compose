@@ -25,6 +25,8 @@ done
 
 docker tag free5gc-compose_free5gc-webui:latest free5gc/webui:${TAG}
 docker tag free5gc-compose_ueransim:latest free5gc/ueransim:${TAG}
+docker tag free5gc-compose_n3iwue:latest free5gc/n3iwue:${TAG}
 
 docker push free5gc/webui:${TAG}
 docker push free5gc/ueransim:${TAG}
+docker push free5gc/n3iwue:${TAG}
