@@ -33,13 +33,13 @@ configuration:
 
   # --- Nwu Interfaces ---
   IKEBindAddress: n3iwf.free5gc.org # Nwu interface  IP address (IKE) on this N3IWF
-  IPSecTunnelAddress: 10.0.0.1 # Tunnel IP address of XFRM interface on this N3IWF
-  UEIPAddressRange: 10.0.0.0/24 # IP address pool allocated to UE in IPSec tunnel
+  IPSecTunnelAddress: 10.100.200.15 # Tunnel IP address of XFRM interface on this N3IWF
+  UEIPAddressRange: 10.100.200.0/24 # IP address pool allocated to UE in IPSec tunnel
   XFRMInterfaceName: xfrmi # Prefix of XFRM interface name created by N3IWF
   XFRMInterfaceID: 1 # XFRM interface if_id for IPSec routing (Any value except to 0, default value is 7 if not defined)
 
   # --- N3 Interfaces ---
-  GTPBindAddress: n3iwf.free5gc.org # IP address of N3 interface (GTP) on this N3IWF
+  GTPBindAddress: 10.100.200.15 # IP address of N3 interface (GTP) on this N3IWF
 
   FQDN: n3iwf.free5gc.org # FQDN of this N3IWF
 

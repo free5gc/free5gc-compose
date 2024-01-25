@@ -1,0 +1,42 @@
+info:
+    version: 1.0.1
+    description: Non-3GPP UE configuration
+configuration:
+    N3IWFInformation:
+        IPSecIfaceAddr: n3iwf.free5gc.org # IP address of Nwu interface (IKE) on N3IWF
+        IPsecInnerAddr: n3iwf.free5gc.org # IP address of IPsec tunnel enpoint on N3IWF
+    N3UEInformation:
+        IMSI:
+            PLMNID: # Public Land Mobile Network ID
+                MCC: 208 # Mobile Country Code (3 digits string, digit: 0~9)
+                MNC: 93 # Mobile Network Code (2 or 3 digits string, digit: 0~9)
+            MSIN: 0000001234 # Mobile Subscriber Identification Number (max 9 or 10 digits string, digit: 0~9)
+        AMFID: cafe00 # For AMF identifier of GUAMI in AP-Parameter (hex string, 3 octets)
+        IPSecIfaceName: eth0 # Name of Nwu interface (IKE) on this N3UE
+        IPSecIfaceAddr: n3ue.free5gc.org # IP address of Nwu interface (IKE) on this N3UE
+        DnIPAddr: # IP address of domain network on this N3UE
+        XfrmiId: 1 # Default XFRM interface if_id for routing, if_id of additional xfrmi will accumulate
+        XfrmiName: ipsec # prefix of XFRM interface created
+        GreIfaceName: gretun # prefix of GRE interface created
+        IkeSaSPI: 0x000000000006f708 # IKE SA SPI (hex string, 8 octets)
+        IPSecSA3gppControlPlaneSPI: 0x00000002 # IPsec/Child SA SPI for 3GPP Control Plane (hex string, 4 octets)
+        SmPolicy: # DNN and Network Slice Requested by N3UE
+            - DNN: internet
+              SNSSAI: # Single Network Slice Selection Assistance Information
+                SST: 1 # Slice/Service Type (1 byte hex string, range: 0~F)
+                SD: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+            - DNN: internet2
+              SNSSAI: # Single Network Slice Selection Assistance Information
+                SST: 1 # Slice/Service Type (1 byte hex string, range: 0~F)
+                SD: 112233 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+        Security:
+            K: b73a90cbcf3afb622dba83c58a8415df
+            RAND: b120f1c1a0102a2f507dd543de68281f
+            SQN: 16f3b3f71005
+            AMF: 8000
+            OP: b672047e003bb952dca6cb8af0e5b779
+            OPC: df0c67868fa25f748b7044c6e7c245b8
+logger:
+    N3UE: # the kind of log output
+        debugLevel: trace # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+        ReportCaller: false # enable the caller report or not, value: true or false
