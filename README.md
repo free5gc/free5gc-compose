@@ -90,13 +90,19 @@ docker logs smf
 
 Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more troubleshooting information.
 
-## Integration with external gNB/UE simulators
+## Integration with external gNB/UE
+
+### UERANSIM Notes
 
 The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE simulator is documented [here](https://www.free5gc.org/installations/stage-3-sim-install/). 
 
 You can also refer to this [issue](https://github.com/free5gc/free5gc-compose/issues/26) to find out how you can configure the UPF to forward traffic between the [UERANSIM](https://github.com/aligungr/UERANSIM) to the DN (eg. internet) in a docker environment.
 
 This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides detailed steps that might be useful.
+
+### srsRAN Notes
+
+You can check this [issue](https://github.com/free5gc/free5gc-compose/issues/94) for some sample configuration files of srsRAN + free5GC
 
 ## Integration of WebUI with Nginx reverse proxy
 
