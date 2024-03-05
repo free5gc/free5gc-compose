@@ -1,22 +1,22 @@
 # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 digits)
-supi: 'imsi-208930000000001'
+supi: "imsi-208930000000001"
 # Mobile Country Code value of HPLMN
-mcc: '208'
+mcc: "208"
 # Mobile Network Code value of HPLMN (2 or 3 digits)
-mnc: '93'
+mnc: "93"
 
 # Permanent subscription key
-key: '8baf473f2f8fd09487cccbd7097c6862'
+key: "8baf473f2f8fd09487cccbd7097c6862"
 # Operator code (OP or OPC) of the UE
-op: '8e27b6af0e692e750f32667a3b14605d'
+op: "8e27b6af0e692e750f32667a3b14605d"
 # This value specifies the OP type and it can be either 'OP' or 'OPC'
-opType: 'OPC'
+opType: "OPC"
 # Authentication Management Field (AMF) value
-amf: '8000'
+amf: "8000"
 # IMEI number of the device. It is used if no SUPI is provided
-imei: '356938035643803'
+imei: "356938035643803"
 # IMEISV number of the device. It is used if no SUPI and IMEI is provided
-imeiSv: '4370816125816151'
+imeiSv: "4370816125816151"
 
 # List of gNB IP addresses for Radio Link Simulation
 gnbSearchList:
@@ -38,16 +38,23 @@ uacAcc:
 
 # Initial PDU sessions to be established
 sessions:
-  - type: 'IPv4'
-    apn: 'internet'
+  - type: "IPv4"
+    apn: "internet"
     slice:
       sst: 0x01
       sd: 0x010203
+  - type: "IPv4"
+    apn: "internet"
+    slice:
+      sst: 0x01
+      sd: 0x112233
 
 # Configured NSSAI for this UE by HPLMN
 configured-nssai:
   - sst: 0x01
     sd: 0x010203
+  - sst: 0x01
+    sd: 0x112233
 
 # Default Configured NSSAI for this UE
 default-nssai:
@@ -68,5 +75,5 @@ ciphering:
 
 # Integrity protection maximum data rate for user plane
 integrityMaxRate:
-  uplink: 'full'
-  downlink: 'full'
+  uplink: "full"
+  downlink: "full"

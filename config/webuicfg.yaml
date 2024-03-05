@@ -1,11 +1,16 @@
 info:
-  version: 1.0.1
+  version: 1.0.2
   description: WebUI initial local configuration
 
 configuration:
   mongodb: # the mongodb connected by this webui
     name: free5gc # name of the mongodb
     url: mongodb://db:27017 # a valid URL of the mongodb
+  nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
+  webServer:
+    scheme: http
+    ipv4Address: 0.0.0.0
+    port: 5000
   billingServer:
     hostIPv4: webui
     listenPort: 2122
