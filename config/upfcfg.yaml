@@ -3,7 +3,7 @@ description: UPF initial local configuration
 
 # The listen IP and nodeID of the N4 interface on this UPF (Can't set to 0.0.0.0)
 pfcp:
-  addr: upf.free5gc.org   # IP addr for listening
+  addr: upf.free5gc.org # IP addr for listening
   nodeID: upf.free5gc.org # External IP or FQDN can be reached
   retransTimeout: 1s # retransmission timeout
   maxRetrans: 3 # the max number of retransmission
@@ -23,6 +23,9 @@ gtpu:
 dnnList:
   - dnn: internet # Data Network Name
     cidr: 10.60.0.0/24 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+    # natifname: eth0
+  - dnn: internet # Data Network Name
+    cidr: 10.61.0.0/24 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
     # natifname: eth0
 
 logger: # log output setting
