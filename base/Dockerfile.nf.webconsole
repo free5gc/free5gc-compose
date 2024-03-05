@@ -10,7 +10,8 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY free5gc/ $GOPATH/src/free5gc/
 
 RUN cd $GOPATH/src/free5gc \
-    && apt-get sudo \
+    && apt-get update \
+    && apt-get -y install sudo \
     && make webconsole
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
