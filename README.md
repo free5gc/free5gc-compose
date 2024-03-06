@@ -94,9 +94,7 @@ Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more tro
 
 ### UERANSIM Notes
 
-The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE simulator is documented [here](https://www.free5gc.org/installations/stage-3-sim-install/). 
-
-You can also refer to this [issue](https://github.com/free5gc/free5gc-compose/issues/26) to find out how you can configure the UPF to forward traffic between the [UERANSIM](https://github.com/aligungr/UERANSIM) to the DN (eg. internet) in a docker environment.
+The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE simulator is documented [here](https://free5gc.org/guide/5-install-ueransim/).
 
 This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides detailed steps that might be useful.
 
