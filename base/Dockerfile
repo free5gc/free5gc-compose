@@ -10,10 +10,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get -y install gcc cmake autoconf libtool pkg-config libmnl-dev libyaml-dev apt-transport-https ca-certificates \
-    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash \
-    && bash -c 'source ~/.bashrc && nvm install --lts && npm install -g yarn' \
-    && bash -c 'source ~/.bashrc && ln -s $(which node) $(which yarn) /usr/bin/'
+    && apt-get -y install gcc cmake autoconf libtool pkg-config libmnl-dev libyaml-dev apt-transport-https ca-certificates
+
+# Install Nodejs20
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt update \
+    && apt install nodejs -y
 
 # Clean apt cache
 RUN apt-get clean

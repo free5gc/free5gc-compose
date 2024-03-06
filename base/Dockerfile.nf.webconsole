@@ -9,7 +9,6 @@ ENV DEBIAN_FRONTEND noninteractive
 # Get Free5GC
 COPY free5gc/ $GOPATH/src/free5gc/
 
-RUN npm install -g corepack
 RUN cd $GOPATH/src/free5gc \
     && apt-get update \
     && apt-get -y install sudo \
