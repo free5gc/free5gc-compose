@@ -12,6 +12,7 @@ configuration:
     ipv4Address: 0.0.0.0
     port: 5000
   billingServer:
+    enable: true
     hostIPv4: webui
     listenPort: 2122
     port: 2121
