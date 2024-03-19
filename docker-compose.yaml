@@ -236,10 +236,11 @@ services:
   ueransim:
     container_name: ueransim
     image: free5gc/ueransim:latest
-    command: ./nr-gnb -c ./config/gnbcfg.yaml
+    command: ./nr-gnb-ue.sh
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
       - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+      - ./config/nr-gnb-ue.sh:/ueransim/nr-gnb-ue.sh
     cap_add:
       - NET_ADMIN
     devices:
