@@ -213,7 +213,7 @@ services:
 
   free5gc-webui:
     container_name: webui
-    image: free5gc/webui:v3.3.0
+    image: free5gc/webui:v3.4.0
     command: ./webui -c ./config/webuicfg.yaml
     expose:
       - "2122"
