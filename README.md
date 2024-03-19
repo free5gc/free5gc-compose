@@ -96,6 +96,8 @@ Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more tro
 
 The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE simulator is documented [here](https://free5gc.org/guide/5-install-ueransim/).
 
+In order to run UERASIM, make sure you have a subscriber. Follow the steps [here](https://free5gc.org/guide/Webconsole/Create-Subscriber-via-webconsole/#4-open-webconsole). Make sure that the field `supi` field on `config/uecfg.yaml` has the same value as the `UE ID` of the subscriber you have just created. If they differ, change the `supi` field value by the one from the `UE ID`.
+
 This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides detailed steps that might be useful.
 
 ### srsRAN Notes
