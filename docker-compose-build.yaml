@@ -266,6 +266,7 @@ services:
       - "5000:5000"
     depends_on:
       - db
+      - free5gc-nrf
 
   ueransim:
     container_name: ueransim

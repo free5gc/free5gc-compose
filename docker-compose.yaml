@@ -232,6 +232,7 @@ services:
       - "2121:2121"
     depends_on:
       - db
+      - free5gc-nrf
 
   ueransim:
     container_name: ueransim
