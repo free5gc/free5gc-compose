@@ -76,7 +76,7 @@ docker compose rm
 Sometimes, you need to drop data from DB:
 
 ```bash
-docker exec -it mongodb mongo
+docker exec -it mongodb mongosh
 > use free5gc
 > db.dropDatabase()
 > exit # (Or Ctrl-D)
