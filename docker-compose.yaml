@@ -172,7 +172,7 @@ services:
 
   free5gc-chf:
     container_name: chf
-    image: free5gc/chf@v3.4.1
+    image: free5gc/chf:v3.4.1
     command: ./chf -c ./config/chfcfg.yaml
     expose:
       - "8000"
