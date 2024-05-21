@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   free5gc-upf:
@@ -36,6 +36,7 @@ services:
       - "8000"
     volumes:
       - ./config/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -54,6 +55,7 @@ services:
       - "8000"
     volumes:
       - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -71,6 +73,7 @@ services:
       - "8000"
     volumes:
       - ./config/ausfcfg.yaml:/free5gc/config/ausfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -88,6 +91,7 @@ services:
       - "8000"
     volumes:
       - ./config/nssfcfg.yaml:/free5gc/config/nssfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -105,6 +109,7 @@ services:
       - "8000"
     volumes:
       - ./config/pcfcfg.yaml:/free5gc/config/pcfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -123,6 +128,7 @@ services:
     volumes:
       - ./config/smfcfg.yaml:/free5gc/config/smfcfg.yaml
       - ./config/uerouting.yaml:/free5gc/config/uerouting.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -141,6 +147,7 @@ services:
       - "8000"
     volumes:
       - ./config/udmcfg.yaml:/free5gc/config/udmcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -159,6 +166,7 @@ services:
       - "8000"
     volumes:
       - ./config/udrcfg.yaml:/free5gc/config/udrcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -178,6 +186,7 @@ services:
       - "8000"
     volumes:
       - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -216,7 +225,6 @@ services:
     image: free5gc/webui:v3.4.1
     command: ./webui -c ./config/webuicfg.yaml
     expose:
-      - "2122"
       - "2121"
     volumes:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
@@ -252,7 +260,7 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
-    
+
   n3iwue:
     container_name: n3iwue
     image: free5gc/n3iwue:latest
@@ -262,7 +270,7 @@ services:
     cap_add:
       - NET_ADMIN
     devices:
-      - "/dev/net/tun"  
+      - "/dev/net/tun"
     networks:
       privnet:
         aliases:

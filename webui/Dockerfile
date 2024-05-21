@@ -24,5 +24,5 @@ VOLUME [ "/free5gc/config" ]
 
 # WebUI uses the port 5000
 EXPOSE 5000
-# BillingDomain uses the port 2122 as FTP
-EXPOSE 2122
+# BillingDomain uses the port 2121 as FTP
+EXPOSE 2121

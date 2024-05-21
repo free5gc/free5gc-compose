@@ -9,6 +9,11 @@ ENV DEBIAN_FRONTEND noninteractive
 # Get Free5GC
 COPY free5gc/ $GOPATH/src/free5gc/
 
+# # Install Nodejs20
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt update \
+    && apt install nodejs -y
+
 RUN cd $GOPATH/src/free5gc \
     && apt-get update \
     && apt-get -y install sudo \

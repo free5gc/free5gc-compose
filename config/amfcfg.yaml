@@ -44,6 +44,7 @@ configuration:
   supportDnnList:  # the DNN (Data Network Name) list supported by this AMF
     - internet
   nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
+  nrfCertPem: cert/nrf.pem
   security:  # NAS security parameters
     integrityOrder: # the priority of integrity algorithms
       - NIA2
