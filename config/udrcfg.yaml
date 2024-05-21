@@ -15,6 +15,7 @@ configuration:
     name: free5gc # Database name in MongoDB
     url: mongodb://db:27017 # URL of MongoDB
   nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
+  nrfCertPem: cert/nrf.pem
 
 logger: # log output setting
   enable: true # true or false

@@ -25,8 +25,8 @@ configuration:
   volumeThresholdRate: 0.8
   cgf:
     hostIPv4: webui
-    port: 2122
-    listenPort: 2121
+    port: 2121
+    listenPort: 2122
     tls:
       pem: cert/chf.pem
       key: cert/chf.key

@@ -7,6 +7,7 @@ configuration:
     name: free5gc # name of the mongodb
     url: mongodb://db:27017 # a valid URL of the mongodb
   nrfUri: http://nrf.free5gc.org:8000 # a valid URI of NRF
+  nrfCertPem: cert/nrf.pem
   webServer:
     scheme: http
     ipv4Address: 0.0.0.0
@@ -14,8 +15,8 @@ configuration:
   billingServer:
     enable: true
     hostIPv4: webui
-    listenPort: 2122
-    port: 2121
+    listenPort: 2121
+    port: 2122
     tls:
       pem: cert/chf.pem
       key: cert/chf.key

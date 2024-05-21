@@ -27,3 +27,7 @@ VOLUME [ "/free5gc/cert" ]
 
 # Exposed ports
 EXPOSE 8000
+
+# CGF FTP server listen on port 2122 
+# Webui billingDomain FTP server use 2121
+EXPOSE 2122
