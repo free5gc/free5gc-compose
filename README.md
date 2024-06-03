@@ -140,9 +140,13 @@ For Linux kernel version below 5.4 you can setup a working environment using a v
 Please refer to [GTP5G kernel module](https://github.com/free5gc/gtp5g) for more information.
 
 ## ULCL Configuration 
-You can check the following informations below:
-- [ulcl-example branch](https://github.com/free5gc/free5gc-compose/tree/ulcl-example), or
-- [patch file](https://github.com/ianchen0119/free5gc-compose-ulcl)
+To start the core with a i-UPF and two PSA UPFs ULCL configuration, use
+
+```bash
+docker compose -f docker-compose-ulcl.yaml up
+```
+
+Check out the used configuration files at `config/ULCL`.
 
 ## Reference
 - https://github.com/open5gs/nextepc/tree/master/docker
