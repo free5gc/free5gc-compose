@@ -103,7 +103,7 @@ By default, the provided UERANSIM service on this `docker-compose.yaml` will onl
 1. Create a subscriber through the WebUI. Follow the steps [here](https://free5gc.org/guide/Webconsole/Create-Subscriber-via-webconsole/#4-open-webconsole)
 1. Copy the `UE ID` field
 1. Change the value of `supi` in `config/uecfg.yaml` to the UE ID that you just copied
-1. Change the `linkIp` in `config/gnbcfg.yaml` and the `gnbSearchList` in `config/uecfg.yaml` to a value other than localhost (e.g., `gnb.free5gc.org`) to enable communication between the services
+1. Change the `linkIp` in `config/gnbcfg.yaml` to `gnb.free5gc.org` (which is also present in the `gnbSearchList` in `config/uecfg.yaml`) to enable communication between the UE and gNB services
 1. Add an UE service on `docker-compose.yaml` as it follows:
 
 ~~~yaml
