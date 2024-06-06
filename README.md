@@ -98,6 +98,17 @@ The integration with the [UERANSIM](https://github.com/aligungr/UERANSIM) eNB/UE
 
 This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides detailed steps that might be useful.
 
+#### Option 1: Run UE inside gNB container
+
+You can launch a UE using:
+
+```console
+docker exec -it ueransim bash
+root@host:/ueransim# ./nr-ue -c config/uecfg.yaml
+```
+
+#### Option 2: Run UE on a separate container
+
 By default, the provided UERANSIM service on this `docker-compose.yaml` will only act as a gNB. If you want to create a UE you'll need to:
 
 1. Create a subscriber through the WebUI. Follow the steps [here](https://free5gc.org/guide/Webconsole/Create-Subscriber-via-webconsole/#4-open-webconsole)
@@ -106,7 +117,7 @@ By default, the provided UERANSIM service on this `docker-compose.yaml` will onl
 1. Change the `linkIp` in `config/gnbcfg.yaml` to `gnb.free5gc.org` (which is also present in the `gnbSearchList` in `config/uecfg.yaml`) to enable communication between the UE and gNB services
 1. Add an UE service on `docker-compose.yaml` as it follows:
 
-~~~yaml
+```yaml
   ue:
     container_name: ue
     image: free5gc/ueransim:latest
@@ -123,7 +134,7 @@ By default, the provided UERANSIM service on this `docker-compose.yaml` will onl
           - ue.free5gc.org
     depends_on:
       - ueransim
-~~~
+```
 
 5. Run `docker-compose.yaml`
 
