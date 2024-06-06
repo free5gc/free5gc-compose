@@ -90,7 +90,7 @@ docker logs smf
 
 Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more troubleshooting information.
 
-## Integration with external gNB/UE
+## Integration with (external) gNB/UE
 
 ### UERANSIM Notes
 
@@ -101,9 +101,10 @@ This [issue](https://github.com/free5gc/free5gc-compose/issues/28) provides deta
 By default, the provided UERANSIM service on this `docker-compose.yaml` will only act as a gNB. If you want to create a UE you'll need to:
 
 1. Create a subscriber through the WebUI. Follow the steps [here](https://free5gc.org/guide/Webconsole/Create-Subscriber-via-webconsole/#4-open-webconsole)
-2. Copy the `UE ID` field
-3. Change the value of `supi` on `config/uecfg.yaml` to the UE ID that you just copied
-4. Add an UE service on `docker-compose.yaml` as it follows:
+1. Copy the `UE ID` field
+1. Change the value of `supi` in `config/uecfg.yaml` to the UE ID that you just copied
+1. Change the `linkIp` in `config/gnbcfg.yaml` to `gnb.free5gc.org` (which is also present in the `gnbSearchList` in `config/uecfg.yaml`) to enable communication between the UE and gNB services
+1. Add an UE service on `docker-compose.yaml` as it follows:
 
 ~~~yaml
   ue:
