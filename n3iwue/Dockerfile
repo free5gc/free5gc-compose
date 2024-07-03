@@ -1,4 +1,4 @@
-FROM golang:1.18.10-bullseye AS builder
+FROM golang:1.21.10-bullseye AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
