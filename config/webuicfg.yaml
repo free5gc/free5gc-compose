@@ -1,5 +1,5 @@
 info:
-  version: 1.0.2
+  version: 1.0.3
   description: WebUI initial local configuration
 
 configuration:
@@ -16,6 +16,10 @@ configuration:
     enable: true
     hostIPv4: webui
     listenPort: 2121
+    portRange: # passive port range
+      start: 2123
+      end: 2130
+    basePath: /tmp/webconsole
     port: 2122
     tls:
       pem: cert/chf.pem
