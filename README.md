@@ -148,7 +148,7 @@ Here you can find helpful guidelines on the integration of Nginx reverse proxy t
 
 ## ULCL Configuration
 
-To start the core with a i-UPF and two PSA UPFs ULCL configuration, use
+To start the core with a I-UPF and PSA-UPF ULCL configuration, use
 
 ```bash
 docker compose -f docker-compose-ulcl.yaml up
