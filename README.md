@@ -82,7 +82,7 @@ docker exec -it mongodb mongosh
 > exit # (Or Ctrl-D)
 ```
 
-You can see logs for each service using `docker logs` command. For example, to access the logs of the *SMF* you can use:
+You can see logs for each service using `docker logs` command. For example, to access the logs of the _SMF_ you can use:
 
 ```console
 docker logs smf
@@ -118,22 +118,22 @@ By default, the provided UERANSIM service on this `docker-compose.yaml` will onl
 1. Add an UE service on `docker-compose.yaml` as it follows:
 
 ```yaml
-  ue:
-    container_name: ue
-    image: free5gc/ueransim:latest
-    command: ./nr-ue -c ./config/uecfg.yaml
-    volumes:
-      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - "/dev/net/tun"
-    networks:
-      privnet:
-        aliases:
-          - ue.free5gc.org
-    depends_on:
-      - ueransim
+ue:
+  container_name: ue
+  image: free5gc/ueransim:latest
+  command: ./nr-ue -c ./config/uecfg.yaml
+  volumes:
+    - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+  cap_add:
+    - NET_ADMIN
+  devices:
+    - "/dev/net/tun"
+  networks:
+    privnet:
+      aliases:
+        - ue.free5gc.org
+  depends_on:
+    - ueransim
 ```
 
 5. Run `docker-compose.yaml`
@@ -146,17 +146,19 @@ You can check this [issue](https://github.com/free5gc/free5gc-compose/issues/94)
 
 Here you can find helpful guidelines on the integration of Nginx reverse proxy to set it in front of the WebUI: https://github.com/free5gc/free5gc-compose/issues/55#issuecomment-1146648600
 
-## ULCL Configuration 
+## ULCL Configuration
+
 To start the core with a i-UPF and two PSA UPFs ULCL configuration, use
 
 ```bash
 docker compose -f docker-compose-ulcl.yaml up
 ```
 
-> Note: This configuration have been tested using release [free5gc-compose v3.4.1](https://github.com/free5gc/free5gc-compose/tree/v3.4.1)
+> Note: This configuration have been tested using release [free5gc-compose v.3.4.2](https://github.com/free5gc/free5gc-compose/tree/v.3.4.2)
 
 Check out the used configuration files at `config/ULCL`.
 
 ## Reference
+
 - https://github.com/open5gs/nextepc/tree/master/docker
 - https://github.com/abousselmi/docker-free5gc
