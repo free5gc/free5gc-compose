@@ -219,7 +219,30 @@ services:
       - free5gc-amf
       - free5gc-smf
       - free5gc-upf
-
+  free5gc-tngf:
+    container_name: tngf
+    build:
+      context: ./nf_tngf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./tngf -c ./config/tngfcfg.yaml
+    volumes:
+      - ./config/tngfcfg.yaml:/free5gc/config/tngfcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.16
+        aliases:
+          - tngf.free5gc.org
+    depends_on:
+      - free5gc-amf
+      - free5gc-smf
+      - free5gc-upf
+      
   free5gc-webui:
     container_name: webui
     image: free5gc/webui:v3.4.2
