@@ -254,6 +254,34 @@ services:
       - free5gc-smf
       - free5gc-upf
 
+  free5gc-tngf:
+    container_name: tngf
+    build:
+      context: ./nf_tngf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./tngf -c ./config/tngfcfg.yaml
+    volumes:
+      - ./config/tngfcfg.yaml:/free5gc/config/tngfcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.16
+        aliases:
+          - tngf.free5gc.org
+    ports: 
+      - "1812:1812/udp"
+      - "500:500/udp"
+      - "4500:4500/udp"
+    depends_on:
+      - free5gc-amf
+      - free5gc-smf
+      - free5gc-upf
+
   free5gc-webui:
     container_name: webui
     build:
@@ -323,6 +351,7 @@ networks:
         - subnet: 10.100.200.0/24
     driver_opts:
       com.docker.network.bridge.name: br-free5gc
+  
 
 volumes:
   dbdata:
