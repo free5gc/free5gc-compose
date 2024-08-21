@@ -39,7 +39,7 @@ configuration:
   XFRMInterfaceName: xfrmi # Prefix of XFRM interface name created by TNGF
   XFRMInterfaceID: 1 # XFRM interface if_id for IPSec routing (Any value except to 0, default value is 7 if not defined)
 
-  #GTPBindAddress: 10.200.200.2 # IP address of N3 interface (GTP) on this TNGF
+  # --- N3 Interfaces ---
   GTPBindAddress: 10.100.200.16 # IP address of N3 interface (GTP) on this TNGF
 
   FQDN: tngf.free5gc.org # FQDN of this TNGF
