@@ -219,12 +219,10 @@ services:
       - free5gc-amf
       - free5gc-smf
       - free5gc-upf
+
   free5gc-tngf:
     container_name: tngf
-    build:
-      context: ./nf_tngf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/tngf:latest
     command: ./tngf -c ./config/tngfcfg.yaml
     volumes:
       - ./config/tngfcfg.yaml:/free5gc/config/tngfcfg.yaml
