@@ -60,6 +60,7 @@ services:
       GIN_MODE: release
     networks:
       privnet:
+        ipv4_address: 10.100.200.16
         aliases:
           - amf.free5gc.org
     depends_on:
@@ -231,15 +232,7 @@ services:
       GIN_MODE: release
     cap_add:
       - NET_ADMIN
-    networks:
-      privnet:
-        ipv4_address: 10.100.200.16
-        aliases:
-          - tngf.free5gc.org
-    ports: 
-      - "1812:1812/udp"
-      - "500:500/udp"
-      - "4500:4500/udp"
+    network_mode: host
     depends_on:
       - free5gc-amf
       - free5gc-smf
