@@ -26,13 +26,13 @@ configuration:
 
   AMFSCTPAddresses: # the IP list of N2 interfaces (SCTP) on AMF when using NGAP
     - IP:
-        - amf.free5gc.org
+        - 10.100.200.16
       Port: 38412
   NASTCPPort: 20000 # TCP port which the NAS listens on
 
   # --- Bind Interfaces ---
-  IKEBindAddress: 10.100.200.16  # IP address of Nwu interface (IKE) on this TNGF
-  RadiusBindAddress: 10.100.200.16 # IP address of Nwu interface (IKE) on this TNGF
+  IKEBindAddress: 192.168.1.103  # IP address of Nwu interface (IKE) on this TNGF
+  RadiusBindAddress: 192.168.1.103 # IP address of Nwu interface (IKE) on this TNGF
   IPSecInterfaceAddress: 10.0.0.1 # IP address of IPSec virtual interface (IPsec tunnel enpoint on this TNGF)
   IPSecTunnelAddress: 10.0.0.1 # Tunnel IP address of XFRM interface on this TNGF
   UEIPAddressRange: 10.0.0.0/24 # IP address allocated to UE in IPSec tunnel
@@ -40,7 +40,7 @@ configuration:
   XFRMInterfaceID: 1 # XFRM interface if_id for IPSec routing (Any value except to 0, default value is 7 if not defined)
 
   # --- N3 Interfaces ---
-  GTPBindAddress: 10.100.200.16 # IP address of N3 interface (GTP) on this TNGF
+  GTPBindAddress: 192.168.1.103 # IP address of N3 interface (GTP) on this TNGF
 
   FQDN: tngf.free5gc.org # FQDN of this TNGF
 
