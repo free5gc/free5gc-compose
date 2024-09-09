@@ -3,8 +3,8 @@ info:
     description: Non-3GPP UE configuration
 configuration:
     N3IWFInformation:
-        IPSecIfaceAddr: n3iwf.free5gc.org # IP address of Nwu interface (IKE) on N3IWF
-        IPsecInnerAddr: n3iwf.free5gc.org # IP address of IPsec tunnel enpoint on N3IWF
+        IPSecIfaceAddr: 10.100.200.15 # IP address of Nwu interface (IKE) on N3IWF
+        IPsecInnerAddr: 10.0.0.1 # IP address of IPsec tunnel enpoint on N3IWF
     N3UEInformation:
         IMSI:
             PLMNID: # Public Land Mobile Network ID
@@ -13,7 +13,7 @@ configuration:
             MSIN: 0000001234 # Mobile Subscriber Identification Number (max 9 or 10 digits string, digit: 0~9)
         AMFID: cafe00 # For AMF identifier of GUAMI in AP-Parameter (hex string, 3 octets)
         IPSecIfaceName: eth0 # Name of Nwu interface (IKE) on this N3UE
-        IPSecIfaceAddr: n3ue.free5gc.org # IP address of Nwu interface (IKE) on this N3UE
+        IPSecIfaceAddr: 10.100.200.203 # IP address of Nwu interface (IKE) on this N3UE
         DnIPAddr: # IP address of domain network on this N3UE
         XfrmiId: 1 # Default XFRM interface if_id for routing, if_id of additional xfrmi will accumulate
         XfrmiName: ipsec # prefix of XFRM interface created

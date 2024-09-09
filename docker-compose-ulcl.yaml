@@ -31,7 +31,7 @@ services:
 
   db:
     container_name: mongodb
-    image: mongo
+    image: mongo:3.6.0
     command: mongod --port 27017 --quiet
     expose:
       - "27017"
@@ -268,7 +268,7 @@ services:
   #n3iwue:
   #  container_name: n3iwue
   #  image: free5gc/n3iwue:latest
-  #  command: sleep infinity
+  #  command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
   #  volumes:
   #    - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
   #  cap_add:
@@ -277,6 +277,7 @@ services:
   #    - "/dev/net/tun"
   #  networks:
   #    privnet:
+  #      ipv4_address: 10.100.200.203
   #      aliases:
   #        - n3ue.free5gc.org
   #  depends_on:
