@@ -22,7 +22,7 @@ services:
     expose:
       - "27017"
     volumes:
-      - dbdata:/tmp/db
+      - dbdata:/data/db
     networks:
       privnet:
         aliases:
