@@ -17,12 +17,12 @@ services:
 
   db:
     container_name: mongodb
-    image: mongo:3.6.0
+    image: mongo:3.6.8
     command: mongod --port 27017
     expose:
       - "27017"
     volumes:
-      - dbdata:/data/db
+      - dbdata:/tmp/db
     networks:
       privnet:
         aliases:
@@ -237,7 +237,7 @@ services:
       - free5gc-amf
       - free5gc-smf
       - free5gc-upf
-      
+
   free5gc-webui:
     container_name: webui
     image: free5gc/webui:v3.4.2

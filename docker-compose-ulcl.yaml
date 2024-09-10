@@ -31,12 +31,12 @@ services:
 
   db:
     container_name: mongodb
-    image: mongo:3.6.0
+    image: mongo:3.6.8
     command: mongod --port 27017 --quiet
     expose:
       - "27017"
     volumes:
-      - dbdata:/data/db
+      - dbdata:/tmp/db
     networks:
       privnet:
         aliases:
