@@ -13,3 +13,13 @@ ueRoutingInfo: # the list of UE routing information
         B: I-UPF
       - A: I-UPF
         B: PSA-UPF
+    specificPath:
+      - dest: 1.0.0.1/32
+        path: [I-UPF]
+
+pfdDataForApp: # PFDs for an Application
+  - applicationId: app1 # Application identifier
+    pfds: # PFDs for the Application
+      - pfdID: pfd1 # PFD identifier
+        flowDescriptions: # Represents a 3-tuple with protocol, server ip and server port for UL/DL application traffic
+          - permit out ip from 1.0.0.1/32 to 10.60.0.0/16
