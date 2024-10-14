@@ -73,22 +73,7 @@ docker compose rm
 
 ## Troubleshooting
 
-Sometimes, you need to drop data from DB:
-
-```bash
-docker exec -it mongodb mongosh
-> use free5gc
-> db.dropDatabase()
-> exit # (Or Ctrl-D)
-```
-
-You can see logs for each service using `docker logs` command. For example, to access the logs of the _SMF_ you can use:
-
-```console
-docker logs smf
-```
-
-Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more troubleshooting information.
+Please refer to the [Troubleshooting](./TROUBLESHOOTING.md) for more troubleshooting information.
 
 ## Integration with (external) gNB/UE
 
