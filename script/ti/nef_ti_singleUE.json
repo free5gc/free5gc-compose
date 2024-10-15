@@ -1,0 +1,15 @@
+{
+	"afServiceId": "Service1",
+	"AfAppId": "app1",
+	"dnn": "internet",
+	"snssai": {
+		"sst": 1,
+		"sd": "010203"
+	},
+	"ipv4Addr": "10.60.0.1",
+	"notificationDestination": "http://af:8000/test123",
+	"trafficRoutes": [{
+		"dnai": "mec"
+	}],
+	"suppFeat": "01"
+}
