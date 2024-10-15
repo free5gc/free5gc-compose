@@ -238,6 +238,25 @@ services:
       - free5gc-smf
       - free5gc-upf
 
+  free5gc-nef:
+    container_name: nef
+    image: free5gc/nef:latest
+    command: ./nef -c ./config/nefcfg.yaml
+    expose:
+      - "8000"
+    volumes: 
+      - ./config/nefcfg.yaml:/free5gc/config/nefcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - nef.free5gc.org
+    depends_on:
+      - db
+      - free5gc-nrf
+
   free5gc-webui:
     container_name: webui
     image: free5gc/webui:v3.4.3
