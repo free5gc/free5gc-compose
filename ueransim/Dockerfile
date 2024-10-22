@@ -2,7 +2,7 @@ FROM gcc:9.4.0 AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
 RUN apt-get update \
@@ -16,7 +16,7 @@ RUN apt-get update \
 
 FROM bitnami/minideb:bullseye
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install runtime dependencies + ping
 RUN apt-get update \

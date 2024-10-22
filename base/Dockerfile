@@ -6,7 +6,7 @@ FROM golang:1.21.8-bullseye AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
 RUN apt-get update \

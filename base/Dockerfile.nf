@@ -2,9 +2,9 @@
 # Dockerfile responsible to compile specific NF from free5gc sources on the host
 #
 
-FROM free5gc/base as my-base
+FROM free5gc/base AS my-base
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ARG F5GC_MODULE
 
 # Get Free5GC
@@ -20,7 +20,7 @@ WORKDIR /free5gc
 RUN mkdir -p cert/ public
 
 # Copy executables
-COPY --from=my-base /go/src/free5gc/bin/${F5GC_MODULE} ./
+COPY --from=my-base /go/src/free5gc/bin/ ./
 
 # Copy configuration files (not used for now)
 COPY --from=my-base /go/src/free5gc/config/* ./config/
