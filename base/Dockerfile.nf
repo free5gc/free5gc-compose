@@ -16,11 +16,13 @@ RUN cd $GOPATH/src/free5gc \
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
 FROM alpine:3.15
 
+ARG F5GC_MODULE
+
 WORKDIR /free5gc
 RUN mkdir -p cert/ public
 
 # Copy executables
-COPY --from=my-base /go/src/free5gc/bin/ ./
+COPY --from=my-base /go/src/free5gc/bin/${F5GC_MODULE} ./
 
 # Copy configuration files (not used for now)
 COPY --from=my-base /go/src/free5gc/config/* ./config/
