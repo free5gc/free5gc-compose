@@ -50,6 +50,7 @@ services:
       - "8000"
     volumes:
       - ./config/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -68,6 +69,7 @@ services:
       - "8000"
     volumes:
       - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -85,6 +87,7 @@ services:
       - "8000"
     volumes:
       - ./config/ausfcfg.yaml:/free5gc/config/ausfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -102,6 +105,7 @@ services:
       - "8000"
     volumes:
       - ./config/nssfcfg.yaml:/free5gc/config/nssfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -119,6 +123,7 @@ services:
       - "8000"
     volumes:
       - ./config/pcfcfg.yaml:/free5gc/config/pcfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -137,6 +142,7 @@ services:
     volumes:
       - ./config/ULCL/smfcfg.yaml:/free5gc/config/smfcfg.yaml
       - ./config/ULCL/uerouting.yaml:/free5gc/config/uerouting.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -156,6 +162,7 @@ services:
       - "8000"
     volumes:
       - ./config/udmcfg.yaml:/free5gc/config/udmcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
     networks:
@@ -174,6 +181,7 @@ services:
       - "8000"
     volumes:
       - ./config/udrcfg.yaml:/free5gc/config/udrcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -193,6 +201,7 @@ services:
       - "8000"
     volumes:
       - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
