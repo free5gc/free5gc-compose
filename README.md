@@ -6,7 +6,7 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 ## Prerequisites
 
-- [GTP5G kernel module](https://github.com/free5gc/gtp5g): needed to run the UPF
+- [GTP5G kernel module](https://github.com/free5gc/gtp5g): needed to run the UPF (Currently, UPF only supports GTP5G versions between 0.8.6 and 0.8.10 (use git clone --branch v0.8.10 --depth 1 https://github.com/free5gc/gtp5g.git).)
 - [Docker Engine](https://docs.docker.com/engine/install): needed to run the Free5GC containers
 - [Docker Compose v2](https://docs.docker.com/compose/install): needed to bootstrap the free5GC stack
 
