@@ -4,7 +4,7 @@ FROM alpine:3.15
 LABEL description="Free5GC open source 5G Core Network" \
     version="Stage 3"
 
-ENV F5GC_MODULE pcf
+ENV F5GC_MODULE=pcf
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
