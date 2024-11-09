@@ -66,6 +66,27 @@ services:
     depends_on:
       - free5gc-nrf
 
+  free5gc-aanf:
+    container_name: aanf
+    build:
+      context: .
+      dockerfile: ./nf_aanf/Dockerfile # Specify the local Dockerfile to build the AAnF image
+    image: free5gc/aanf:local
+    command: ./aanf -c ./config/aanfcfg.yaml
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config/aanfcfg.yaml:/free5gc/config/aanfcfg.yaml:ro # Mount config file as read-only
+      - ./cert:/free5gc/cert:ro # Mount cert directory as read-only
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.17
+    depends_on:
+      - free5gc-amf
+      - free5gc-udm
+
   free5gc-ausf:
     container_name: ausf
     image: free5gc/ausf:v3.4.3

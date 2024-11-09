@@ -1,0 +1,27 @@
+info:
+  version: 1.0.0
+  description: AAnF initial local configuration
+
+configuration:
+  sbi:
+    scheme: http
+    registerIPv4: aanf.free5gc.org
+    bindingIPv4: aanf.free5gc.org
+    port: 8000
+    tls:
+      pem: cert/aanf.pem
+      key: cert/aanf.key
+  serviceNameList:
+    - naanf-auth
+  nrfUri: http://nrf.free5gc.org:8000
+  nrfCertPem: cert/nrf.pem
+  plmnSupportList:
+    - mcc: 208
+      mnc: 93
+  groupId: aanfGroup001
+  eapAkaSupiImsiPrefix: false
+
+logger:
+  enable: true
+  level: info
+  reportCaller: false
