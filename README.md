@@ -139,7 +139,7 @@ To start the core with a I-UPF and PSA-UPF ULCL configuration, use
 docker compose -f docker-compose-ulcl.yaml up
 ```
 
-> Note: This configuration have been tested using release [free5gc-compose v3.4.3](https://github.com/free5gc/free5gc-compose/tree/v3.4.3)
+> Note: This configuration have been tested using release [free5gc-compose v3.4.4](https://github.com/free5gc/free5gc-compose/tree/v3.4.4)
 
 Check out the used configuration files at `config/ULCL`.
 
