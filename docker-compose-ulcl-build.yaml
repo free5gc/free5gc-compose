@@ -255,7 +255,7 @@ services:
     command: ./nef -c ./config/nefcfg.yaml
     expose:
       - "8000"
-    volumes: 
+    volumes:
       - ./config/nefcfg.yaml:/free5gc/config/nefcfg.yaml
       - ./cert:/free5gc/cert
     environment:
