@@ -1,4 +1,4 @@
-FROM free5gc/base as my-base
+FROM free5gc/base AS my-base
 
 RUN git clone https://github.com/free5gc/go-gtp5gnl.git && mkdir "go-gtp5gnl/bin" && \
     cd "go-gtp5gnl/cmd/gogtp5g-tunnel" &&  go build -o "${GOPATH}/gtp5g-tunnel" . && \
@@ -10,8 +10,8 @@ FROM bitnami/minideb:bullseye
 LABEL description="free5GC open source 5G Core Network" \
     version="Stage 3"
 
-ENV F5GC_MODULE upf
-ENV DEBIAN_FRONTEND noninteractive
+ENV F5GC_MODULE=upf
+ENV DEBIAN_FRONTEND=noninteractive
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)

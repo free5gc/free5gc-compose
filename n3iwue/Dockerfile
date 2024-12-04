@@ -2,7 +2,7 @@ FROM golang:1.21.10-bullseye AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
 RUN apt-get update \
@@ -14,7 +14,7 @@ RUN apt-get update \
 
 FROM bitnami/minideb:bullseye
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get install libsctp-dev lksctp-tools iproute2 iputils-ping procps psmisc tcpdump sudo -y \
