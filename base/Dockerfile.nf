@@ -2,9 +2,9 @@
 # Dockerfile responsible to compile specific NF from free5gc sources on the host
 #
 
-FROM free5gc/base as my-base
+FROM free5gc/base AS my-base
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ARG F5GC_MODULE
 
 # Get Free5GC
@@ -15,6 +15,8 @@ RUN cd $GOPATH/src/free5gc \
 
 # Alpine is used for debug purpose. You can use scratch for a smaller footprint.
 FROM alpine:3.15
+
+ARG F5GC_MODULE
 
 WORKDIR /free5gc
 RUN mkdir -p cert/ public

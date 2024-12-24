@@ -4,8 +4,8 @@ FROM bitnami/minideb:bullseye
 LABEL description="Free5GC open source 5G Core Network" \
     version="Stage 3"
 
-ENV F5GC_MODULE webui
-ENV DEBIAN_FRONTEND noninteractive
+ENV F5GC_MODULE=webui
+ENV DEBIAN_FRONTEND=noninteractive
 ARG DEBUG_TOOLS
 
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
