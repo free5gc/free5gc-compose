@@ -1,6 +1,8 @@
 name: Release Docker images
 
 on:
+  schedule:
+    - cron: '14 18 * * *' # UTC 18:14 (Local 02:14)
   push:
     tags: [ 'v*.*.*' ]
     branches:
