@@ -4,10 +4,12 @@ LABEL maintainer="Free5GC <support@free5gc.org>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ARG TARGET_ARCH=x86_64
+
 # Install dependencies
 RUN apt-get update \
     && apt-get install libsctp-dev lksctp-tools iproute2 -y \
-    && wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-`uname -m`.sh -O cmake_installer.sh \
+    && wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-${TARGET_ARCH}.sh -O cmake_installer.sh \
     && chmod +x cmake_installer.sh \
     && ./cmake_installer.sh --skip-license \
     && git clone -b master -j `nproc` https://github.com/aligungr/UERANSIM \
