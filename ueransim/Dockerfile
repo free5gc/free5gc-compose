@@ -4,7 +4,8 @@ LABEL maintainer="Free5GC <support@free5gc.org>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG TARGET_ARCH=x86_64
+ARG TARGET_ARCH=x86_64 
+# TARGET_ARCH support : x86_64, aarch64(arm64)
 
 # Install dependencies
 RUN apt-get update \
