@@ -1,6 +1,6 @@
 #!/bin/bash
-TAG=${1-"latest"}
-ARCH=${2 - "x86_64"}
+ARCH=${1-"x86_64"}
+TAG=${2-"latest"}
 
 NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef"
 

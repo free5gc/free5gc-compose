@@ -42,7 +42,7 @@ jobs:
 
     - name: Build NF's images
       if: startsWith(github.ref, 'refs/tags/')
-      run: ./script/release.sh ${{ steps.tag.outputs.result }}
+      run: ./script/release.sh x86_64 ${{ steps.tag.outputs.result }}
 
     - name: Build NF's images
       if: github.ref == 'refs/heads/master'
