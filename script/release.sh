@@ -16,7 +16,7 @@ fi;
 cd -
 
 make all
-if [ "ARCH" == "aarch64" ]; then
+if [ ${ARCH} == "aarch64" ]; then
     docker compose -f docker-compose-build.yaml build --build-arg TARGET_ARCH=${ARCH}
 else
     docker compose -f docker-compose-build.yaml build
