@@ -3,35 +3,38 @@ ARCH=${1-"x86_64"}
 TAG=${2-"latest"}
 
 NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef"
+ADDITIONAL_IMAGES="webui ueransim n3iwue"
 
 cd base
 
-if [ 'xlatest' == "x$TAG" ]; then
-    git clone --recursive -j `nproc` https://github.com/free5gc/free5gc.git
+if [ "xlatest" == "x$TAG" ]; then
+    git clone --recursive -j "$(nproc)" https://github.com/free5gc/free5gc.git
 else
-    TAG=`echo "$TAG" | sed -e "s/refs\/tags\///g"`
-    git clone --recursive -b ${TAG} -j `nproc` https://github.com/free5gc/free5gc.git
-fi;
+    TAG=$(echo "$TAG" | sed -e "s/refs\/tags\///g")
+    git clone --recursive -b "${TAG}" -j "$(nproc)" https://github.com/free5gc/free5gc.git
+fi
 
 cd -
 
 make all
-if [ ${ARCH} == "aarch64" ]; then
-    docker compose -f docker-compose-build.yaml build --build-arg TARGET_ARCH=${ARCH}
+
+# Build images for the specified architecture
+if [ "$ARCH" == "aarch64" ]; then
+    docker compose -f docker-compose-build.yaml build --build-arg TARGET_ARCH="$ARCH"
 else
     docker compose -f docker-compose-build.yaml build
-fi;
+fi
 
-for NF in ${NF_LIST}; do
-    docker tag free5gc-compose_free5gc-${NF}:latest free5gc/${NF}:${TAG}
-    docker push free5gc/${NF}:${TAG}
+# Tag and push images for each network function
+for IMAGE in $NF_LIST $ADDITIONAL_IMAGES; do
+    docker tag "free5gc-compose_free5gc-${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
+    docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
 done
 
-
-docker tag free5gc-compose_free5gc-webui:latest free5gc/webui:${TAG}
-docker tag free5gc-compose_ueransim:latest free5gc/ueransim:${TAG}
-docker tag free5gc-compose_n3iwue:latest free5gc/n3iwue:${TAG}
-
-docker push free5gc/webui:${TAG}
-docker push free5gc/ueransim:${TAG}
-docker push free5gc/n3iwue:${TAG}
+# Create and push multi-architecture manifests
+for IMAGE in $NF_LIST $ADDITIONAL_IMAGES; do
+    docker manifest create "free5gc/${IMAGE}:${TAG}" \
+        "free5gc/${IMAGE}:${TAG}-x86_64" \
+        "free5gc/${IMAGE}:${TAG}-aarch64"
+    docker manifest push "free5gc/${IMAGE}:${TAG}"
+done
