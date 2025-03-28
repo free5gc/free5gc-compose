@@ -1,5 +1,6 @@
 #!/bin/bash
-TAG=${1-"latest"}
+ARCH=${1-"x86_64"}
+TAG=${2-"latest"}
 
 NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef"
 
@@ -15,7 +16,11 @@ fi;
 cd -
 
 make all
-docker compose -f docker-compose-build.yaml build
+if [ "ARCH" == "aarch64" ]; then
+    docker compose -f docker-compose-build.yaml build --build-arg TARGET_ARCH=${ARCH}
+else
+    docker compose -f docker-compose-build.yaml build
+fi;
 
 for NF in ${NF_LIST}; do
     docker tag free5gc-compose_free5gc-${NF}:latest free5gc/${NF}:${TAG}
