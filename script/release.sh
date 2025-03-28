@@ -2,8 +2,8 @@
 ARCH=${1-"x86_64"}
 TAG=${2-"latest"}
 
-NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef"
-ADDITIONAL_IMAGES="webui ueransim n3iwue"
+NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui"
+ADDITIONAL_IMAGES="ueransim n3iwue"
 
 cd base
 
@@ -26,10 +26,18 @@ else
 fi
 
 # Tag and push images for each network function
-for IMAGE in $NF_LIST $ADDITIONAL_IMAGES; do
+for IMAGE in $NF_LIST; do
     docker tag "free5gc-compose_free5gc-${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
     docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
 done
+
+for IMAGE in $ADDITIONAL_IMAGES; do
+    docker tag "free5gc-compose_${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
+    docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
+done
+
+# Wait for the images to be pushed
+sleep 60
 
 # Create and push multi-architecture manifests
 for IMAGE in $NF_LIST $ADDITIONAL_IMAGES; do
