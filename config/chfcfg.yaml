@@ -28,6 +28,9 @@ configuration:
     hostIPv4: webui
     port: 2121
     listenPort: 2122
+    passiveTransferPortRange:
+      start: 2123
+      end: 2130
     tls:
       pem: cert/chf.pem
       key: cert/chf.key
