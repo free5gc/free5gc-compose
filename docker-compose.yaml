@@ -17,7 +17,7 @@ services:
 
   db:
     container_name: mongodb
-    image: mongo:3.6.8
+    image: mongo:4.4
     command: mongod --port 27017
     expose:
       - "27017"
@@ -272,7 +272,7 @@ services:
         aliases:
           - webui
     ports:
-      - "5000:5000"
+      - "5001:5000"
       - "2122:2122"
       - "2121:2121"
     depends_on:
