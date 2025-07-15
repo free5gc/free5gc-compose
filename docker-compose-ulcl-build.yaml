@@ -36,7 +36,7 @@ services:
           - psa-upf.free5gc.org
   db:
     container_name: mongodb
-    image: mongo:3.6.8
+    image: mongo:4.4
     command: mongod --port 27017 --quiet
     expose:
       - "27017"
