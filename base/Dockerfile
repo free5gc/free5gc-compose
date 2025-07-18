@@ -2,7 +2,7 @@
 # Dockerfile responsible to create only the base image without compiling free5gc sources
 #
 
-FROM golang:1.21.8-bullseye AS builder
+FROM golang:1.24.5-bullseye AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
