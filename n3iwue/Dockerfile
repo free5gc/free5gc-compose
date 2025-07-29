@@ -26,5 +26,6 @@ RUN mkdir -p config/
 
 COPY --from=builder go/n3iwue/n3iwue .
 COPY --from=builder go/n3iwue/run.sh .
+COPY --from=builder go/n3iwue/clean.sh .
 
 VOLUME [ "/n3iwue/config" ]
