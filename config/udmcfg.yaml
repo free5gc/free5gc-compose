@@ -29,6 +29,18 @@ configuration:
       PrivateKey: F1AB1074477EBCC7F554EA1C5FC368B1616730155E0041AC447D6301975FECDA
       PublicKey: 0472DA71976234CE833A6907425867B82E074D44EF907DFB4B3E21C1C2256EBCD15A7DED52FCBB097A4ED250E036C7B9C8C7004C4EEDC4F068CD7BF8D3F900E3B4
 
+  # Metrics configuration
+  # If using the same bindingIPv4 as the sbi server, make sure that the ports are different
+  metrics:
+    enable: true # (Optional, default false)
+    scheme: http # (Required) the protocol for metrics (http or https, default https)
+    bindingIPv4: udm.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    port: 9091 # (Optional, default 9091) port used to bind the service
+    tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
+      pem: /home/sam/private-network/code/free5gc/cert/udm.pem # UDM TLS Certificate
+      key: /home/sam/private-network/code/free5gc/cert/udm.key # UDM TLS Private key
+    namespace: free5gc # (Optional, default free5gc)
+
 logger: # log output setting
   enable: true # true or false
   level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic

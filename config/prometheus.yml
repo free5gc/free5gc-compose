@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+      - targets: ["amf.free5gc.org:9091"]
+      - targets: ["ausf.free5gc.org:9091"]
+      - targets: ["chf.free5gc.org:9091"]
+      - targets: ["n3iwf.free5gc.org:9091"]
+      - targets: ["nrf.free5gc.org:9091"]
+      - targets: ["nssf.free5gc.org:9091"]
+      - targets: ["pcf.free5gc.org:9091"]
+      - targets: ["smf.free5gc.org:9091"]
+      - targets: ["tngf.free5gc.org:9091"]
+      - targets: ["udm.free5gc.org:9091"]
+      - targets: ["udr.free5gc.org:9091"]

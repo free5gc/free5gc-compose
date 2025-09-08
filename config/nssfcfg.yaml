@@ -347,6 +347,18 @@ configuration:
             sst: 1 # Slice/Service Type (uinteger, range: 0~255)
             sd: 000003 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
 
+  # Metrics configuration
+  # If using the same bindingIPv4 as the sbi server, make sure that the ports are different
+  metrics:
+    enable: true # (Optional, default false)
+    scheme: http # (Required) the protocol for metrics (http or https, default https)
+    bindingIPv4: nssf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    port: 9091 # (Optional, default 9091) port used to bind the service
+    tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
+      pem: /home/sam/private-network/code/free5gc/cert/nssf.pem # NSSF TLS Certificate
+      key: /home/sam/private-network/code/free5gc/cert/nssf.key # NSSF TLS Private key
+    namespace: free5gc # (Optional, default free5gc)
+
 logger: # log output setting
   enable: true # true or false
   level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic

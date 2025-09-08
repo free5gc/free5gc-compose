@@ -54,6 +54,18 @@ configuration:
     transFreq: 60s # frequency of transmission
     maxRetryTimes: 4 # the max number of DPD response of UE
 
+  # Metrics configuration
+  # If using the same bindingIPv4 as the sbi server, make sure that the ports are different
+  metrics:
+    enable: true # (Optional, default false)
+    scheme: http # (Required) the protocol for metrics (http or https, default https)
+    bindingIPv4: n3iwf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    port: 9091 # (Optional, default 9091) port used to bind the service
+    tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
+      pem: /home/sam/private-network/code/free5gc/cert/n3iwf.pem # N3IWF TLS Certificate
+      key: /home/sam/private-network/code/free5gc/cert/n3iwf.key # N3IWF TLS Private key
+    namespace: free5gc # (Optional, default free5gc)
+
 logger: # log output setting
   enable: true # true or false
   level: info # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
