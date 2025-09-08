@@ -350,7 +350,7 @@ configuration:
   # Metrics configuration
   # If using the same bindingIPv4 as the sbi server, make sure that the ports are different
   metrics:
-    enable: true # (Optional, default false)
+    enable: false # (Optional, default false)
     scheme: http # (Required) the protocol for metrics (http or https, default https)
     bindingIPv4: nssf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
     port: 9091 # (Optional, default 9091) port used to bind the service
