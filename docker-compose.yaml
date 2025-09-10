@@ -300,7 +300,7 @@ services:
 
   n3iwue:
     container_name: n3iwue
-    image: free5gc/n3iwue:v4.1.0
+    image: free5gc/n3iwue:latest
     command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
     volumes:
       - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
