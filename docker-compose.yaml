@@ -3,7 +3,7 @@ version: "3.8"
 services:
   free5gc-upf:
     container_name: upf
-    image: free5gc/upf:latest
+    image: free5gc/upf:v4.1.0
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
@@ -30,7 +30,7 @@ services:
 
   free5gc-nrf:
     container_name: nrf
-    image: free5gc/nrf:latest
+    image: free5gc/nrf:v4.1.0
     command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
@@ -49,7 +49,7 @@ services:
 
   free5gc-amf:
     container_name: amf
-    image: free5gc/amf:latest
+    image: free5gc/amf:v4.1.0
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
@@ -68,7 +68,7 @@ services:
 
   free5gc-ausf:
     container_name: ausf
-    image: free5gc/ausf:latest
+    image: free5gc/ausf:v4.1.0
     command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
@@ -86,7 +86,7 @@ services:
 
   free5gc-nssf:
     container_name: nssf
-    image: free5gc/nssf:latest
+    image: free5gc/nssf:v4.1.0
     command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
@@ -104,7 +104,7 @@ services:
 
   free5gc-pcf:
     container_name: pcf
-    image: free5gc/pcf:latest
+    image: free5gc/pcf:v4.1.0
     command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
@@ -122,7 +122,7 @@ services:
 
   free5gc-smf:
     container_name: smf
-    image: free5gc/smf:latest
+    image: free5gc/smf:v4.1.0
     command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
@@ -142,7 +142,7 @@ services:
 
   free5gc-udm:
     container_name: udm
-    image: free5gc/udm:latest
+    image: free5gc/udm:v4.1.0
     command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
@@ -161,7 +161,7 @@ services:
 
   free5gc-udr:
     container_name: udr
-    image: free5gc/udr:latest
+    image: free5gc/udr:v4.1.0
     command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
@@ -181,7 +181,7 @@ services:
 
   free5gc-chf:
     container_name: chf
-    image: free5gc/chf:latest
+    image: free5gc/chf:v4.1.0
     command: ./chf -c ./config/chfcfg.yaml
     expose:
       - "8000"
@@ -202,7 +202,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
-    image: free5gc/n3iwf:latest
+    image: free5gc/n3iwf:v4.1.0
     command: ./n3iwf -c ./config/n3iwfcfg.yaml
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
@@ -223,7 +223,7 @@ services:
 
   free5gc-tngf:
     container_name: tngf
-    image: free5gc/tngf:latest
+    image: free5gc/tngf:v4.1.0
     command: ./tngf -c ./config/tngfcfg.yaml
     volumes:
       - ./config/tngfcfg.yaml:/free5gc/config/tngfcfg.yaml
@@ -240,7 +240,7 @@ services:
 
   free5gc-nef:
     container_name: nef
-    image: free5gc/nef:latest
+    image: free5gc/nef:v4.1.0
     command: ./nef -c ./config/nefcfg.yaml
     expose:
       - "8000"
@@ -259,7 +259,7 @@ services:
 
   free5gc-webui:
     container_name: webui
-    image: free5gc/webui:latest
+    image: free5gc/webui:v4.1.0
     command: ./webui -c ./config/webuicfg.yaml
     expose:
       - "2121"
@@ -281,7 +281,7 @@ services:
 
   ueransim:
     container_name: ueransim
-    image: free5gc/ueransim:latest
+    image: free5gc/ueransim:v4.1.0
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
@@ -300,7 +300,7 @@ services:
 
   n3iwue:
     container_name: n3iwue
-    image: free5gc/n3iwue:latest
+    image: free5gc/n3iwue:v4.1.0
     command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
     volumes:
       - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml
