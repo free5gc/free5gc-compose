@@ -278,7 +278,7 @@ services:
 
   #ue:
   #  container_name: ue
-  #  image: free5gc/ueransim:v4.1.0
+  #  image: free5gc/ueransim:latest
   #  command: ./nr-ue -c ./config/uecfg.yaml
   #  volumes:
   #    - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
