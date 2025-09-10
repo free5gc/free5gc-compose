@@ -281,7 +281,7 @@ services:
 
   ueransim:
     container_name: ueransim
-    image: free5gc/ueransim:v4.1.0
+    image: free5gc/ueransim:latest
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
