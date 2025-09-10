@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    command: --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.50
+        aliases:
+          - prometheus
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    # depends_on:
+      # - prometheus
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.51
+        aliases:
+          - grafana
+
+networks:
+  privnet:
+    external: true
+    name: br-free5gc
+
+volumes:
+  prometheus_data:
+  grafana_data:

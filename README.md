@@ -143,6 +143,30 @@ docker compose -f docker-compose-ulcl.yaml up
 
 Check out the used configuration files at `config/ULCL`.
 
+## Prometheous & Grafana
+
+To start the core with Prometheous and Grafana, we need external compose service file to start with our core compose:
+
+```bash
+docker compose -f docker-compose.yaml -f docker-compose-prometheus.yaml up
+```
+
+Please make sure the metrics secions are enabled in NFs' config, it is disabled in default:
+
+```yaml
+  # Metrics configuration
+  # If using the same bindingIPv4 as the sbi server, make sure that the ports are different
+  metrics:
+=>  enable: true # (Optional, default false)
+    scheme: http # (Required) the protocol for metrics (http or https, default https)
+    bindingIPv4: amf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
+    port: 9091 # (Optional, default 9091) port used to bind the service
+    tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
+      pem: /home/sam/private-network/code/free5gc/cert/amf.pem # AMF TLS Certificate
+      key: /home/sam/private-network/code/free5gc/cert/amf.key # AMF TLS Private key
+    namespace: free5gc # (Optional, default free5gc)
+```
+
 ## Reference
 
 - https://github.com/open5gs/nextepc/tree/master/docker
