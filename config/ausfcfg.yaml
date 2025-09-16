@@ -31,8 +31,8 @@ configuration:
     bindingIPv4: ausf.free5gc.org # (Required) IP used to bind the metrics endpoint (default 0.0.0.0)
     port: 9091 # (Optional, default 9091) port used to bind the service
     tls: # (Optional) the local path of TLS key (Could be the same as the sbi ones)
-      pem: /home/sam/private-network/code/free5gc/cert/ausf.pem # AUSF TLS Certificate
-      key: /home/sam/private-network/code/free5gc/cert/ausf.key # AUSF TLS Private key
+      pem: cert/ausf.pem # AUSF TLS Certificate
+      key: cert/ausf.key # AUSF TLS Private key
     namespace: free5gc # (Optional, default free5gc)
 
 logger: # log output setting
