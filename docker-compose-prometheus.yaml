@@ -36,8 +36,12 @@ services:
 
 networks:
   privnet:
-    external: true
-    name: br-free5gc
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.200.0/24
+    driver_opts:
+      com.docker.network.bridge.name: br-free5gc
 
 volumes:
   prometheus_data:
