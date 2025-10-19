@@ -1,4 +1,4 @@
-FROM gcc:9.4.0 AS builder
+FROM gcc:14.3.0-trixie AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
@@ -9,15 +9,12 @@ ARG TARGET_ARCH=x86_64
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install libsctp-dev lksctp-tools iproute2 -y \
-    && wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-${TARGET_ARCH}.sh -O cmake_installer.sh \
-    && chmod +x cmake_installer.sh \
-    && ./cmake_installer.sh --skip-license \
+    && apt-get install libsctp-dev lksctp-tools iproute2 cmake -y \
     && git clone -b master -j `nproc` https://github.com/aligungr/UERANSIM \
     && cd ./UERANSIM \
-    && make
+    && make -j `nproc`
 
-FROM bitnami/minideb:bullseye
+FROM bitnami/minideb:trixie
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -29,6 +26,8 @@ RUN apt-get update \
 WORKDIR /ueransim
 
 RUN mkdir -p config/ binder/
+RUN mkdir -p /etc/iproute2
+RUN touch /etc/iproute2/rt_tables
 
 COPY --from=builder /UERANSIM/build/nr-gnb .
 COPY --from=builder /UERANSIM/build/nr-ue .
