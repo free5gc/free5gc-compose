@@ -1,0 +1,1769 @@
+{
+	"info": {
+		"_postman_id": "26b086b1-ac04-4a3d-b3ff-3154cc0acb98",
+		"name": "free5gc-Webconsole",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38955132"
+	},
+	"item": [
+		{
+			"name": "Delete Subscription",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/subscriber/{{UE_ID}}/{{PLMN_ID}}"
+			},
+			"response": [
+				{
+					"name": "Delete Subscription",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/subscriber/imsi-208930000000100/20893"
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:46:19 GMT"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Delete multiple subscriptions",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"ueId\": \"imsi-208930000000100\",\n        \"plmnID\": \"20893\"\n    },\n    {\n        \"ueId\": \"imsi-208930000000200\",\n        \"plmnID\": \"20893\"\n    },\n    {\n        \"ueId\": \"imsi-208930000000300\",\n        \"plmnID\": \"20893\"\n    }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/subscriber"
+			},
+			"response": []
+		},
+		{
+			"name": "Add a subscription",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"plmnID\": \"20893\",\r\n    \"ueId\": \"imsi-208930000000100\",\r\n    \"AuthenticationSubscription\": {\r\n        \"authenticationManagementField\": \"8000\",\r\n        \"authenticationMethod\": \"5G_AKA\",\r\n        \"milenage\": {\r\n            \"op\": {\r\n                \"encryptionAlgorithm\": 0,\r\n                \"encryptionKey\": 0,\r\n                \"opValue\": \"8e27b6af0e692e750f32667a3b14605d\"\r\n            }\r\n        },\r\n        \"opc\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"opcValue\": \"\"\r\n        },\r\n        \"permanentKey\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"permanentKeyValue\": \"8baf473f2f8fd09487cccbd7097c6862\"\r\n        },\r\n        \"sequenceNumber\": \"16f3b3f70fc2\"\r\n    },\r\n    \"AccessAndMobilitySubscriptionData\": {\r\n        \"gpsis\": [\r\n            \"msisdn-0900000000\"\r\n        ],\r\n        \"nssai\": {\r\n            \"defaultSingleNssais\": [\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\",\r\n                    \"isDefault\": true\r\n                },\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\",\r\n                    \"isDefault\": true\r\n                }\r\n            ],\r\n            \"singleNssais\": []\r\n        },\r\n        \"subscribedUeAmbr\": {\r\n            \"downlink\": \"2 Gbps\",\r\n            \"uplink\": \"1 Gbps\"\r\n        }\r\n    },\r\n    \"SessionManagementSubscriptionData\": [\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"010203\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"112233\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    ],\r\n    \"SmfSelectionSubscriptionData\": {\r\n        \"subscribedSnssaiInfos\": {\r\n            \"01010203\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            },\r\n            \"01112233\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    },\r\n    \"AmPolicyData\": {\r\n        \"subscCats\": [\r\n            \"free5gc\"\r\n        ]\r\n    },\r\n    \"SmPolicyData\": {\r\n        \"smPolicySnssaiData\": {\r\n            \"01010203\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            },\r\n            \"01112233\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    },\r\n    \"FlowRules\": [\r\n        {\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"filter\": \"permit out 17 from 192.168.0.0/24 8000 to 60.60.0.0/24 \",\r\n            \"qfi\": 5\r\n        }\r\n    ],\r\n    \"QosFlows\": [\r\n        {\r\n            \"qfi\": 5, \r\n            \"5qi\": 5,\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"gbrUL\": \"\",\r\n            \"gbrDL\": \"\",\r\n            \"mbrUL\": \"200 Mbps\",\r\n            \"mbrDL\": \"100 Mbps\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/subscriber/{{UE_ID}}/{{PLMN_ID}}"
+			},
+			"response": [
+				{
+					"name": "Add a subscription",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plmnID\": \"20893\",\r\n    \"ueId\": \"imsi-208930000000100\",\r\n    \"AuthenticationSubscription\": {\r\n        \"authenticationManagementField\": \"8000\",\r\n        \"authenticationMethod\": \"5G_AKA\",\r\n        \"milenage\": {\r\n            \"op\": {\r\n                \"encryptionAlgorithm\": 0,\r\n                \"encryptionKey\": 0,\r\n                \"opValue\": \"8e27b6af0e692e750f32667a3b14605d\"\r\n            }\r\n        },\r\n        \"opc\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"opcValue\": \"\"\r\n        },\r\n        \"permanentKey\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"permanentKeyValue\": \"8baf473f2f8fd09487cccbd7097c6862\"\r\n        },\r\n        \"sequenceNumber\": \"16f3b3f70fc2\"\r\n    },\r\n    \"AccessAndMobilitySubscriptionData\": {\r\n        \"gpsis\": [\r\n            \"msisdn-0900000000\"\r\n        ],\r\n        \"nssai\": {\r\n            \"defaultSingleNssais\": [\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\",\r\n                    \"isDefault\": true\r\n                },\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\",\r\n                    \"isDefault\": true\r\n                }\r\n            ],\r\n            \"singleNssais\": []\r\n        },\r\n        \"subscribedUeAmbr\": {\r\n            \"downlink\": \"2 Gbps\",\r\n            \"uplink\": \"1 Gbps\"\r\n        }\r\n    },\r\n    \"SessionManagementSubscriptionData\": [\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"010203\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"112233\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    ],\r\n    \"SmfSelectionSubscriptionData\": {\r\n        \"subscribedSnssaiInfos\": {\r\n            \"01010203\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            },\r\n            \"01112233\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    },\r\n    \"AmPolicyData\": {\r\n        \"subscCats\": [\r\n            \"free5gc\"\r\n        ]\r\n    },\r\n    \"SmPolicyData\": {\r\n        \"smPolicySnssaiData\": {\r\n            \"01010203\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            },\r\n            \"01112233\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    },\r\n    \"FlowRules\": [\r\n        {\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"filter\": \"permit out 17 from 192.168.0.0/24 8000 to 60.60.0.0/24 \",\r\n            \"qfi\": 5\r\n        }\r\n    ],\r\n    \"QosFlows\": [\r\n        {\r\n            \"qfi\": 5, \r\n            \"5qi\": 5,\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"gbrUL\": \"\",\r\n            \"gbrDL\": \"\",\r\n            \"mbrUL\": \"200 Mbps\",\r\n            \"mbrDL\": \"100 Mbps\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/subscriber/imsi-208930000000100/20893"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:44:03 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "Modify a subscription",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"plmnID\": \"20893\",\r\n    \"ueId\": \"imsi-208930000000100\",\r\n    \"AuthenticationSubscription\": {\r\n        \"authenticationManagementField\": \"8000\",\r\n        \"authenticationMethod\": \"5G_AKA\",\r\n        \"milenage\": {\r\n            \"op\": {\r\n                \"encryptionAlgorithm\": 0,\r\n                \"encryptionKey\": 0,\r\n                \"opValue\": \"8e27b6af0e692e750f32667a3b14605d\"\r\n            }\r\n        },\r\n        \"opc\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"opcValue\": \"\"\r\n        },\r\n        \"permanentKey\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"permanentKeyValue\": \"8baf473f2f8fd09487cccbd7097c6862\"\r\n        },\r\n        \"sequenceNumber\": \"16f3b3f70fc2\"\r\n    },\r\n    \"AccessAndMobilitySubscriptionData\": {\r\n        \"gpsis\": [\r\n            \"msisdn-0900000000\"\r\n        ],\r\n        \"nssai\": {\r\n            \"defaultSingleNssais\": [\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\",\r\n                    \"isDefault\": true\r\n                },\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\",\r\n                    \"isDefault\": true\r\n                }\r\n            ],\r\n            \"singleNssais\": []\r\n        },\r\n        \"subscribedUeAmbr\": {\r\n            \"downlink\": \"2 Gbps\",\r\n            \"uplink\": \"1 Gbps\"\r\n        }\r\n    },\r\n    \"SessionManagementSubscriptionData\": [\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"010203\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"112233\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    ],\r\n    \"SmfSelectionSubscriptionData\": {\r\n        \"subscribedSnssaiInfos\": {\r\n            \"01010203\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            },\r\n            \"01112233\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    },\r\n    \"AmPolicyData\": {\r\n        \"subscCats\": [\r\n            \"free5gc\"\r\n        ]\r\n    },\r\n    \"SmPolicyData\": {\r\n        \"smPolicySnssaiData\": {\r\n            \"01010203\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            },\r\n            \"01112233\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    },\r\n    \"FlowRules\": [\r\n        {\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"filter\": \"permit out 17 from 192.168.0.0/24 8000 to 60.60.0.0/24 \",\r\n            \"qfi\": 5\r\n        }, {\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"filter\": \"permit out 17 from 192.169.0.0/24 8000 to 60.60.0.0/24 \",\r\n            \"qfi\": 1\r\n        }\r\n    ],\r\n    \"QosFlows\": [\r\n        {\r\n            \"qfi\": 5, \r\n            \"5qi\": 5,\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"gbrUL\": \"\",\r\n            \"gbrDL\": \"\",\r\n            \"mbrUL\": \"200 Mbps\",\r\n            \"mbrDL\": \"100 Mbps\"\r\n        }, {\r\n            \"qfi\": 1, \r\n            \"5qi\": 1,\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"gbrUL\": \"200 Mbps\",\r\n            \"gbrDL\": \"100 Mbps\",\r\n            \"mbrUL\": \"200 Mbps\",\r\n            \"mbrDL\": \"100 Mbps\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/subscriber/{{UE_ID}}/{{PLMN_ID}}"
+			},
+			"response": [
+				{
+					"name": "Modify a subscription",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plmnID\": \"20893\",\r\n    \"ueId\": \"imsi-208930000000100\",\r\n    \"AuthenticationSubscription\": {\r\n        \"authenticationManagementField\": \"8000\",\r\n        \"authenticationMethod\": \"5G_AKA\",\r\n        \"milenage\": {\r\n            \"op\": {\r\n                \"encryptionAlgorithm\": 0,\r\n                \"encryptionKey\": 0,\r\n                \"opValue\": \"8e27b6af0e692e750f32667a3b14605d\"\r\n            }\r\n        },\r\n        \"opc\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"opcValue\": \"\"\r\n        },\r\n        \"permanentKey\": {\r\n            \"encryptionAlgorithm\": 0,\r\n            \"encryptionKey\": 0,\r\n            \"permanentKeyValue\": \"8baf473f2f8fd09487cccbd7097c6862\"\r\n        },\r\n        \"sequenceNumber\": \"16f3b3f70fc2\"\r\n    },\r\n    \"AccessAndMobilitySubscriptionData\": {\r\n        \"gpsis\": [\r\n            \"msisdn-0900000000\"\r\n        ],\r\n        \"nssai\": {\r\n            \"defaultSingleNssais\": [\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\",\r\n                    \"isDefault\": true\r\n                },\r\n                {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\",\r\n                    \"isDefault\": true\r\n                }\r\n            ],\r\n            \"singleNssais\": []\r\n        },\r\n        \"subscribedUeAmbr\": {\r\n            \"downlink\": \"2 Gbps\",\r\n            \"uplink\": \"1 Gbps\"\r\n        }\r\n    },\r\n    \"SessionManagementSubscriptionData\": [\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"010203\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        {\r\n            \"singleNssai\": {\r\n                \"sst\": 1,\r\n                \"sd\": \"112233\"\r\n            },\r\n            \"dnnConfigurations\": {\r\n                \"internet\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                },\r\n                \"internet2\": {\r\n                    \"sscModes\": {\r\n                        \"defaultSscMode\": \"SSC_MODE_1\",\r\n                        \"allowedSscModes\": [\r\n                            \"SSC_MODE_2\",\r\n                            \"SSC_MODE_3\"\r\n                        ]\r\n                    },\r\n                    \"pduSessionTypes\": {\r\n                        \"defaultSessionType\": \"IPV4\",\r\n                        \"allowedSessionTypes\": [\r\n                            \"IPV4\"\r\n                        ]\r\n                    },\r\n                    \"sessionAmbr\": {\r\n                        \"uplink\": \"200 Mbps\",\r\n                        \"downlink\": \"100 Mbps\"\r\n                    },\r\n                    \"5gQosProfile\": {\r\n                        \"5qi\": 9,\r\n                        \"arp\": {\r\n                            \"priorityLevel\": 8\r\n                        },\r\n                        \"priorityLevel\": 8\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    ],\r\n    \"SmfSelectionSubscriptionData\": {\r\n        \"subscribedSnssaiInfos\": {\r\n            \"01010203\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            },\r\n            \"01112233\": {\r\n                \"dnnInfos\": [\r\n                    {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    },\r\n    \"AmPolicyData\": {\r\n        \"subscCats\": [\r\n            \"free5gc\"\r\n        ]\r\n    },\r\n    \"SmPolicyData\": {\r\n        \"smPolicySnssaiData\": {\r\n            \"01010203\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"010203\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            },\r\n            \"01112233\": {\r\n                \"snssai\": {\r\n                    \"sst\": 1,\r\n                    \"sd\": \"112233\"\r\n                },\r\n                \"smPolicyDnnData\": {\r\n                    \"internet\": {\r\n                        \"dnn\": \"internet\"\r\n                    },\r\n                    \"internet2\": {\r\n                        \"dnn\": \"internet2\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    },\r\n    \"FlowRules\": [\r\n        {\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"filter\": \"permit out 17 from 192.168.0.0/24 8000 to 60.60.0.0/24 \",\r\n            \"qfi\": 5\r\n        }, {\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"filter\": \"permit out 17 from 192.169.0.0/24 8000 to 60.60.0.0/24 \",\r\n            \"qfi\": 1\r\n        }\r\n    ],\r\n    \"QosFlows\": [\r\n        {\r\n            \"qfi\": 5, \r\n            \"5qi\": 5,\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"gbrUL\": \"\",\r\n            \"gbrDL\": \"\",\r\n            \"mbrUL\": \"200 Mbps\",\r\n            \"mbrDL\": \"100 Mbps\"\r\n        }, {\r\n            \"qfi\": 1, \r\n            \"5qi\": 1,\r\n            \"snssai\": \"01010203\",\r\n            \"dnn\": \"internet\",\r\n            \"gbrUL\": \"200 Mbps\",\r\n            \"gbrDL\": \"100 Mbps\",\r\n            \"mbrUL\": \"200 Mbps\",\r\n            \"mbrDL\": \"100 Mbps\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/subscriber/imsi-208930000000100/20893"
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:45:06 GMT"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get all subscriptions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/subscriber/"
+			},
+			"response": [
+				{
+					"name": "Get all subscriptions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/subscriber/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:42:28 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "442"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000006\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000007\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000008\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000001\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000002\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000003\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000004\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208930000000005\"\n    },\n    {\n        \"plmnID\": \"20893\",\n        \"ueId\": \"imsi-208931000000003\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get a subscription",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/subscriber/{{UE_ID}}/{{PLMN_ID}}"
+			},
+			"response": [
+				{
+					"name": "Get a subscription",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/subscriber/imsi-208930000000003/20893"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:42:55 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1971"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"plmnID\": \"20893\",\n    \"ueId\": \"imsi-208930000000003\",\n    \"AuthenticationSubscription\": {\n        \"authenticationMethod\": \"5G_AKA\",\n        \"permanentKey\": {\n            \"permanentKeyValue\": \"8baf473f2f8fd09487cccbd7097c6862\",\n            \"encryptionKey\": 0,\n            \"encryptionAlgorithm\": 0\n        },\n        \"sequenceNumber\": \"000000000029\",\n        \"authenticationManagementField\": \"8000\",\n        \"milenage\": {\n            \"op\": {\n                \"opValue\": \"8e27b6af0e692e750f32667a3b14605d\",\n                \"encryptionKey\": 0,\n                \"encryptionAlgorithm\": 0\n            }\n        },\n        \"opc\": {\n            \"opcValue\": \"\",\n            \"encryptionKey\": 0,\n            \"encryptionAlgorithm\": 0\n        }\n    },\n    \"AccessAndMobilitySubscriptionData\": {\n        \"gpsis\": [\n            \"msisdn-0900000000\"\n        ],\n        \"subscribedUeAmbr\": {\n            \"uplink\": \"1 Gbps\",\n            \"downlink\": \"2 Gbps\"\n        },\n        \"nssai\": {\n            \"defaultSingleNssais\": [\n                {\n                    \"sst\": 1,\n                    \"sd\": \"010203\"\n                },\n                {\n                    \"sst\": 1,\n                    \"sd\": \"112233\"\n                }\n            ]\n        }\n    },\n    \"SessionManagementSubscriptionData\": [\n        {\n            \"singleNssai\": {\n                \"sst\": 1,\n                \"sd\": \"010203\"\n            },\n            \"dnnConfigurations\": {\n                \"internet\": {\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8,\n                            \"preemptCap\": \"\",\n                            \"preemptVuln\": \"\"\n                        },\n                        \"priorityLevel\": 8\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    }\n                }\n            }\n        },\n        {\n            \"singleNssai\": {\n                \"sst\": 1,\n                \"sd\": \"112233\"\n            },\n            \"dnnConfigurations\": {\n                \"internet\": {\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8,\n                            \"preemptCap\": \"\",\n                            \"preemptVuln\": \"\"\n                        },\n                        \"priorityLevel\": 8\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    }\n                }\n            }\n        }\n    ],\n    \"SmfSelectionSubscriptionData\": {\n        \"subscribedSnssaiInfos\": {\n            \"01010203\": {\n                \"dnnInfos\": [\n                    {\n                        \"dnn\": \"internet\"\n                    }\n                ]\n            },\n            \"01112233\": {\n                \"dnnInfos\": [\n                    {\n                        \"dnn\": \"internet\"\n                    }\n                ]\n            }\n        }\n    },\n    \"AmPolicyData\": {\n        \"subscCats\": [\n            \"free5gc\"\n        ]\n    },\n    \"SmPolicyData\": {\n        \"smPolicySnssaiData\": {\n            \"01010203\": {\n                \"snssai\": {\n                    \"sst\": 1,\n                    \"sd\": \"010203\"\n                },\n                \"smPolicyDnnData\": {\n                    \"internet\": {\n                        \"dnn\": \"internet\"\n                    }\n                }\n            },\n            \"01112233\": {\n                \"snssai\": {\n                    \"sst\": 1,\n                    \"sd\": \"112233\"\n                },\n                \"smPolicyDnnData\": {\n                    \"internet\": {\n                        \"dnn\": \"internet\"\n                    }\n                }\n            }\n        }\n    },\n    \"FlowRules\": [],\n    \"QosFlows\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Username\": \"admin\",\n    \"Password\": \"free5gc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/login/",
+				"description": "Login"
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Username\": \"user1\",\n    \"Password\": \"password1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/login/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:59:53 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "374"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxIiwiZXhwIjoxNjQzMTA0NzkzLCJpYXQiOiIyMDIyLTAxLTI0VDA5OjU5OjUzLjM3ODg1MzIxOVoiLCJzdWIiOiIwMDhkNWRkYS0wMmM5LTRlZTUtYmVjNC0yNjUwZmYxNzk4MzciLCJ0ZW5hbnRJZCI6ImE2MTE1NzhmLWQ2MmMtNDIxNS04MGVkLTljNTcyYWYzNzA2MyJ9.eYu5O1bIg9NQt0EsRWsGwhleSiiIcVCQ4JPdWKrudPQ\",\n    \"refresh_token\": \"\",\n    \"token_type\": \"\",\n    \"expires_in\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://{{WEB_URL}}/api/logout/"
+			},
+			"response": [
+				{
+					"name": "Logout",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": "http://{{WEB_URL}}/api/logout/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 10:00:03 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "DeleteTenantByID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}"
+			},
+			"response": [
+				{
+					"name": "DeleteTenantByID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/tenant/5abba0a4-aa3f-4bc1-a4f5-87742cb6f52c"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:49:35 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "PostTenant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tenantName\": \"TENANT_NAME\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/tenant/"
+			},
+			"response": [
+				{
+					"name": "PostTenant",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantName\": \"TENANT_NAME\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/tenant/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:48:24 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n    \"tenantName\": \"TENANT_NAME\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PutTenantByID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tenantName\": \"TENANT_NAME\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}"
+			},
+			"response": [
+				{
+					"name": "PutTenantByID",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantName\": \"TENANT_NAME\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/tenant/a611578f-d62c-4215-80ed-9c572af37063"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:48:59 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "GetTenants",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/tenant/"
+			},
+			"response": [
+				{
+					"name": "GetTenants",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/tenant/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:50:15 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "80"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n        \"tenantName\": \"TENANT_NAME\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetTenantByID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}"
+			},
+			"response": [
+				{
+					"name": "GetTenantByID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/tenant/a611578f-d62c-4215-80ed-9c572af37063"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:52:10 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n    \"tenantName\": \"TENANT_NAME\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PostUserByID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"email\": \"YOUR_EMAIL\",\n        \"encryptedPassword\": \"YOUR_PASSWORD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/"
+			},
+			"response": [
+				{
+					"name": "PostUserByID",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"email\": \"user1\",\n        \"encryptedPassword\": \"password1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:55:58 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "198"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"userId\": \"780eb319-7986-492e-886b-9e1bc0bd9e04\",\n    \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n    \"email\": \"user1\",\n    \"encryptedPassword\": \"$2a$12$LqO7m.5/Qo5ErmYOZ71YiuWy8UDW8s5Lh7jGbT13ofHLcrxlrOhfG\"\n}"
+				}
+			]
+		},
+		{
+			"name": "DeleteUserByID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/{{USER_ID}}"
+			},
+			"response": [
+				{
+					"name": "DeleteUserByID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/{{USER_ID}}"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:58:12 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "PutUserByID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"email\": \"YOUR_EMAIL\",\n        \"encryptedPassword\": \"YOUR_PASSWORD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/{{USER_ID}}"
+			},
+			"response": [
+				{
+					"name": "PutUserByID",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"email\": \"user1\",\n        \"encryptedPassword\": \"password1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/{{USER_ID}}"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:57:05 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "198"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"userId\": \"780eb319-7986-492e-886b-9e1bc0bd9e04\",\n    \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n    \"email\": \"user1\",\n    \"encryptedPassword\": \"$2a$12$iqLKMxFtU8zqgD2yQOTPUungs4sAwzjf1rxGiDFe2.uyFU2iMMTvi\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetUsers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user"
+			},
+			"response": [
+				{
+					"name": "GetUsers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:57:35 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "279"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"userId\": \"780eb319-7986-492e-886b-9e1bc0bd9e04\",\n        \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n        \"email\": \"user1\",\n        \"encryptedPassword\": \"\"\n    },\n    {\n        \"userId\": \"2196759e-3d55-4871-bdd2-7ae8a72d18e3\",\n        \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n        \"email\": \"user2\",\n        \"encryptedPassword\": \"\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetUserByID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/{{USER_ID}}"
+			},
+			"response": [
+				{
+					"name": "GetUserByID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/tenant/{{TENANT_ID}}/user/{{USER_ID}}"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 09:57:51 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "138"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"userId\": \"780eb319-7986-492e-886b-9e1bc0bd9e04\",\n    \"tenantId\": \"a611578f-d62c-4215-80ed-9c572af37063\",\n    \"email\": \"user1\",\n    \"encryptedPassword\": \"\"\n}"
+				}
+			]
+		},
+		{
+			"name": "UE PDU Session Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://{{WEB_URL}}/api/ue-pdu-session-info/{{SM_CONTEXT_REF}}"
+			},
+			"response": [
+				{
+					"name": "UE PDU Session Info",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://{{WEB_URL}}/api/ue-pdu-session-info/urn:uuid:c4507f40-76d5-4d77-9188-e2bb48d00538"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 16 Nov 2021 10:26:16 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "292"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"AnType\": \"3GPP_ACCESS\",\n    \"Dnn\": \"internet\",\n    \"PDUAddress\": \"10.60.0.7\",\n    \"PDUSessionID\": \"5\",\n    \"Sd\": \"010203\",\n    \"SessionRule\": {\n        \"sessRuleId\": \"\"\n    },\n    \"Sst\": \"1\",\n    \"Supi\": \"imsi-208930000000007\",\n    \"Tunnel\": {\n        \"ANInformation\": {\n            \"IPAddress\": \"\",\n            \"TEID\": 0\n        },\n        \"DataPathPool\": null,\n        \"PathIDGenerator\": null\n    },\n    \"UpCnxState\": \"ACTIVATED\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Individual Registered UE Context",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/registered-ue-context/{{SUPI}}"
+			},
+			"response": [
+				{
+					"name": "Individual Registered UE Context",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/registered-ue-context/imsi-208930000000003"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 24 Nov 2021 10:39:58 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1420"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000003\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ad938e50-fcfb-4acc-857a-a24c27ebe911\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:add0cddc-a778-43ce-a676-d334b2b72ddd\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:577e4118-9817-43c0-9eab-169d15103794\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:b6ab271b-9fea-42bc-bee8-9f55baf676e8\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:74219e11-e4f9-48c3-be1a-b508c024376f\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:6daa7014-a5d6-45c7-99d1-50724fb63f68\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:9e041b24-10b9-435b-8096-59648c5ef2df\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:1eced716-74a2-4932-8f86-58df54487745\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:d6f26bea-f55c-4b18-bc2c-c8dc2c545d48\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:9ba2bee5-10ce-45a5-b1a6-7421b34716bd\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000003\",\n        \"Tac\": \"000001\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Registered UE Context",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/registered-ue-context"
+			},
+			"response": [
+				{
+					"name": "Registered UE Context",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/registered-ue-context"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 24 Nov 2021 10:42:33 GMT"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000006\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:31712b28-b165-4c2d-b985-f6f00e25185a\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ea134df0-c1e3-4640-b6e9-dbe45d778ecf\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:f93a2647-24f3-48c6-9a40-54ff4bfeee61\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:22c733e6-86f1-48bd-ab74-bd138e111df7\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:24de5c58-b609-491f-884e-cef59f44505b\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:03797d28-6de9-40d9-a6de-fdfd4d7a59ef\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:0a8b3346-bfc1-4669-9b5a-8e18588c6361\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:3c820c0f-546f-4beb-bbfc-4d94ec1ac0b7\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:57a9555c-8e79-4e7a-91b0-bde9a08fbc0b\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:3cf87a8d-590d-4cef-b866-be71e9a001da\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000006\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000007\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:9003f80e-13df-48f7-858e-1d42ed9b881d\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:82e15c66-0c0c-482f-a6bd-ea25642e8039\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:d127418f-87ae-4e37-a5f0-3fb93efd5a71\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ca274613-2dba-466b-8365-2e4943c2f462\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:e74df472-a70e-4085-8ba3-a2a27f034b05\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:200f3649-6146-4077-a917-c31fe1ad6c25\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:68e59613-f42a-4ecd-bf36-f7d59e4382fb\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:8048e85a-24bf-4c4d-b59c-f47f5c584393\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:c254c74b-3096-4108-894e-594fb92c66f8\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:67db3fb7-5d2f-4b72-9626-a4e5efed74d3\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000007\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000005\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:518865e9-b3e4-42f4-879d-10808f1b7aa2\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:7b449c57-6b89-4dbe-91ba-0ac27b72f782\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ccdf0859-0f94-4ef4-b51d-251f2024bf7f\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:12330b4c-e86b-4c41-af28-85c7813d3b04\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:8d7c4b4a-4813-40b5-9c4a-9a7a6315d1aa\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:a50bfff4-eef6-432f-a670-845fb150cf77\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:4e930c64-dc56-4cc2-a36a-8377ce58d252\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:fc16d676-9c8e-433b-be1d-1e71cd88dbc5\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:49341a63-3e82-40c2-929d-63b12f0c4d73\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:0ce8860a-6c6e-43ea-9063-bcc919067175\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000005\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000003\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:6daa7014-a5d6-45c7-99d1-50724fb63f68\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:9e041b24-10b9-435b-8096-59648c5ef2df\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:1eced716-74a2-4932-8f86-58df54487745\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:d6f26bea-f55c-4b18-bc2c-c8dc2c545d48\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:9ba2bee5-10ce-45a5-b1a6-7421b34716bd\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:74219e11-e4f9-48c3-be1a-b508c024376f\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:add0cddc-a778-43ce-a676-d334b2b72ddd\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:577e4118-9817-43c0-9eab-169d15103794\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:b6ab271b-9fea-42bc-bee8-9f55baf676e8\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ad938e50-fcfb-4acc-857a-a24c27ebe911\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000003\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe000000000a\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:2d41a6f2-6075-4032-b616-4cefa85dfc60\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:bc9841b8-7018-49b3-9c70-d45ff57bd593\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:cb28d4ff-c225-49fc-bbe8-af631ffce4dd\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:e5ca75e3-6901-4f8e-8a6a-d34b0ba6e7bd\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:191e82e6-9f58-407a-a437-d75fa2da3119\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:af2d3b29-9d72-436e-b11f-d7e74f124135\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:599ca9d2-76fa-4942-a5d9-78b7eee11fd5\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:dc681667-f163-4488-8565-29422d5d845f\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:cc57d004-dab9-4e50-93f4-4a986032869e\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:e84e86eb-5380-4ef6-ab62-28d00ef8cdcf\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000010\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000002\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:727c6bbc-9906-4dcc-8e18-e3cdfd22ac88\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:93aff412-9800-40eb-9931-21f5d6410844\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:f9f1e72e-9eca-46bb-9eed-9537a6f8f8f4\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:da9a4b1b-b9d1-44c6-a9dd-2fc8f38bef88\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:7dd12f10-f288-4354-b5f0-3b03f096c099\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:6656ec0d-8ce3-4fd4-862d-317a1f34f0ef\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:a20fa20b-fe33-484d-b601-659b5e63ca60\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ed6f4bb0-e7dc-4542-829f-9b9966f0f483\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:cd2bd261-3ed6-4206-b551-e1595eaa7fcb\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:c4ccf8e4-2d25-4cc0-a638-2a96317c12ac\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000002\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000008\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:e5ef1a92-9c70-4bd7-bba3-9bc95a078171\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:b5c239ba-c8e7-41c8-b38a-833f498da5cb\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:37b25921-69a9-403f-bec4-95e210759233\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:b2e1098d-82d2-46cd-9358-19660b05a8fb\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:05c5d5cf-5bc1-411f-8b46-66337251273e\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:3d555507-f13a-4321-b776-a5c41fabf863\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:eea9f7dd-def2-4c3c-92fc-e83cd7ad2d57\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:c32928ad-631c-4fc4-99f3-e83b69a8afd9\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:aa9c1274-700f-45fe-a9e4-1d9d4777bc06\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:bd70c52b-c2c4-4de9-8b5a-bc5b1625cc13\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000008\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000004\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:23b7a4bc-23d5-488b-a2bc-5c882471ab4f\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:62ab1d3d-4e51-42f9-bcf6-59df74b7f39b\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:82be94c4-6f78-4eae-aa5b-2cee04de4d14\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:f00a4699-156d-47f0-86fc-414177d71b87\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ad4bfed7-49a5-4dda-9e2d-f3285db38e42\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:22ed4a98-0d6d-4af0-b160-85efd79da9a2\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:403a54cf-1dec-4739-a9bb-f18e6046a68d\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:56eab149-8eb8-49a7-8eb3-a867e6a2b95b\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:35c814cb-d785-4a1d-87ac-1682875e5b3a\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:57b45edd-c249-41bb-bdc2-5675bf516946\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000004\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000001\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:c35f00f5-7107-4ab1-a76d-e4829d7bb03c\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:6e1a8d35-56fc-44fb-8bf6-a1e3c70f46ed\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ec605d8b-1546-4f91-bbed-482e547fd9ee\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:d082bbdc-ab58-4c9c-a106-e6487ab93e08\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:0183517c-a5e0-4c43-8816-3c17166b5eb6\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:50ffd14a-382f-490f-9346-e0bd9165e801\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:1ea160df-e020-4678-b2c6-dea86c838507\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:f0eb823f-f7dc-4c9e-ad7c-2ce3d4933e0a\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:11a5a6c2-d568-4a9e-a1ba-dba396123355\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:9c5d57aa-b125-42f2-ab73-8061e86723f0\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000001\",\n        \"Tac\": \"000001\"\n    },\n    {\n        \"AccessType\": \"3GPP_ACCESS\",\n        \"CmState\": \"CONNECTED\",\n        \"Guti\": \"20893cafe0000000009\",\n        \"Mcc\": \"208\",\n        \"Mnc\": \"93\",\n        \"PduSessions\": [\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"10\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:d730acdd-2e51-492c-8f1e-8ca845c0dda4\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"11\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:ce69221b-b123-4c41-9464-4190776840cf\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"13\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:2e7b8e51-05d5-433e-a87e-959580161456\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"9\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:dfe822bf-fa92-488a-a9c8-5115c8042962\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"5\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:330e8947-aaaf-4f97-a6ac-eed54b00b9f3\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"6\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:cada7708-8366-4721-a2ab-1500c111ddc8\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"12\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:db48fac0-147f-43e7-aadc-200d508a065e\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"7\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:709f21db-bcae-4ee2-877f-b4ee68cfc3de\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"8\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:261daabb-e569-4547-8f7a-d0bd34ad45ee\",\n                \"Sst\": \"1\"\n            },\n            {\n                \"Dnn\": \"internet\",\n                \"PduSessionId\": \"14\",\n                \"Sd\": \"010203\",\n                \"SmContextRef\": \"urn:uuid:6b6692ea-0df7-432a-a681-a25ba5573e75\",\n                \"Sst\": \"1\"\n            }\n        ],\n        \"Supi\": \"imsi-208930000000009\",\n        \"Tac\": \"000001\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetChargingRecord",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/charging-record/"
+			},
+			"response": [
+				{
+					"name": "GetChargingRecord",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/charging-record/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, Token"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 01 Mar 2024 04:27:11 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "577"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"DlVol\": 5020,\n        \"Dnn\": \"\",\n        \"Filter\": \"\",\n        \"QuotaLeft\": 0,\n        \"Snssai\": \"01010203\",\n        \"Supi\": \"imsi-208930000000002\",\n        \"TotalVol\": 10140,\n        \"UlVol\": 5120,\n        \"Usage\": 10140\n    },\n    {\n        \"DlVol\": 0,\n        \"Dnn\": \"\",\n        \"Filter\": \"\",\n        \"QuotaLeft\": 0,\n        \"Snssai\": \"01112233\",\n        \"Supi\": \"imsi-208930000000001\",\n        \"TotalVol\": 0,\n        \"UlVol\": 0,\n        \"Usage\": 0\n    },\n    {\n        \"DlVol\": 2868,\n        \"Dnn\": \"\",\n        \"Filter\": \"\",\n        \"QuotaLeft\": 0,\n        \"Snssai\": \"01010203\",\n        \"Supi\": \"imsi-208930000000001\",\n        \"TotalVol\": 5836,\n        \"UlVol\": 2968,\n        \"Usage\": 5836\n    },\n    {\n        \"DlVol\": 1900,\n        \"Dnn\": \"internet\",\n        \"Filter\": \"9.9.9.9/32\",\n        \"QuotaLeft\": 0,\n        \"Snssai\": \"01010203\",\n        \"Supi\": \"imsi-208930000000001\",\n        \"TotalVol\": 3800,\n        \"UlVol\": 1900,\n        \"Usage\": 3800\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetChargingData",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "{{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/charging-data/{{ChargingMethod}}"
+			},
+			"response": [
+				{
+					"name": "GetChargingRecord",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": "http://{{WEB_URL}}/api/charging-data/{{ChargingMethod}}"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, Token"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST, OPTIONS, GET, PUT, PATCH, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 01 Mar 2024 04:22:45 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "727"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"chargingMethod\": \"Offline\",\n        \"dnn\": \"\",\n        \"filter\": \"\",\n        \"quota\": \"0\",\n        \"ratingGroup\": 5,\n        \"servingPlmnId\": \"20893\",\n        \"snssai\": \"01010203\",\n        \"ueId\": \"imsi-208930000000001\",\n        \"unitCost\": \"1\"\n    },\n    {\n        \"chargingMethod\": \"Offline\",\n        \"dnn\": \"internet\",\n        \"filter\": \"9.9.9.9/32\",\n        \"qosRef\": 1,\n        \"quota\": \"0\",\n        \"ratingGroup\": 6,\n        \"servingPlmnId\": \"20893\",\n        \"snssai\": \"01010203\",\n        \"ueId\": \"imsi-208930000000001\",\n        \"unitCost\": \"1\"\n    },\n    {\n        \"chargingMethod\": \"Offline\",\n        \"dnn\": \"\",\n        \"filter\": \"\",\n        \"quota\": \"0\",\n        \"ratingGroup\": 1,\n        \"servingPlmnId\": \"20893\",\n        \"snssai\": \"01010203\",\n        \"ueId\": \"imsi-208930000000002\",\n        \"unitCost\": \"1\"\n    },\n    {\n        \"chargingMethod\": \"Offline\",\n        \"dnn\": \"internet\",\n        \"filter\": \"1.1.1.1/32\",\n        \"qosRef\": 1,\n        \"quota\": \"0\",\n        \"ratingGroup\": 2,\n        \"servingPlmnId\": \"20893\",\n        \"snssai\": \"01010203\",\n        \"ueId\": \"imsi-208930000000002\",\n        \"unitCost\": \"1\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Delete Profile",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/profile/{{PROFILE_NAME}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete multiple profiles",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"profileName\": \"profile-1\"\n    },\n    {\n        \"profileName\": \"profile-2\"\n    },\n    {\n        \"profileName\": \"profile-3\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/profile"
+			},
+			"response": []
+		},
+		{
+			"name": "Add a Profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"profileName\": \"test\",\n    \"AccessAndMobilitySubscriptionData\": {\n        \"gpsis\": [\n            \"msisdn-0900000000\"\n        ],\n        \"nssai\": {\n            \"defaultSingleNssais\": [\n                {\n                    \"sst\": 1,\n                    \"sd\": \"010203\",\n                    \"isDefault\": true\n                },\n                {\n                    \"sst\": 1,\n                    \"sd\": \"112233\",\n                    \"isDefault\": true\n                }\n            ],\n            \"singleNssais\": []\n        },\n        \"subscribedUeAmbr\": {\n            \"downlink\": \"2 Gbps\",\n            \"uplink\": \"1 Gbps\"\n        }\n    },\n    \"SessionManagementSubscriptionData\": [\n        {\n            \"singleNssai\": {\n                \"sst\": 1,\n                \"sd\": \"010203\"\n            },\n            \"dnnConfigurations\": {\n                \"internet\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                },\n                \"internet2\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                }\n            }\n        },\n        {\n            \"singleNssai\": {\n                \"sst\": 1,\n                \"sd\": \"112233\"\n            },\n            \"dnnConfigurations\": {\n                \"internet\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                },\n                \"internet2\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                }\n            }\n        }\n    ],\n    \"SmfSelectionSubscriptionData\": {\n        \"subscribedSnssaiInfos\": {\n            \"01010203\": {\n                \"dnnInfos\": [\n                    {\n                        \"dnn\": \"internet\"\n                    },\n                    {\n                        \"dnn\": \"internet2\"\n                    }\n                ]\n            },\n            \"01112233\": {\n                \"dnnInfos\": [\n                    {\n                        \"dnn\": \"internet\"\n                    },\n                    {\n                        \"dnn\": \"internet2\"\n                    }\n                ]\n            }\n        }\n    },\n    \"AmPolicyData\": {\n        \"subscCats\": [\n            \"free5gc\"\n        ]\n    },\n    \"SmPolicyData\": {\n        \"smPolicySnssaiData\": {\n            \"01010203\": {\n                \"snssai\": {\n                    \"sst\": 1,\n                    \"sd\": \"010203\"\n                },\n                \"smPolicyDnnData\": {\n                    \"internet\": {\n                        \"dnn\": \"internet\"\n                    },\n                    \"internet2\": {\n                        \"dnn\": \"internet2\"\n                    }\n                }\n            },\n            \"01112233\": {\n                \"snssai\": {\n                    \"sst\": 1,\n                    \"sd\": \"112233\"\n                },\n                \"smPolicyDnnData\": {\n                    \"internet\": {\n                        \"dnn\": \"internet\"\n                    },\n                    \"internet2\": {\n                        \"dnn\": \"internet2\"\n                    }\n                }\n            }\n        }\n    },\n    \"FlowRules\": [\n        {\n            \"snssai\": \"01010203\",\n            \"dnn\": \"internet\",\n            \"filter\": \"1.1.1.1/32\",\n            \"qfi\": 5\n        }\n    ],\n    \"QosFlows\": [\n        {\n            \"qfi\": 5, \n            \"5qi\": 5,\n            \"snssai\": \"01010203\",\n            \"dnn\": \"internet\",\n            \"gbrUL\": \"\",\n            \"gbrDL\": \"\",\n            \"mbrUL\": \"200 Mbps\",\n            \"mbrDL\": \"100 Mbps\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/profile"
+			},
+			"response": []
+		},
+		{
+			"name": "Modify a Profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"profileName\": \"test\",\n    \"AccessAndMobilitySubscriptionData\": {\n        \"gpsis\": [\n            \"msisdn-0900000000\"\n        ],\n        \"nssai\": {\n            \"defaultSingleNssais\": [\n                {\n                    \"sst\": 1,\n                    \"sd\": \"010203\",\n                    \"isDefault\": true\n                },\n                {\n                    \"sst\": 1,\n                    \"sd\": \"112233\",\n                    \"isDefault\": true\n                }\n            ],\n            \"singleNssais\": []\n        },\n        \"subscribedUeAmbr\": {\n            \"downlink\": \"2 Gbps\",\n            \"uplink\": \"1 Gbps\"\n        }\n    },\n    \"SessionManagementSubscriptionData\": [\n        {\n            \"singleNssai\": {\n                \"sst\": 1,\n                \"sd\": \"010203\"\n            },\n            \"dnnConfigurations\": {\n                \"internet\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                },\n                \"internet2\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                }\n            }\n        },\n        {\n            \"singleNssai\": {\n                \"sst\": 1,\n                \"sd\": \"112233\"\n            },\n            \"dnnConfigurations\": {\n                \"internet\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                },\n                \"internet2\": {\n                    \"sscModes\": {\n                        \"defaultSscMode\": \"SSC_MODE_1\",\n                        \"allowedSscModes\": [\n                            \"SSC_MODE_2\",\n                            \"SSC_MODE_3\"\n                        ]\n                    },\n                    \"pduSessionTypes\": {\n                        \"defaultSessionType\": \"IPV4\",\n                        \"allowedSessionTypes\": [\n                            \"IPV4\"\n                        ]\n                    },\n                    \"sessionAmbr\": {\n                        \"uplink\": \"200 Mbps\",\n                        \"downlink\": \"100 Mbps\"\n                    },\n                    \"5gQosProfile\": {\n                        \"5qi\": 9,\n                        \"arp\": {\n                            \"priorityLevel\": 8\n                        },\n                        \"priorityLevel\": 8\n                    }\n                }\n            }\n        }\n    ],\n    \"SmfSelectionSubscriptionData\": {\n        \"subscribedSnssaiInfos\": {\n            \"01010203\": {\n                \"dnnInfos\": [\n                    {\n                        \"dnn\": \"internet\"\n                    },\n                    {\n                        \"dnn\": \"internet2\"\n                    }\n                ]\n            },\n            \"01112233\": {\n                \"dnnInfos\": [\n                    {\n                        \"dnn\": \"internet\"\n                    },\n                    {\n                        \"dnn\": \"internet2\"\n                    }\n                ]\n            }\n        }\n    },\n    \"AmPolicyData\": {\n        \"subscCats\": [\n            \"free5gc\"\n        ]\n    },\n    \"SmPolicyData\": {\n        \"smPolicySnssaiData\": {\n            \"01010203\": {\n                \"snssai\": {\n                    \"sst\": 1,\n                    \"sd\": \"010203\"\n                },\n                \"smPolicyDnnData\": {\n                    \"internet\": {\n                        \"dnn\": \"internet\"\n                    },\n                    \"internet2\": {\n                        \"dnn\": \"internet2\"\n                    }\n                }\n            },\n            \"01112233\": {\n                \"snssai\": {\n                    \"sst\": 1,\n                    \"sd\": \"112233\"\n                },\n                \"smPolicyDnnData\": {\n                    \"internet\": {\n                        \"dnn\": \"internet\"\n                    },\n                    \"internet2\": {\n                        \"dnn\": \"internet2\"\n                    }\n                }\n            }\n        }\n    },\n    \"FlowRules\": [\n        {\n            \"snssai\": \"01010203\",\n            \"dnn\": \"internet\",\n            \"filter\": \"permit out 17 from 192.168.0.0/24 8000 to 60.60.0.0/24 \",\n            \"qfi\": 5\n        }, {\n            \"snssai\": \"01010203\",\n            \"dnn\": \"internet\",\n            \"filter\": \"permit out 17 from 192.169.0.0/24 8000 to 60.60.0.0/24 \",\n            \"qfi\": 1\n        }\n    ],\n    \"QosFlows\": [\n        {\n            \"qfi\": 5, \n            \"5qi\": 5,\n            \"snssai\": \"01010203\",\n            \"dnn\": \"internet\",\n            \"gbrUL\": \"\",\n            \"gbrDL\": \"\",\n            \"mbrUL\": \"200 Mbps\",\n            \"mbrDL\": \"100 Mbps\"\n        }, {\n            \"qfi\": 1, \n            \"5qi\": 1,\n            \"snssai\": \"01010203\",\n            \"dnn\": \"internet\",\n            \"gbrUL\": \"200 Mbps\",\n            \"gbrDL\": \"100 Mbps\",\n            \"mbrUL\": \"200 Mbps\",\n            \"mbrDL\": \"100 Mbps\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://{{WEB_URL}}/api/profile/{{PROFILE_NAME}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Profiles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://{WEB_URL}}/api/profile"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://{{WEB_URL}}/api/profile/{{PROFILE_NAME}}"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "WEB_URL",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "UE_ID",
+			"value": "imsi-"
+		},
+		{
+			"key": "PLMN_ID",
+			"value": "01010203"
+		},
+		{
+			"key": "TOKEN",
+			"value": "\"\""
+		},
+		{
+			"key": "ChargingMethod",
+			"value": "Offline"
+		},
+		{
+			"key": "PROFILE_NAME",
+			"value": "test",
+			"type": "default"
+		}
+	]
+}

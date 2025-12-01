@@ -1,0 +1,1224 @@
+openapi: 3.0.0
+info:
+  description: MDM backend API
+  title: MDM Backend API
+  version: v1
+servers:
+- url: http://localhost:9090
+tags:
+- description: MDM backend API
+  name: mdm
+- description: MDM dashboard API for services
+  name: services
+- description: MDM dashboard API for apps
+  name: apps
+- description: MDM dashboard API for devices
+  name: devices
+- description: MDM dashboard API for files
+  name: files
+- description: MDM dashboard API for logs
+  name: logs
+- description: MDM test API
+  name: tests
+paths:
+  /api/v1/postDeviceInfo:
+    post:
+      description: Register device information API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceInfoRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceInfoResponse'
+          description: Recommendation response
+      summary: Register device information
+      tags:
+      - mdm
+  /api/v1/queryDeviceManage:
+    post:
+      description: Register device information API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceManageRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceManageResponse'
+          description: Recommendation response
+      summary: Register device information
+      tags:
+      - mdm
+  /api/v1/getSoftwareInfo:
+    post:
+      description: Register device information API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetSoftwareRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSoftwareResponse'
+          description: Recommendation response
+      summary: Register device information
+      tags:
+      - mdm
+  /api/v1/postLog:
+    post:
+      description: Register device information API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostLogRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostLogResponse'
+          description: Recommendation response
+      summary: Register device information
+      tags:
+      - mdm
+  /services:
+    get:
+      description: Returns an array of services.
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicesList'
+          description: Returns an array of service.
+      summary: Get all services.
+      tags:
+      - services
+    options:
+      description: Add a new service
+      responses:
+        "204":
+          description: No Content
+      summary: Add a service
+      tags:
+      - services
+    post:
+      description: Add a new service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services'
+          description: Created
+      summary: Add a service
+      tags:
+      - services
+  /services/{serviceId}:
+    delete:
+      description: Deletes a service
+      parameters:
+      - description: ID of service to delete
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Deleted
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Service not found
+      summary: Deletes a service
+      tags:
+      - services
+    get:
+      description: Return a service.
+      parameters:
+      - description: ID of service to return
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services'
+          description: A JSON of the service
+      summary: Get service.
+      tags:
+      - services
+    put:
+      description: Update a service
+      parameters:
+      - description: ID of service to update
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services'
+          description: Updated
+      summary: Update a service
+      tags:
+      - services
+  /apps:
+    get:
+      description: Returns an array of apps.
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppsList'
+          description: Returns an array of app.
+      summary: Get all apps.
+      tags:
+      - apps
+    options:
+      description: Add a new app
+      responses:
+        "204":
+          description: No Content
+      summary: Add a app
+      tags:
+      - apps
+    post:
+      description: Add a new app
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Apps'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+          description: Created
+      summary: Add a app
+      tags:
+      - apps
+  /apps/{appId}:
+    delete:
+      description: Deletes a app
+      parameters:
+      - description: ID of app to delete
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Deleted
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: App not found
+      summary: Deletes a app
+      tags:
+      - apps
+    get:
+      description: Return a app.
+      parameters:
+      - description: ID of app to return
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+          description: A JSON of the app
+      summary: Get app.
+      tags:
+      - apps
+    put:
+      description: Update a app
+      parameters:
+      - description: ID of app to update
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Apps'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+          description: Updated
+      summary: Update a app
+      tags:
+      - apps
+  /devices:
+    get:
+      description: Returns an array of devices.
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesList'
+          description: Returns an array of device.
+      summary: Get all devices.
+      tags:
+      - devices
+    options:
+      description: Add a new device
+      responses:
+        "204":
+          description: No Content
+      summary: Add a device
+      tags:
+      - devices
+    post:
+      description: Add a new device
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Devices'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devices'
+          description: Created
+      summary: Add a device
+      tags:
+      - devices
+  /devices/{deviceId}:
+    delete:
+      description: Deletes a device
+      parameters:
+      - description: ID of device to delete
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Deleted
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Device not found
+      summary: Deletes a device
+      tags:
+      - devices
+    get:
+      description: Return a device.
+      parameters:
+      - description: ID of device to return
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devices'
+          description: A JSON of the device
+      summary: Get device.
+      tags:
+      - devices
+    put:
+      description: Update a device
+      parameters:
+      - description: ID of device to update
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Devices'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devices'
+          description: Updated
+      summary: Update a device
+      tags:
+      - devices
+  /files:
+    get:
+      description: Returns an array of files.
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilesList'
+          description: Returns an array of file.
+      summary: Get all files.
+      tags:
+      - files
+    options:
+      description: Add a new file
+      responses:
+        "204":
+          description: No Content
+      summary: Add a file
+      tags:
+      - files
+    post:
+      description: Add a new file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Files'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+          description: Created
+      summary: Add a file
+      tags:
+      - files
+  /files/{fileId}:
+    delete:
+      description: Deletes a file
+      parameters:
+      - description: ID of file to delete
+        explode: false
+        in: path
+        name: fileId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Deleted
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: File not found
+      summary: Deletes a file
+      tags:
+      - files
+    get:
+      description: Return a file.
+      parameters:
+      - description: ID of file to return
+        explode: false
+        in: path
+        name: fileId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+          description: A JSON of the file
+      summary: Get file.
+      tags:
+      - files
+    put:
+      description: Update a file
+      parameters:
+      - description: ID of file to update
+        explode: false
+        in: path
+        name: fileId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Files'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+          description: Updated
+      summary: Update a file
+      tags:
+      - files
+  /logs:
+    options:
+      description: Dump logs
+      responses:
+        "204":
+          description: No Content
+      summary: Dump logs
+      tags:
+      - logs
+    post:
+      description: Dump logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogsRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsResponse'
+          description: Created
+      summary: Dump logs
+      tags:
+      - logs
+components:
+  schemas:
+    Meta:
+      example:
+        next: next
+        total: 6
+        prev: prev
+        limit: 0
+      properties:
+        next:
+          type: string
+        prev:
+          type: string
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+      type: object
+    DeviceInfoRequest:
+      example:
+        iccid: iccid
+        device_id: device_id
+        app_version: app_version
+        model_name: model_name
+        app_build_number: app_build_number
+        service_id: service_id
+        os_version: os_version
+        imei: imei
+        root_exploit: true
+        imsi: imsi
+        app_id: app_id
+      properties:
+        device_id:
+          type: string
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_version:
+          type: string
+        app_build_number:
+          type: string
+        iccid:
+          type: string
+        imei:
+          type: string
+        imsi:
+          type: string
+        model_name:
+          type: string
+        os_version:
+          type: string
+        root_exploit:
+          type: boolean
+      type: object
+    Empty:
+      type: object
+    DeviceInfoResponse:
+      example:
+        result: 0
+        response: "{}"
+        currentTimestamp: 6
+      properties:
+        result:
+          format: int64
+          type: integer
+        response:
+          type: object
+        currentTimestamp:
+          format: int64
+          type: integer
+      type: object
+    DeviceManageRequest:
+      example:
+        device_id: device_id
+        app_version: app_version
+        app_build_number: app_build_number
+        service_id: service_id
+        app_id: app_id
+      properties:
+        device_id:
+          type: string
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_version:
+          type: string
+        app_build_number:
+          type: string
+      type: object
+    DeviceManageData:
+      example:
+        device_available: true
+        service_available: true
+        kiosk_mode_enabled: true
+      properties:
+        kiosk_mode_enabled:
+          type: boolean
+        device_available:
+          type: boolean
+        service_available:
+          type: boolean
+      type: object
+    DeviceManageResponse:
+      example:
+        result: 0
+        response:
+          device_available: true
+          service_available: true
+          kiosk_mode_enabled: true
+        currentTimestamp: 6
+      properties:
+        result:
+          format: int64
+          type: integer
+        response:
+          $ref: '#/components/schemas/DeviceManageData'
+        currentTimestamp:
+          format: int64
+          type: integer
+      type: object
+    GetSoftwareApp:
+      example:
+        file_hash: file_hash
+        version: version
+        url: url
+      properties:
+        version:
+          type: string
+        url:
+          type: string
+        file_hash:
+          type: string
+      type: object
+    GetSoftwareFile:
+      example:
+        file_hash: file_hash
+        version: version
+        key: key
+        url: url
+      properties:
+        key:
+          type: string
+        version:
+          type: string
+        url:
+          type: string
+        file_hash:
+          type: string
+      type: object
+    GetSoftwareData:
+      example:
+        app:
+          file_hash: file_hash
+          version: version
+          url: url
+        file:
+        - file_hash: file_hash
+          version: version
+          key: key
+          url: url
+        - file_hash: file_hash
+          version: version
+          key: key
+          url: url
+      properties:
+        app:
+          $ref: '#/components/schemas/GetSoftwareApp'
+        file:
+          items:
+            $ref: '#/components/schemas/GetSoftwareFile'
+          type: array
+      type: object
+    GetSoftwareRequest:
+      example:
+        device_id: device_id
+        app_version: app_version
+        app_build_number: app_build_number
+        service_id: service_id
+        app_id: app_id
+      properties:
+        device_id:
+          type: string
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_version:
+          type: string
+        app_build_number:
+          type: string
+      type: object
+    GetSoftwareResponse:
+      example:
+        result: 0
+        response:
+          app:
+            file_hash: file_hash
+            version: version
+            url: url
+          file:
+          - file_hash: file_hash
+            version: version
+            key: key
+            url: url
+          - file_hash: file_hash
+            version: version
+            key: key
+            url: url
+        currentTimestamp: 6
+      properties:
+        result:
+          format: int64
+          type: integer
+        response:
+          $ref: '#/components/schemas/GetSoftwareData'
+        currentTimestamp:
+          format: int64
+          type: integer
+      type: object
+    PostLogRequest:
+      example:
+        device_id: device_id
+        app_version: app_version
+        log: log
+        app_build_number: app_build_number
+        service_id: service_id
+        app_id: app_id
+      properties:
+        device_id:
+          type: string
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_version:
+          type: string
+        app_build_number:
+          type: string
+        log:
+          type: string
+      type: object
+    PostLogResponse:
+      example:
+        result: 0
+        response: "{}"
+        currentTimestamp: 6
+      properties:
+        result:
+          format: int64
+          type: integer
+        response:
+          type: object
+        currentTimestamp:
+          format: int64
+          type: integer
+      type: object
+    Accounts:
+      properties:
+        id:
+          format: int64
+          type: integer
+        email:
+          type: string
+        created_at:
+          type: time
+        updated_at:
+          type: time
+      type: object
+    Devices:
+      example:
+        device_id: device_id
+        app_version: app_version
+        service_available: true
+        os_version: os_version
+        root_exploit: true
+        created_at: ""
+        imsi: imsi
+        iccid: iccid
+        model_name: model_name
+        device_available: true
+        updated_at: ""
+        app_build_number: app_build_number
+        service_id: service_id
+        imei: imei
+        id: 0
+        app_id: app_id
+        kiosk_mode_enabled: true
+      properties:
+        id:
+          format: int64
+          type: integer
+        device_id:
+          type: string
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_version:
+          type: string
+        app_build_number:
+          type: string
+        iccid:
+          type: string
+        imei:
+          type: string
+        imsi:
+          type: string
+        model_name:
+          type: string
+        os_version:
+          type: string
+        root_exploit:
+          type: boolean
+        kiosk_mode_enabled:
+          type: boolean
+        device_available:
+          type: boolean
+        service_available:
+          type: boolean
+        created_at:
+          type: time
+        updated_at:
+          type: time
+      type: object
+    Services:
+      example:
+        updated_at: ""
+        service_name: service_name
+        service_id: service_id
+        memo: memo
+        created_at: ""
+        id: 1
+      properties:
+        id:
+          format: int64
+          type: integer
+        service_id:
+          type: string
+        service_name:
+          type: string
+        memo:
+          type: string
+        created_at:
+          type: time
+        updated_at:
+          type: time
+      type: object
+    Apps:
+      example:
+        app_name: app_name
+        app_version: app_version
+        updated_at: ""
+        service_id: service_id
+        memo: memo
+        created_at: ""
+        id: 0
+        app_id: app_id
+      properties:
+        id:
+          format: int64
+          type: integer
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_name:
+          type: string
+        app_version:
+          type: string
+        memo:
+          type: string
+        created_at:
+          type: time
+        updated_at:
+          type: time
+      type: object
+    Files:
+      example:
+        file_version: file_version
+        file_key: file_key
+        file_path: file_path
+        file_hash: file_hash
+        updated_at: ""
+        created_at: ""
+        id: 0
+        app_id: app_id
+      properties:
+        id:
+          format: int64
+          type: integer
+        app_id:
+          type: string
+        file_key:
+          type: string
+        file_version:
+          type: string
+        file_path:
+          type: string
+        file_hash:
+          type: string
+        created_at:
+          type: time
+        updated_at:
+          type: time
+      type: object
+    Logs:
+      properties:
+        id:
+          format: int64
+          type: integer
+        device_id:
+          type: string
+        service_id:
+          type: string
+        app_id:
+          type: string
+        app_version:
+          type: string
+        app_build_number:
+          type: string
+        logs:
+          type: string
+        created_at:
+          type: time
+      type: object
+    ServicesList:
+      example:
+        meta:
+          next: next
+          total: 6
+          prev: prev
+          limit: 0
+        response:
+        - updated_at: ""
+          service_name: service_name
+          service_id: service_id
+          memo: memo
+          created_at: ""
+          id: 1
+        - updated_at: ""
+          service_name: service_name
+          service_id: service_id
+          memo: memo
+          created_at: ""
+          id: 1
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        response:
+          items:
+            $ref: '#/components/schemas/Services'
+          type: array
+      type: object
+    AppsList:
+      example:
+        meta:
+          next: next
+          total: 6
+          prev: prev
+          limit: 0
+        response:
+        - app_name: app_name
+          app_version: app_version
+          updated_at: ""
+          service_id: service_id
+          memo: memo
+          created_at: ""
+          id: 0
+          app_id: app_id
+        - app_name: app_name
+          app_version: app_version
+          updated_at: ""
+          service_id: service_id
+          memo: memo
+          created_at: ""
+          id: 0
+          app_id: app_id
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        response:
+          items:
+            $ref: '#/components/schemas/Apps'
+          type: array
+      type: object
+    DevicesList:
+      example:
+        meta:
+          next: next
+          total: 6
+          prev: prev
+          limit: 0
+        response:
+        - device_id: device_id
+          app_version: app_version
+          service_available: true
+          os_version: os_version
+          root_exploit: true
+          created_at: ""
+          imsi: imsi
+          iccid: iccid
+          model_name: model_name
+          device_available: true
+          updated_at: ""
+          app_build_number: app_build_number
+          service_id: service_id
+          imei: imei
+          id: 0
+          app_id: app_id
+          kiosk_mode_enabled: true
+        - device_id: device_id
+          app_version: app_version
+          service_available: true
+          os_version: os_version
+          root_exploit: true
+          created_at: ""
+          imsi: imsi
+          iccid: iccid
+          model_name: model_name
+          device_available: true
+          updated_at: ""
+          app_build_number: app_build_number
+          service_id: service_id
+          imei: imei
+          id: 0
+          app_id: app_id
+          kiosk_mode_enabled: true
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        response:
+          items:
+            $ref: '#/components/schemas/Devices'
+          type: array
+      type: object
+    FilesList:
+      example:
+        meta:
+          next: next
+          total: 6
+          prev: prev
+          limit: 0
+        response:
+        - file_version: file_version
+          file_key: file_key
+          file_path: file_path
+          file_hash: file_hash
+          updated_at: ""
+          created_at: ""
+          id: 0
+          app_id: app_id
+        - file_version: file_version
+          file_key: file_key
+          file_path: file_path
+          file_hash: file_hash
+          updated_at: ""
+          created_at: ""
+          id: 0
+          app_id: app_id
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        response:
+          items:
+            $ref: '#/components/schemas/Files'
+          type: array
+      type: object
+    LogsRequest:
+      example:
+        device_id: device_id
+        start: start
+        end: end
+      properties:
+        device_id:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+      type: object
+    LogsResponse:
+      example:
+        result: 0
+        file_name: file_name
+      properties:
+        result:
+          format: int64
+          type: integer
+        file_name:
+          type: string
+      type: object
