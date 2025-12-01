@@ -13,17 +13,17 @@ WEBCONSOLE_GO_FILES = $(shell find $(WEBCONSOLE) -name "*.go" ! -name "*_test.go
 WEBCONSOLE_JS_FILES = $(shell find $(WEBCONSOLE)/frontend -name '*.tsx' ! -path "*/node_modules/*")
 WEBCONSOLE_FRONTEND = $(WEBCONSOLE)/public
 
-VERSION = $(shell sh -c 'git describe --tags 2>/dev/null || echo dev')
+VERSION = $(shell git describe --tags)
 BUILD_TIME = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-COMMIT_HASH = $(shell sh -c 'git submodule status 2>/dev/null | grep $(GO_SRC_PATH)/$(@F) | awk '{print $$1}' | cut -c1-8 || echo unknown')
-COMMIT_TIME = $(shell sh -c 'cd $(GO_SRC_PATH)/$(@F) 2>/dev/null && git log --pretty="@%at" -1 2>/dev/null | xargs date -u +"%Y-%m-%dT%H:%M:%SZ" -d || echo 1970-01-01T00:00:00Z')
+COMMIT_HASH = $(shell git submodule status | grep $(GO_SRC_PATH)/$(@F) | awk '{print $$(1)}' | cut -c1-8)
+COMMIT_TIME = $(shell cd $(GO_SRC_PATH)/$(@F) && git log --pretty="@%at" -1 | xargs date -u +"%Y-%m-%dT%H:%M:%SZ" -d)
 LDFLAGS = -X github.com/free5gc/util/version.VERSION=$(VERSION) \
           -X github.com/free5gc/util/version.BUILD_TIME=$(BUILD_TIME) \
           -X github.com/free5gc/util/version.COMMIT_HASH=$(COMMIT_HASH) \
           -X github.com/free5gc/util/version.COMMIT_TIME=$(COMMIT_TIME)
 
-WEBCONSOLE_COMMIT_HASH = $(shell sh -c 'git submodule status 2>/dev/null | grep $(WEBCONSOLE) | awk '{print $$1}' | cut -c1-8 || echo unknown')
-WEBCONSOLE_COMMIT_TIME = $(shell sh -c 'cd $(WEBCONSOLE) 2>/dev/null && git log --pretty="@%at" -1 2>/dev/null | xargs date -u +"%Y-%m-%dT%H:%M:%SZ" -d || echo 1970-01-01T00:00:00Z')
+WEBCONSOLE_COMMIT_HASH = $(shell git submodule status | grep $(WEBCONSOLE) | awk '{print $$(1)}' | cut -c1-8)
+WEBCONSOLE_COMMIT_TIME = $(shell cd $(WEBCONSOLE) && git log --pretty="@%at" -1 | xargs date -u +"%Y-%m-%dT%H:%M:%SZ" -d)
 WEBCONSOLE_LDFLAGS = -X github.com/free5gc/util/version.VERSION=$(VERSION) \
                      -X github.com/free5gc/util/version.BUILD_TIME=$(BUILD_TIME) \
                      -X github.com/free5gc/util/version.COMMIT_HASH=$(WEBCONSOLE_COMMIT_HASH) \
@@ -79,4 +79,3 @@ clean:
 	rm -rf $(addprefix $(GO_BIN_PATH)/, $(GO_NF))
 	rm -rf $(addprefix $(GO_SRC_PATH)/, $(addsuffix /$(C_BUILD_PATH), $(C_NF)))
 	rm -rf $(WEBCONSOLE)/$(GO_BIN_PATH)/$(WEBCONSOLE)
-
