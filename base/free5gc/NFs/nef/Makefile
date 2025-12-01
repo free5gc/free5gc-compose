@@ -8,10 +8,10 @@ NF = nef
 NF_GO_FILES = $(shell find . -name "*.go" ! -name "*_test.go")
 NF_CFG_FILE = nefcfg.yaml
 
-VERSION = $(shell git describe --tags)
+VERSION = $(shell sh -c 'git describe --tags 2>/dev/null || echo dev')
 BUILD_TIME = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-COMMIT_HASH = $(shell git log --pretty="%H" -1 | cut -c1-8)
-COMMIT_TIME = $(shell git log --pretty="%ai" -1 | awk '{time=$$(1)"T"$$(2)"Z"; print time}')
+COMMIT_HASH = $(shell sh -c 'git log --pretty="%H" -1 2>/dev/null | cut -c1-8 || echo unknown')
+COMMIT_TIME = $(shell sh -c 'git log --pretty="%ai" -1 2>/dev/null | awk '{time=$$1"T"$$2"Z"; print time}' || echo 1970-01-01T00:00:00Z')
 LDFLAGS = -X github.com/free5gc/version.VERSION=$(VERSION) \
           -X github.com/free5gc/version.BUILD_TIME=$(BUILD_TIME) \
           -X github.com/free5gc/version.COMMIT_HASH=$(COMMIT_HASH) \
