@@ -1,0 +1,30 @@
+name: CI Build (x86_64)
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Install Compose
+      uses: ndeloof/install-compose-action@v0.0.1
+      with:
+        version: v2.1.0 # defaults to 'latest'
+        legacy: true    # will also install in PATH as `docker-compose`
+
+    - uses: actions/checkout@v3
+
+    - name: Build via build.sh
+      run: |
+        bash ./script/build.sh
+
+    - name: Compose config validation
+      run: |
+        docker compose -f docker-compose.yaml config -q

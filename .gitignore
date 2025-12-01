@@ -2,7 +2,7 @@
 .vscode
 
 mongodb
-base/free5gc
+# base/free5gc
 
 # cert
 cert/*_*.pem

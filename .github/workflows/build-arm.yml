@@ -1,0 +1,30 @@
+name: CI Build (ARM64)
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+
+    - name: Install Compose
+      uses: ndeloof/install-compose-action@v0.0.1
+      with:
+        version: v2.1.0 # defaults to 'latest'
+        legacy: true    # will also install in PATH as `docker-compose`
+
+    - uses: actions/checkout@v3
+
+    - name: Build via build.sh (ARM64)
+      run: |
+        bash ./script/build.sh aarch64
+
+    - name: Compose config validation
+      run: |
+        docker compose -f docker-compose.yaml config -q

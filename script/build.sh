@@ -1,10 +1,10 @@
 #!/bin/bash
 ARCH=${1-"x86_64"}
 
-cd base
-git clone --recursive -j `nproc` https://github.com/free5gc/free5gc.git
+# cd base
+# git clone --recursive -j `nproc` https://github.com/free5gc/free5gc.git
 
-cd -
+# cd -
 
 make all
 
