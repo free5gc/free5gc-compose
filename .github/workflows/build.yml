@@ -27,4 +27,9 @@ jobs:
 
     - name: Compose config validation
       run: |
-        docker compose -f docker-compose.yaml config -q
+        docker compose -f docker-compose-build.yaml config -q
+
+    - name: Compose create (fail if missing)
+      run: |
+        docker compose -f docker-compose-build.yaml up --no-start
+        docker compose -f docker-compose-build.yaml down -v --remove-orphans
