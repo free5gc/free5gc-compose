@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   prometheus:
     container_name: prometheus
@@ -16,18 +14,60 @@ services:
         aliases:
           - prometheus
 
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    user: root
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.52
+        aliases:
+          - loki
+
+  tempo:
+    container_name: tempo
+    image: grafana/tempo:latest
+    user: root
+    command: -config.file=/etc/tempo.yaml
+    ports:
+      - "3200:3200"
+      - "4317:4317"  # OTLP gRPC
+      - "4318:4318"  # OTLP HTTP
+    volumes:
+      - ./config/observe/tempo.yaml:/etc/tempo.yaml:ro
+      - tempo_data:/tmp/tempo
+    networks:
+      privnet:
+        ipv4_address: 10.100.200.53
+        aliases:
+          - tempo
+
   grafana:
     container_name: grafana
     image: grafana/grafana:latest
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     ports:
       - "3001:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-    # depends_on:
-      # - prometheus
+      - ./config/observe/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
+      - ./config/observe/grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./config/observe/grafana-ue-registration-dashboard.json:/var/lib/grafana/dashboards/ue-registration.json:ro
+    logging:
+      driver: loki
+      options:
+        loki-url: http://loki:3100/loki/api/v1/push
+    depends_on:
+      - loki
+      - prometheus
     networks:
       privnet:
         ipv4_address: 10.100.200.51
@@ -46,3 +86,5 @@ networks:
 volumes:
   prometheus_data:
   grafana_data:
+  loki_data:
+  tempo_data:

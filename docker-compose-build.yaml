@@ -13,6 +13,10 @@ services:
       - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -46,6 +50,10 @@ services:
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -67,6 +75,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         ipv4_address: 10.100.200.16
@@ -89,6 +101,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -110,6 +126,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -131,6 +151,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -153,6 +177,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -175,6 +203,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -198,6 +230,10 @@ services:
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -222,6 +258,10 @@ services:
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -245,6 +285,10 @@ services:
       GIN_MODE: release
     cap_add:
       - NET_ADMIN
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         ipv4_address: 10.100.200.15
@@ -270,6 +314,10 @@ services:
     cap_add:
       - NET_ADMIN
     network_mode: host
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     depends_on:
       - free5gc-amf
       - free5gc-smf
@@ -289,6 +337,10 @@ services:
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -310,6 +362,10 @@ services:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
     environment:
       - GIN_MODE=release
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -324,6 +380,8 @@ services:
     container_name: ueransim
     build:
       context: ./ueransim
+      args:
+        TARGET_ARCH: aarch64
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
@@ -332,6 +390,10 @@ services:
       - NET_ADMIN
     devices:
       - "/dev/net/tun"
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     networks:
       privnet:
         aliases:
@@ -339,6 +401,30 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-upf
+
+  ue:
+    container_name: ue
+    build:
+      context: ./ueransim
+      args:
+        TARGET_ARCH: aarch64
+    command: ./nr-ue -c ./config/uecfg.yaml
+    volumes:
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
+    networks:
+      privnet:
+        aliases:
+          - ue.free5gc.org
+    depends_on:
+      - ueransim
 
   n3iwue:
     container_name: n3iwue
@@ -356,6 +442,10 @@ services:
         ipv4_address: 10.100.200.203
         aliases:
           - n3ue.free5gc.org
+    logging:
+      driver: loki
+      options:
+        loki-url: http://10.100.200.52:3100/loki/api/v1/push
     depends_on:
       - free5gc-n3iwf
 
