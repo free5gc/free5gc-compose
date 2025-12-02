@@ -38,21 +38,6 @@ jobs:
       run: |
         bash ./script/build.sh aarch64
 
-    # - name: Compose config validation
-    #   run: |
-    #     docker compose -f docker-compose-build.yaml config -q
-
-    - name: free5GC compose config validation
-      run: |
-        docker compose -f docker-compose-build.yaml config -q
-
-    - name: Start free5GC stack
-      run: |
-        docker compose -f docker-compose-build.yaml up -d
-        echo "Waiting for free5GC services..."
-        timeout 60 bash -c 'until curl -sf http://localhost:8000/nnrf-nfm/v1/nf-instances 2>/dev/null; do sleep 2; done' || echo "NRF starting"
-        echo "✓ free5GC services are starting"
-
     - name: Observability compose config validation
       run: |
         docker compose -f docker-compose-prometheus.yaml config -q
@@ -69,6 +54,17 @@ jobs:
         echo "✓ Tempo is healthy"
         timeout 60 bash -c 'until curl -sf http://localhost:3001/api/health | grep -q '{"commit"'; do sleep 2; done' || true
         echo "✓ Grafana is healthy"
+
+    - name: free5GC compose config validation
+      run: |
+        docker compose -f docker-compose-build.yaml config -q
+
+    - name: Start free5GC stack (after Loki is ready)
+      run: |
+        docker compose -f docker-compose-build.yaml up -d
+        echo "Waiting for free5GC services..."
+        timeout 60 bash -c 'until curl -sf http://localhost:8000/nnrf-nfm/v1/nf-instances 2>/dev/null; do sleep 2; done' || echo "NRF starting"
+        echo "✓ free5GC services are starting"
 
     - name: Check Prometheus targets API
       run: |
