@@ -42,18 +42,24 @@ jobs:
     #   run: |
     #     docker compose -f docker-compose-build.yaml config -q
 
-    # - name: Compose create (fail if missing)
-    #   run: |
-    #     docker compose -f docker-compose-build.yaml up --no-start
-    #     docker compose -f docker-compose-build.yaml down -v --remove-orphans
+    - name: free5GC compose config validation
+      run: |
+        docker compose -f docker-compose-build.yaml config -q
+
+    - name: Start free5GC stack
+      run: |
+        docker compose -f docker-compose-build.yaml up -d
+        echo "Waiting for free5GC services..."
+        timeout 60 bash -c 'until curl -sf http://localhost:8000/nnrf-nfm/v1/nf-instances 2>/dev/null; do sleep 2; done' || echo "NRF starting"
+        echo "✓ free5GC services are starting"
 
     - name: Observability compose config validation
       run: |
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml config -q
+        docker compose -f docker-compose-prometheus.yaml config -q
 
-    - name: Start stack with Prometheus & Grafana (ARM)
+    - name: Start observability stack
       run: |
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml up -d
+        docker compose -f docker-compose-prometheus.yaml up -d
         echo "Waiting for observability stack (ARM)..."
         timeout 60 bash -c 'until curl -sf http://localhost:9090/-/healthy; do sleep 2; done'
         echo "✓ Prometheus is healthy"
@@ -90,17 +96,22 @@ jobs:
     - name: Dump logs on failure
       if: failure()
       run: |
+        echo "=== free5GC NRF logs ==="
+        docker compose -f docker-compose-build.yaml logs nrf || true
+        echo "=== free5GC AMF logs ==="
+        docker compose -f docker-compose-build.yaml logs amf || true
         echo "=== Prometheus logs ==="
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs prometheus || true
+        docker compose -f docker-compose-prometheus.yaml logs prometheus || true
         echo "=== Loki logs ==="
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs loki || true
+        docker compose -f docker-compose-prometheus.yaml logs loki || true
         echo "=== Tempo logs ==="
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs tempo || true
+        docker compose -f docker-compose-prometheus.yaml logs tempo || true
         echo "=== Grafana logs ==="
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs grafana || true
+        docker compose -f docker-compose-prometheus.yaml logs grafana || true
 
     - name: Teardown observability stack
       if: always()
       run: |
-        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml down -v --remove-orphans
+        docker compose -f docker-compose-prometheus.yaml down -v --remove-orphans || true
+        docker compose -f docker-compose-build.yaml down -v --remove-orphans || true
         docker system prune -af --volumes
