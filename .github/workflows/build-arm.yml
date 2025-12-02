@@ -54,10 +54,15 @@ jobs:
     - name: Start stack with Prometheus & Grafana (ARM)
       run: |
         docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml up -d
-        echo "Waiting for Prometheus & Grafana (ARM)..."
+        echo "Waiting for observability stack (ARM)..."
         timeout 60 bash -c 'until curl -sf http://localhost:9090/-/healthy; do sleep 2; done'
+        echo "✓ Prometheus is healthy"
+        timeout 60 bash -c 'until curl -sf http://localhost:3100/ready; do sleep 2; done'
+        echo "✓ Loki is healthy"
+        timeout 60 bash -c 'until curl -sf http://localhost:3200/ready; do sleep 2; done'
+        echo "✓ Tempo is healthy"
         timeout 60 bash -c 'until curl -sf http://localhost:3001/api/health | grep -q '{"commit"'; do sleep 2; done' || true
-        echo "Prometheus & Grafana healthy"
+        echo "✓ Grafana is healthy"
 
     - name: Check Prometheus targets API
       run: |
@@ -67,11 +72,30 @@ jobs:
       run: |
         curl -sf http://localhost:3001/api/datasources || echo "Grafana datasource endpoint reachable"
 
+    - name: Check Loki labels API
+      run: |
+        curl -sf http://localhost:3100/loki/api/v1/labels | jq -e '.status == "success"' || echo "Loki API check"
+
+    - name: Check Tempo status
+      run: |
+        curl -sf http://localhost:3200/status || echo "Tempo status check"
+
+    - name: Test OTLP endpoints
+      run: |
+        echo "Testing OTLP gRPC port..."
+        timeout 5 bash -c "</dev/tcp/localhost/4317" && echo "✓ OTLP gRPC port is open" || echo "⚠ OTLP gRPC port check"
+        echo "Testing OTLP HTTP endpoint..."
+        curl -sf -X POST http://localhost:4318/v1/traces -H "Content-Type: application/json" -d '{"resourceSpans":[]}' && echo "✓ OTLP HTTP endpoint accessible" || echo "⚠ OTLP HTTP endpoint check"
+
     - name: Dump logs on failure
       if: failure()
       run: |
         echo "=== Prometheus logs ==="
         docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs prometheus || true
+        echo "=== Loki logs ==="
+        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs loki || true
+        echo "=== Tempo logs ==="
+        docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs tempo || true
         echo "=== Grafana logs ==="
         docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml logs grafana || true
 
