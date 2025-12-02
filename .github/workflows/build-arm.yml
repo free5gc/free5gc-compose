@@ -38,13 +38,13 @@ jobs:
     #   run: |
     #     bash ./script/build.sh aarch64
 
-    - name: Install Loki Docker logging driver
-      run: |
-        set -e
-        echo "Installing grafana/loki-docker-driver plugin..."
-        sudo docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || sudo docker plugin enable loki
-        echo "Installed plugins:"
-        sudo docker plugin ls
+    # - name: Install Loki Docker logging driver
+    #   run: |
+    #     set -e
+    #     echo "Installing grafana/loki-docker-driver plugin..."
+    #     sudo docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || sudo docker plugin enable loki
+    #     echo "Installed plugins:"
+    #     sudo docker plugin ls
 
     - name: Observability compose config validation
       run: |
@@ -117,9 +117,11 @@ jobs:
         echo "=== Grafana logs ==="
         docker compose -f docker-compose-prometheus.yaml logs grafana || true
 
+    # - name: Teardown observability stack (5gc)
+    #   run: |
+    #     docker compose -f docker-compose-build.yaml down -v --remove-orphans || true
     - name: Teardown observability stack
       if: always()
       run: |
         docker compose -f docker-compose-prometheus.yaml down -v --remove-orphans || true
-        # docker compose -f docker-compose-build.yaml down -v --remove-orphans || true
         docker system prune -af --volumes
