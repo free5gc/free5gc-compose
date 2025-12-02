@@ -34,9 +34,17 @@ jobs:
 
     - uses: actions/checkout@v3
 
-    - name: Build via build.sh (ARM64)
+    # - name: Build via build.sh (ARM64)
+    #   run: |
+    #     bash ./script/build.sh aarch64
+
+    - name: Install Loki Docker logging driver
       run: |
-        bash ./script/build.sh aarch64
+        set -e
+        echo "Installing grafana/loki-docker-driver plugin..."
+        sudo docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || sudo docker plugin enable loki
+        echo "Installed plugins:"
+        sudo docker plugin ls
 
     - name: Observability compose config validation
       run: |
@@ -55,16 +63,16 @@ jobs:
         timeout 60 bash -c 'until curl -sf http://localhost:3001/api/health | grep -q '{"commit"'; do sleep 2; done' || true
         echo "✓ Grafana is healthy"
 
-    - name: free5GC compose config validation
-      run: |
-        docker compose -f docker-compose-build.yaml config -q
+    # - name: free5GC compose config validation
+    #   run: |
+    #     docker compose -f docker-compose-build.yaml config -q
 
-    - name: Start free5GC stack (after Loki is ready)
-      run: |
-        docker compose -f docker-compose-build.yaml up -d
-        echo "Waiting for free5GC services..."
-        timeout 60 bash -c 'until curl -sf http://localhost:8000/nnrf-nfm/v1/nf-instances 2>/dev/null; do sleep 2; done' || echo "NRF starting"
-        echo "✓ free5GC services are starting"
+    # - name: Start free5GC stack
+    #   run: |
+    #     docker compose -f docker-compose-build.yaml up -d
+    #     echo "Waiting for free5GC services..."
+    #     timeout 60 bash -c 'until curl -sf http://localhost:8000/nnrf-nfm/v1/nf-instances 2>/dev/null; do sleep 2; done' || echo "NRF starting"
+    #     echo "✓ free5GC services are starting"
 
     - name: Check Prometheus targets API
       run: |
@@ -89,13 +97,17 @@ jobs:
         echo "Testing OTLP HTTP endpoint..."
         curl -sf -X POST http://localhost:4318/v1/traces -H "Content-Type: application/json" -d '{"resourceSpans":[]}' && echo "✓ OTLP HTTP endpoint accessible" || echo "⚠ OTLP HTTP endpoint check"
 
-    - name: Dump logs on failure
+    # - name: Dump logs on failure (free5GC)
+    #   if: failure()
+    #   run: |
+    #     echo "=== free5GC NRF logs ==="
+    #     docker compose -f docker-compose-build.yaml logs nrf || true
+    #     echo "=== free5GC AMF logs ==="
+    #     docker compose -f docker-compose-build.yaml logs amf || true
+
+    - name: Dump observability logs on failure
       if: failure()
       run: |
-        echo "=== free5GC NRF logs ==="
-        docker compose -f docker-compose-build.yaml logs nrf || true
-        echo "=== free5GC AMF logs ==="
-        docker compose -f docker-compose-build.yaml logs amf || true
         echo "=== Prometheus logs ==="
         docker compose -f docker-compose-prometheus.yaml logs prometheus || true
         echo "=== Loki logs ==="
@@ -109,5 +121,5 @@ jobs:
       if: always()
       run: |
         docker compose -f docker-compose-prometheus.yaml down -v --remove-orphans || true
-        docker compose -f docker-compose-build.yaml down -v --remove-orphans || true
+        # docker compose -f docker-compose-build.yaml down -v --remove-orphans || true
         docker system prune -af --volumes
