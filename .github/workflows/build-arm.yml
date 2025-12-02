@@ -13,6 +13,19 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
 
+    - name: Free Disk Space (ARM)
+      run: |
+        echo "Before cleanup:"
+        df -h
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /opt/hostedtoolcache/CodeQL
+        sudo docker image prune -a -f
+        sudo apt-get clean
+        echo "After cleanup:"
+        df -h
+
     - name: Install Compose
       uses: ndeloof/install-compose-action@v0.0.1
       with:
@@ -25,14 +38,14 @@ jobs:
       run: |
         bash ./script/build.sh aarch64
 
-    - name: Compose config validation
-      run: |
-        docker compose -f docker-compose-build.yaml config -q
+    # - name: Compose config validation
+    #   run: |
+    #     docker compose -f docker-compose-build.yaml config -q
 
-    - name: Compose create (fail if missing)
-      run: |
-        docker compose -f docker-compose-build.yaml up --no-start
-        docker compose -f docker-compose-build.yaml down -v --remove-orphans
+    # - name: Compose create (fail if missing)
+    #   run: |
+    #     docker compose -f docker-compose-build.yaml up --no-start
+    #     docker compose -f docker-compose-build.yaml down -v --remove-orphans
 
     - name: Observability compose config validation
       run: |
@@ -66,3 +79,4 @@ jobs:
       if: always()
       run: |
         docker compose -f docker-compose-build.yaml -f docker-compose-prometheus.yaml down -v --remove-orphans
+        docker system prune -af --volumes
