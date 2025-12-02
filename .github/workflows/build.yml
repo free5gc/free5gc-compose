@@ -33,3 +33,38 @@ jobs:
       run: |
         docker compose -f docker-compose-build.yaml up --no-start
         docker compose -f docker-compose-build.yaml down -v --remove-orphans
+
+    - name: Observability compose config validation
+      run: |
+        docker compose -f docker-compose.yaml -f docker-compose-prometheus.yaml config -q
+
+    - name: Start stack with Prometheus & Grafana # build up 
+      run: |
+        docker compose -f docker-compose.yaml -f docker-compose-prometheus.yaml up -d
+        echo "Waiting for Prometheus & Grafana..."
+        # Wait for Prometheus
+        timeout 60 bash -c 'until curl -sf http://localhost:9090/-/healthy; do sleep 2; done'
+        # Wait for Grafana
+        timeout 60 bash -c 'until curl -sf http://localhost:3001/api/health | grep -q '{"commit"'; do sleep 2; done' || true
+        echo "Prometheus & Grafana healthy"
+
+    - name: Check Prometheus targets API
+      run: |
+        curl -sf http://localhost:9090/api/v1/targets | jq '.data.activeTargets | length' || echo "Prometheus targets query fallback"
+
+    - name: Check Grafana datasources API
+      run: |
+        curl -sf http://localhost:3001/api/datasources || echo "Grafana datasource endpoint reachable"
+
+    - name: Dump logs on failure
+      if: failure()
+      run: |
+        echo "=== Prometheus logs ==="
+        docker compose -f docker-compose.yaml -f docker-compose-prometheus.yaml logs prometheus || true
+        echo "=== Grafana logs ==="
+        docker compose -f docker-compose.yaml -f docker-compose-prometheus.yaml logs grafana || true
+
+    - name: Teardown observability stack
+      if: always()
+      run: |
+        docker compose -f docker-compose.yaml -f docker-compose-prometheus.yaml down -v --remove-orphans
