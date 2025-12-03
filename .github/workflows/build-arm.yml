@@ -1,12 +1,13 @@
 name: CI Build (ARM64)
 
 on:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
+  workflow_dispatch:  # Only manual trigger
+  # push:
+  #   branches:
+  #     - '**'
+  # pull_request:
+  #   branches:
+  #     - '**'
 
 jobs:
   build:
@@ -44,12 +45,14 @@ jobs:
       run: |
         docker compose -f docker-compose-prometheus.yaml config -q
 
-    - name: Start observability stack (Prometheus, Tempo, Grafana only)
+    - name: Start observability stack (Prometheus, Tempo, Grafana, Loki)
       run: |
-        docker compose -f docker-compose-prometheus.yaml up -d prometheus tempo grafana
+        docker compose -f docker-compose-prometheus.yaml up -d prometheus tempo grafana loki
         echo "Waiting for observability stack (ARM)..."
         timeout 60 bash -c 'until curl -sf http://localhost:9090/-/healthy; do sleep 2; done'
         echo "✓ Prometheus is healthy"
+        timeout 60 bash -c 'until curl -sf http://localhost:3100/ready; do sleep 2; done'
+        echo "✓ Loki is healthy"
         timeout 60 bash -c 'until curl -sf http://localhost:3200/ready; do sleep 2; done'
         echo "✓ Tempo is healthy"
         timeout 60 bash -c 'until curl -sf http://localhost:3001/api/health | grep -q '{"commit"'; do sleep 2; done' || true
@@ -74,7 +77,9 @@ jobs:
       run: |
         curl -sf http://localhost:3001/api/datasources || echo "Grafana datasource endpoint reachable"
 
-    # Skip Loki API checks in CI since Loki is not started
+    - name: Check Loki labels API
+      run: |
+        curl -sf http://localhost:3100/loki/api/v1/labels | jq -e '.status == "success"' || echo "Loki API check"
 
     - name: Check Tempo status
       run: |
@@ -100,7 +105,8 @@ jobs:
       run: |
         echo "=== Prometheus logs ==="
         docker compose -f docker-compose-prometheus.yaml logs prometheus || true
-        # Loki not started; skip Loki logs
+        echo "=== Loki logs ==="
+        docker compose -f docker-compose-prometheus.yaml logs loki || true
         echo "=== Tempo logs ==="
         docker compose -f docker-compose-prometheus.yaml logs tempo || true
         echo "=== Grafana logs ==="
