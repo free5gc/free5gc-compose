@@ -5,7 +5,7 @@ RUN git clone https://github.com/free5gc/go-gtp5gnl.git && mkdir "go-gtp5gnl/bin
     cd -
 
 FROM free5gc/upf-base:latest AS builder
-FROM bitnami/minideb:bullseye
+FROM bitnami/minideb:trixie
 
 LABEL description="free5GC open source 5G Core Network" \
     version="Stage 3"
