@@ -1,4 +1,4 @@
-FROM golang:1.21.10-bullseye AS builder
+FROM golang:1.25.5-trixie AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
@@ -12,7 +12,7 @@ RUN apt-get update \
     && cd ./n3iwue \
     && make 
 
-FROM bitnami/minideb:bullseye
+FROM bitnami/minideb:trixie
 
 ENV DEBIAN_FRONTEND=noninteractive
 
