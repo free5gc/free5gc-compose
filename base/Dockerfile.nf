@@ -18,6 +18,8 @@ FROM alpine:3.15
 
 ARG F5GC_MODULE
 
+RUN apk add --no-cache tini
+
 WORKDIR /free5gc
 RUN mkdir -p cert/ public
 
