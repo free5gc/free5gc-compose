@@ -18,6 +18,7 @@ WORKDIR /free5gc
 RUN mkdir -p config/ log/ cert/
 
 # Copy executable and default certs
+COPY --from=builder /sbin/tini /sbin/tini
 COPY --from=builder /free5gc/${F5GC_MODULE} ./
 COPY --from=builder /free5gc/cert/${F5GC_MODULE}.pem ./cert/
 COPY --from=builder /free5gc/cert/${F5GC_MODULE}.key ./cert/

@@ -16,6 +16,7 @@ WORKDIR /free5gc
 RUN mkdir -p config/ public/
 
 # Copy executable, frontend static files and default configuration
+COPY --from=builder /sbin/tini /sbin/tini
 COPY --from=builder /free5gc/${F5GC_MODULE} ./
 COPY --from=builder /free5gc/public ./public
 
