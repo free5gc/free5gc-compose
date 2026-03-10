@@ -18,8 +18,11 @@ ARG DEBUG_TOOLS
 RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y vim strace net-tools iputils-ping curl netcat tcpdump; fi
 
 # Install UPF dependencies
+# Note: bitnami/minideb ships a musl-compiled /sbin/tini which cannot run on Debian (glibc).
+# Install tini via apt (glibc-compiled) and overwrite the broken musl binary.
 RUN apt-get update \
-    && apt-get install -y libmnl0 libyaml-0-2 iproute2 iptables \
+    && apt-get install -y tini libmnl0 libyaml-0-2 iproute2 iptables \
+    && ln -sf /usr/bin/tini /sbin/tini \
     && apt-get clean
 
 # Set working dir

@@ -11,6 +11,13 @@ ARG DEBUG_TOOLS
 # Install debug tools ~ 100MB (if DEBUG_TOOLS is set to true)
 RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apt-get update && apt-get install -y vim strace net-tools curl netcat-openbsd ; fi
 
+# Note: bitnami/minideb ships a musl-compiled /sbin/tini which cannot run on Debian (glibc).
+# Install tini via apt (glibc-compiled) and overwrite the broken musl binary.
+RUN apt-get update \
+    && apt-get install -y tini \
+    && ln -sf /usr/bin/tini /sbin/tini \
+    && apt-get clean
+
 # Set working dir
 WORKDIR /free5gc
 RUN mkdir -p config/ public/
