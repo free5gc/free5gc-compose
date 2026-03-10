@@ -30,7 +30,6 @@ WORKDIR /free5gc
 RUN mkdir -p config/ log/
 
 # Copy executable
-COPY --from=builder /sbin/tini /sbin/tini
 COPY --from=builder /free5gc/${F5GC_MODULE} ./
 COPY --from=my-base /go/gtp5g-tunnel ./gtp5g-tunnel
 
