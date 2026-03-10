@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 ARCH=${1-"x86_64"}
 TAG=${2-"latest"}
 
