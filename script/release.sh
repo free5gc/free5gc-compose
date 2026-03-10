@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 ARCH=${1-"x86_64"}
 TAG=${2-"latest"}
 
@@ -27,12 +28,12 @@ fi
 
 # Tag and push images for each network function
 for IMAGE in $NF_LIST; do
-    docker tag "free5gc-compose_free5gc-${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
+    docker tag "free5gc-compose-free5gc-${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
     docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
 done
 
 for IMAGE in $ADDITIONAL_IMAGES; do
-    docker tag "free5gc-compose_${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
+    docker tag "free5gc-compose-${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
     docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
 done
 
