@@ -1,4 +1,4 @@
-FROM golang:1.25.5-trixie AS builder
+FROM golang:1.26.2-trixie AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
