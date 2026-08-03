@@ -7,10 +7,9 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
+    command: ./upf -c ./config/upfcfg.yaml
     volumes:
       - ./config/ULCL/upfcfg-i-upf.yaml:/free5gc/config/upfcfg.yaml
-      - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
     networks:
@@ -24,10 +23,9 @@ services:
       context: ./nf_upf
       args:
         DEBUG_TOOLS: "false"
-    command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
+    command: ./upf -c ./config/upfcfg.yaml
     volumes:
       - ./config/ULCL/upfcfg-psa-upf.yaml:/free5gc/config/upfcfg.yaml
-      - ./config/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
     networks:
