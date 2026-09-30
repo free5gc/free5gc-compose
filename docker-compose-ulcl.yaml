@@ -233,6 +233,43 @@ services:
       - db
       - free5gc-nrf
 
+  free5gc-bsf:
+    container_name: bsf
+    image: free5gc/bsf:${FREE5GC_IMAGE_TAG:-latest}
+    command: ./bsf -c ./config/bsfcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./config/bsfcfg.yaml:/free5gc/config/bsfcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - bsf.free5gc.org
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-scp:
+    container_name: scp
+    image: free5gc/scp:${FREE5GC_IMAGE_TAG:-latest}
+    command: ./scp -c ./config/scpcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./config/scpcfg.yaml:/free5gc/config/scpcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - scp.free5gc.org
+    depends_on:
+      - free5gc-nrf
+
   free5gc-webui:
     container_name: webui
     image: free5gc/webui:${FREE5GC_IMAGE_TAG:-v4.2.3}

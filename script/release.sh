@@ -7,11 +7,11 @@ FREE5GC_COMMIT="${3:-${FREE5GC_COMMIT:-}}"
 MAKE_JOBS="${MAKE_JOBS:-1}"
 CLONE_JOBS="${CLONE_JOBS:-1}"
 
-NF_IMAGES=(nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui)
+NF_IMAGES=(nrf amf bsf scp smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui)
 ADDITIONAL_IMAGES=(ueransim n3iwue)
 IMAGES=("${NF_IMAGES[@]}" "${ADDITIONAL_IMAGES[@]}")
 BUILD_SERVICES=(
-    free5gc-nrf free5gc-amf free5gc-smf free5gc-udr free5gc-pcf
+    free5gc-nrf free5gc-amf free5gc-bsf free5gc-scp free5gc-smf free5gc-udr free5gc-pcf
     free5gc-udm free5gc-nssf free5gc-ausf free5gc-n3iwf free5gc-upf
     free5gc-chf free5gc-tngf free5gc-nef free5gc-webui
     ueransim n3iwue

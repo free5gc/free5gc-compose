@@ -2,7 +2,7 @@ DOCKER_IMAGE_OWNER ?= free5gc
 DOCKER_IMAGE_TAG ?= latest
 MAKE_JOBS ?= 1
 
-NF_MODULES := amf ausf nrf nssf pcf smf udm udr n3iwf upf chf tngf nef
+NF_MODULES := amf ausf bsf nrf nssf pcf scp smf udm udr n3iwf upf chf tngf nef
 BASE_IMAGE_ALIASES := $(addsuffix -base,$(NF_MODULES)) webconsole-base
 
 .PHONY: all base all-base $(NF_MODULES) webconsole

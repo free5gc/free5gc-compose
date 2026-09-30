@@ -101,7 +101,7 @@ jobs:
 
       - name: Create multi-architecture manifests
         run: |
-          images=(nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui ueransim n3iwue)
+          images=(nrf amf bsf scp smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui ueransim n3iwue)
           for image in "${images[@]}"; do
             docker buildx imagetools create \
               --tag "free5gc/${image}:${RELEASE_TAG}" \
@@ -133,7 +133,7 @@ jobs:
             printf '%s\n' "${digest:-$(image_digest "${ref}")}"
           }
 
-          images=(nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui ueransim n3iwue)
+          images=(nrf amf bsf scp smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui ueransim n3iwue)
           for image in "${images[@]}"; do
             amd64_ref="free5gc/${image}:${RELEASE_TAG}-amd64"
             arm64_ref="free5gc/${image}:${RELEASE_TAG}-arm64"
