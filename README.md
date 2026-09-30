@@ -27,8 +27,8 @@ By default, Compose pulls the release and additional-image tags declared in
 without editing the Compose file:
 
 ```bash
-FREE5GC_IMAGE_TAG=v4.2.3 \
-FREE5GC_ADDITIONAL_IMAGE_TAG=v4.2.3 \
+FREE5GC_IMAGE_TAG=v4.3.0 \
+FREE5GC_ADDITIONAL_IMAGE_TAG=v4.3.0 \
 docker compose pull
 ```
 
