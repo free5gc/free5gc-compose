@@ -7,7 +7,7 @@ ARG MAKE_JOBS=1
 
 # Install WebConsole build dependencies before copying the source so this layer
 # remains reusable when only free5GC source files change.
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get update \
     && apt-get install -y --no-install-recommends nodejs sudo \
     && apt-get clean \
