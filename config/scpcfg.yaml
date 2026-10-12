@@ -1,0 +1,34 @@
+info:
+  version: 1.0.1
+  description: SCP initial local configuration
+
+configuration:
+  sbi: # Service-Based Interface used by other NFs to reach this SCP
+    scheme: http # http or https; https requires an SCP TLS certificate and key
+    registerIPv4: scp.free5gc.org # address advertised in the NRF NF profile
+    bindingIPv4: scp.free5gc.org # address on which the SCP SBI server listens
+    port: 8000 # SCP SBI listening port
+  nrfUri: http://nrf.free5gc.org:8000 # NRF endpoint used for SCP registration
+  nrfCertPem: cert/nrf.pem # NRF certificate path used when NRF enables OAuth2
+  serviceList: # services advertised for this SCP in its NRF NF profile
+    - serviceName: nausf-auth
+    - serviceName: nudm-ueau
+    - serviceName: nudm-sdm
+    - serviceName: nudr-dr
+
+  # Base URIs of peer NFs; SCP forwarding handlers use the relevant target URI.
+  amfUri: http://amf.free5gc.org:8000
+  ausfUri: http://ausf.free5gc.org:8000
+  chfUri: http://chf.free5gc.org:8000
+  nefUri: http://nef.free5gc.org:8000
+  nssfUri: http://nssf.free5gc.org:8000
+  pcfUri: http://pcf.free5gc.org:8000
+  smfUri: http://smf.free5gc.org:8000
+  udmUri: http://udm.free5gc.org:8000
+  udrUri: http://udr.free5gc.org:8000
+  upfUri: http://upf.free5gc.org:8000
+
+logger: # SCP log output settings
+  enable: true # enable log output; this does not enable or disable the SCP service
+  level: info # minimum log level
+  reportCaller: false # include the source caller in log entries

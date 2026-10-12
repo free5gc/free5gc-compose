@@ -3,6 +3,7 @@ version: "3.8"
 services:
   free5gc-upf:
     container_name: upf
+    image: free5gc/upf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_upf
       args:
@@ -32,6 +33,7 @@ services:
 
   free5gc-nrf:
     container_name: nrf
+    image: free5gc/nrf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_nrf
       args:
@@ -54,6 +56,7 @@ services:
 
   free5gc-amf:
     container_name: amf
+    image: free5gc/amf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_amf
       args:
@@ -76,6 +79,7 @@ services:
 
   free5gc-ausf:
     container_name: ausf
+    image: free5gc/ausf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_ausf
       args:
@@ -97,6 +101,7 @@ services:
 
   free5gc-nssf:
     container_name: nssf
+    image: free5gc/nssf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_nssf
       args:
@@ -118,6 +123,7 @@ services:
 
   free5gc-pcf:
     container_name: pcf
+    image: free5gc/pcf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_pcf
       args:
@@ -139,6 +145,7 @@ services:
 
   free5gc-smf:
     container_name: smf
+    image: free5gc/smf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_smf
       args:
@@ -162,6 +169,7 @@ services:
 
   free5gc-udm:
     container_name: udm
+    image: free5gc/udm:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_udm
       args:
@@ -184,6 +192,7 @@ services:
 
   free5gc-udr:
     container_name: udr
+    image: free5gc/udr:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_udr
       args:
@@ -207,6 +216,7 @@ services:
 
   free5gc-chf:
     container_name: chf
+    image: free5gc/chf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_chf
       args:
@@ -232,6 +242,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
+    image: free5gc/n3iwf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_n3iwf
       args:
@@ -256,6 +267,7 @@ services:
 
   free5gc-tngf:
     container_name: tngf
+    image: free5gc/tngf:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_tngf
       args:
@@ -276,6 +288,7 @@ services:
 
   free5gc-nef:
     container_name: nef
+    image: free5gc/nef:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./nf_nef
       args:
@@ -296,8 +309,54 @@ services:
       - db
       - free5gc-nrf
 
+  free5gc-bsf:
+    container_name: bsf
+    image: free5gc/bsf:${FREE5GC_IMAGE_TAG:-latest}
+    build:
+      context: ./nf_bsf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./bsf -c ./config/bsfcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./config/bsfcfg.yaml:/free5gc/config/bsfcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - bsf.free5gc.org
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-scp:
+    container_name: scp
+    image: free5gc/scp:${FREE5GC_IMAGE_TAG:-latest}
+    build:
+      context: ./nf_scp
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./scp -c ./config/scpcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./config/scpcfg.yaml:/free5gc/config/scpcfg.yaml
+      - ./cert:/free5gc/cert
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - scp.free5gc.org
+    depends_on:
+      - free5gc-nrf
+
   free5gc-webui:
     container_name: webui
+    image: free5gc/webui:${FREE5GC_IMAGE_TAG:-latest}
     build:
       context: ./webui
       args:
@@ -321,6 +380,7 @@ services:
 
   ueransim:
     container_name: ueransim
+    image: free5gc/ueransim:${FREE5GC_ADDITIONAL_IMAGE_TAG:-latest}
     build:
       context: ./ueransim
     command: ./nr-gnb -c ./config/gnbcfg.yaml
@@ -341,6 +401,7 @@ services:
 
   n3iwue:
     container_name: n3iwue
+    image: free5gc/n3iwue:${FREE5GC_ADDITIONAL_IMAGE_TAG:-latest}
     build:
       context: ./n3iwue
     command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"

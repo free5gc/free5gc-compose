@@ -1,0 +1,166 @@
+name: Release multi-architecture Docker images
+
+on:
+  schedule:
+    - cron: "14 18 * * *" # UTC 18:14 (Local 02:14)
+  push:
+    tags:
+      - "v*.*.*"
+    branches:
+      - master
+
+concurrency:
+  group: release-images-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      release_tag: ${{ steps.release.outputs.release_tag }}
+      free5gc_commit: ${{ steps.release.outputs.free5gc_commit }}
+    steps:
+      - name: Resolve release tag
+        id: release
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
+        run: |
+          if [[ "${REF_TYPE}" == "tag" ]]; then
+            release_tag="${REF_NAME}"
+          else
+            release_tag="latest"
+          fi
+
+          if [[ "${REF_TYPE}" == "tag" ]]; then
+            free5gc_commit="$(
+              git ls-remote https://github.com/free5gc/free5gc.git \
+                "refs/tags/${release_tag}^{}" | awk 'NR == 1 { print $1 }'
+            )"
+            if [[ -z "${free5gc_commit}" ]]; then
+              free5gc_commit="$(
+                git ls-remote https://github.com/free5gc/free5gc.git \
+                  "refs/tags/${release_tag}" | awk 'NR == 1 { print $1 }'
+              )"
+            fi
+          else
+            free5gc_commit="$(
+              git ls-remote https://github.com/free5gc/free5gc.git HEAD |
+                awk 'NR == 1 { print $1 }'
+            )"
+          fi
+
+          test -n "${free5gc_commit}"
+          echo "release_tag=${release_tag}" >> "${GITHUB_OUTPUT}"
+          echo "free5gc_commit=${free5gc_commit}" >> "${GITHUB_OUTPUT}"
+
+  build-amd64:
+    needs: metadata
+    uses: ./.github/workflows/build-amd64.yml
+    with:
+      release_tag: ${{ needs.metadata.outputs.release_tag }}
+      free5gc_commit: ${{ needs.metadata.outputs.free5gc_commit }}
+    secrets:
+      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  build-arm64:
+    needs: metadata
+    uses: ./.github/workflows/build-arm64.yml
+    with:
+      release_tag: ${{ needs.metadata.outputs.release_tag }}
+      free5gc_commit: ${{ needs.metadata.outputs.free5gc_commit }}
+    secrets:
+      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  publish-manifests:
+    needs:
+      - metadata
+      - build-amd64
+      - build-arm64
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ needs.metadata.outputs.release_tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create multi-architecture manifests
+        run: |
+          images=(nrf amf bsf scp smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui ueransim n3iwue)
+          for image in "${images[@]}"; do
+            docker buildx imagetools create \
+              --tag "free5gc/${image}:${RELEASE_TAG}" \
+              "free5gc/${image}:${RELEASE_TAG}-amd64" \
+              "free5gc/${image}:${RELEASE_TAG}-arm64"
+          done
+
+      - name: Verify multi-architecture manifests
+        run: |
+          image_digest() {
+            docker buildx imagetools inspect "$1" |
+              awk '$1 == "Digest:" { print $2; exit }'
+          }
+
+          platform_digest() {
+            local ref="$1"
+            local architecture="$2"
+            local digest
+
+            digest="$(
+              docker buildx imagetools inspect --raw "${ref}" |
+                jq -r --arg architecture "${architecture}" '
+                  .manifests[]? |
+                  select(.platform.os == "linux" and .platform.architecture == $architecture) |
+                  .digest
+                ' |
+                head -n 1
+            )"
+            printf '%s\n' "${digest:-$(image_digest "${ref}")}"
+          }
+
+          images=(nrf amf bsf scp smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui ueransim n3iwue)
+          for image in "${images[@]}"; do
+            amd64_ref="free5gc/${image}:${RELEASE_TAG}-amd64"
+            arm64_ref="free5gc/${image}:${RELEASE_TAG}-arm64"
+            manifest_ref="free5gc/${image}:${RELEASE_TAG}"
+
+            amd64_digest="$(platform_digest "${amd64_ref}" amd64)"
+            arm64_digest="$(platform_digest "${arm64_ref}" arm64)"
+            test -n "${amd64_digest}"
+            test -n "${arm64_digest}"
+
+            docker buildx imagetools inspect --raw "${manifest_ref}" |
+              jq -e --arg amd64 "${amd64_digest}" --arg arm64 "${arm64_digest}" '
+                (.manifests | any(
+                  .platform.os == "linux" and
+                  .platform.architecture == "amd64" and
+                  .digest == $amd64
+                )) and
+                (.manifests | any(
+                  .platform.os == "linux" and
+                  .platform.architecture == "arm64" and
+                  .digest == $arm64
+                ))
+              ' >/dev/null
+          done
+
+      - name: Verify Docker Compose pull
+        env:
+          FREE5GC_IMAGE_TAG: ${{ needs.metadata.outputs.release_tag }}
+          FREE5GC_ADDITIONAL_IMAGE_TAG: ${{ needs.metadata.outputs.release_tag }}
+        run: docker compose pull

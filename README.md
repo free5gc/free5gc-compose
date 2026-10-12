@@ -22,6 +22,16 @@ Because we need to create tunnel interface, we need to use privileged container 
 docker compose pull
 ```
 
+By default, Compose pulls the release and additional-image tags declared in
+`docker-compose.yaml`. You can verify or deploy another published release
+without editing the Compose file:
+
+```bash
+FREE5GC_IMAGE_TAG=v4.3.0 \
+FREE5GC_ADDITIONAL_IMAGE_TAG=v4.3.0 \
+docker compose pull
+```
+
 ### [Optional] Build docker images from local sources
 
 ```bash

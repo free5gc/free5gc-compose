@@ -1,0 +1,48 @@
+name: Build AMD64 Docker images
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        description: Docker Hub tag without an architecture suffix
+        required: true
+        type: string
+      free5gc_commit:
+        description: Exact free5GC source commit to build
+        required: true
+        type: string
+    secrets:
+      dockerhub_username:
+        required: true
+      dockerhub_token:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.dockerhub_username }}
+          password: ${{ secrets.dockerhub_token }}
+
+      - name: Build and push AMD64 images
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          FREE5GC_COMMIT: ${{ inputs.free5gc_commit }}
+        run: >-
+          ./script/release.sh amd64
+          "${RELEASE_TAG}" "${FREE5GC_COMMIT}"

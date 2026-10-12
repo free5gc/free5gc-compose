@@ -1,48 +1,68 @@
-#!/bin/bash
-ARCH=${1-"x86_64"}
-TAG=${2-"latest"}
+#!/usr/bin/env bash
+set -euo pipefail
 
-NF_LIST="nrf amf smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui"
-ADDITIONAL_IMAGES="ueransim n3iwue"
+ARCH="${1:-amd64}"
+TAG="${2:-latest}"
+FREE5GC_COMMIT="${3:-${FREE5GC_COMMIT:-}}"
+MAKE_JOBS="${MAKE_JOBS:-1}"
+CLONE_JOBS="${CLONE_JOBS:-1}"
 
-cd base
+NF_IMAGES=(nrf amf bsf scp smf udr pcf udm nssf ausf n3iwf upf chf tngf nef webui)
+ADDITIONAL_IMAGES=(ueransim n3iwue)
+IMAGES=("${NF_IMAGES[@]}" "${ADDITIONAL_IMAGES[@]}")
+BUILD_SERVICES=(
+    free5gc-nrf free5gc-amf free5gc-bsf free5gc-scp free5gc-smf free5gc-udr free5gc-pcf
+    free5gc-udm free5gc-nssf free5gc-ausf free5gc-n3iwf free5gc-upf
+    free5gc-chf free5gc-tngf free5gc-nef free5gc-webui
+    ueransim n3iwue
+)
 
-if [ "xlatest" == "x$TAG" ]; then
-    git clone --recursive -j "$(nproc)" https://github.com/free5gc/free5gc.git
+# Docker Hub tags use OCI architecture names; TARGET_ARCH follows Kitware's
+# CMake installer filename convention used by ueransim/Dockerfile.
+case "${ARCH}" in
+    amd64)
+        TARGET_ARCH=x86_64
+        ;;
+    arm64)
+        TARGET_ARCH=aarch64
+        ;;
+    *)
+        echo "Unsupported architecture: ${ARCH}" >&2
+        exit 1
+        ;;
+esac
+
+TAG="${TAG#refs/tags/}"
+ARCH_TAG="${TAG}-${ARCH}"
+
+if [[ -n "${FREE5GC_COMMIT}" ]]; then
+    git init -q base/free5gc
+    git -C base/free5gc remote add origin https://github.com/free5gc/free5gc.git
+    git -C base/free5gc fetch --depth 1 origin "${FREE5GC_COMMIT}"
+    git -C base/free5gc checkout --detach FETCH_HEAD
+    git -C base/free5gc submodule update --init --recursive --jobs "${CLONE_JOBS}"
 else
-    TAG=$(echo "$TAG" | sed -e "s/refs\/tags\///g")
-    git clone --recursive -b "${TAG}" -j "$(nproc)" https://github.com/free5gc/free5gc.git
+    clone_args=(--recursive --jobs "${CLONE_JOBS}")
+    if [[ "${TAG}" != "latest" ]]; then
+        clone_args+=(--branch "${TAG}")
+    fi
+    git clone "${clone_args[@]}" https://github.com/free5gc/free5gc.git base/free5gc
 fi
 
-cd -
+make all MAKE_JOBS="${MAKE_JOBS}"
 
-make all
-
-# Build images for the specified architecture
-if [ "$ARCH" == "aarch64" ]; then
-    docker compose -f docker-compose-build.yaml build --build-arg TARGET_ARCH="$ARCH"
-else
-    docker compose -f docker-compose-build.yaml build
-fi
-
-# Tag and push images for each network function
-for IMAGE in $NF_LIST; do
-    docker tag "free5gc-compose_free5gc-${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
-    docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
+echo "Building ${ARCH} runtime images with tag ${ARCH_TAG}..."
+for service in "${BUILD_SERVICES[@]}"; do
+    FREE5GC_IMAGE_TAG="${ARCH_TAG}" \
+    FREE5GC_ADDITIONAL_IMAGE_TAG="${ARCH_TAG}" \
+    docker compose -f docker-compose-build.yaml build \
+        --build-arg TARGET_ARCH="${TARGET_ARCH}" \
+        "${service}"
 done
 
-for IMAGE in $ADDITIONAL_IMAGES; do
-    docker tag "free5gc-compose_${IMAGE}:latest" "free5gc/${IMAGE}:${TAG}-${ARCH}"
-    docker push "free5gc/${IMAGE}:${TAG}-${ARCH}"
-done
+for image in "${IMAGES[@]}"; do
+    source_ref="free5gc/${image}:${ARCH_TAG}"
 
-# Wait for the images to be pushed
-sleep 60
-
-# Create and push multi-architecture manifests
-for IMAGE in $NF_LIST $ADDITIONAL_IMAGES; do
-    docker manifest create "free5gc/${IMAGE}:${TAG}" \
-        "free5gc/${IMAGE}:${TAG}-x86_64" \
-        "free5gc/${IMAGE}:${TAG}-aarch64"
-    docker manifest push "free5gc/${IMAGE}:${TAG}"
+    docker image inspect "${source_ref}" >/dev/null
+    docker push "${source_ref}"
 done

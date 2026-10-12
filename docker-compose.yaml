@@ -3,7 +3,7 @@ version: "3.8"
 services:
   free5gc-upf:
     container_name: upf
-    image: free5gc/upf:v4.2.3
+    image: free5gc/upf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./upf -c ./config/upfcfg.yaml
     volumes:
       - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
@@ -29,7 +29,7 @@ services:
 
   free5gc-nrf:
     container_name: nrf
-    image: free5gc/nrf:v4.2.3
+    image: free5gc/nrf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
@@ -48,7 +48,7 @@ services:
 
   free5gc-amf:
     container_name: amf
-    image: free5gc/amf:v4.2.3
+    image: free5gc/amf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
@@ -67,7 +67,7 @@ services:
 
   free5gc-ausf:
     container_name: ausf
-    image: free5gc/ausf:v4.2.3
+    image: free5gc/ausf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
@@ -85,7 +85,7 @@ services:
 
   free5gc-nssf:
     container_name: nssf
-    image: free5gc/nssf:v4.2.3
+    image: free5gc/nssf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
@@ -103,7 +103,7 @@ services:
 
   free5gc-pcf:
     container_name: pcf
-    image: free5gc/pcf:v4.2.3
+    image: free5gc/pcf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
@@ -121,7 +121,7 @@ services:
 
   free5gc-smf:
     container_name: smf
-    image: free5gc/smf:v4.2.3
+    image: free5gc/smf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
@@ -141,7 +141,7 @@ services:
 
   free5gc-udm:
     container_name: udm
-    image: free5gc/udm:v4.2.3
+    image: free5gc/udm:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
@@ -160,7 +160,7 @@ services:
 
   free5gc-udr:
     container_name: udr
-    image: free5gc/udr:v4.2.3
+    image: free5gc/udr:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
@@ -180,7 +180,7 @@ services:
 
   free5gc-chf:
     container_name: chf
-    image: free5gc/chf:v4.2.3
+    image: free5gc/chf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./chf -c ./config/chfcfg.yaml
     expose:
       - "8000"
@@ -201,7 +201,7 @@ services:
 
   free5gc-n3iwf:
     container_name: n3iwf
-    image: free5gc/n3iwf:v4.2.3
+    image: free5gc/n3iwf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./n3iwf -c ./config/n3iwfcfg.yaml
     volumes:
       - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
@@ -222,7 +222,7 @@ services:
 
   free5gc-tngf:
     container_name: tngf
-    image: free5gc/tngf:v4.2.3
+    image: free5gc/tngf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./tngf -c ./config/tngfcfg.yaml
     volumes:
       - ./config/tngfcfg.yaml:/free5gc/config/tngfcfg.yaml
@@ -239,7 +239,7 @@ services:
 
   free5gc-nef:
     container_name: nef
-    image: free5gc/nef:v4.2.3
+    image: free5gc/nef:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./nef -c ./config/nefcfg.yaml
     expose:
       - "8000"
@@ -256,9 +256,47 @@ services:
       - db
       - free5gc-nrf
 
+  # Keep BSF and SCP out of the default user deployment.
+  # free5gc-bsf:
+  #   container_name: bsf
+  #   image: free5gc/bsf:${FREE5GC_IMAGE_TAG:-latest}
+  #   command: ./bsf -c ./config/bsfcfg.yaml
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - ./config/bsfcfg.yaml:/free5gc/config/bsfcfg.yaml
+  #     - ./cert:/free5gc/cert
+  #   environment:
+  #     GIN_MODE: release
+  #   networks:
+  #     privnet:
+  #       aliases:
+  #         - bsf.free5gc.org
+  #   depends_on:
+  #     - db
+  #     - free5gc-nrf
+
+  # free5gc-scp:
+  #   container_name: scp
+  #   image: free5gc/scp:${FREE5GC_IMAGE_TAG:-latest}
+  #   command: ./scp -c ./config/scpcfg.yaml
+  #   expose:
+  #     - "8000"
+  #   volumes:
+  #     - ./config/scpcfg.yaml:/free5gc/config/scpcfg.yaml
+  #     - ./cert:/free5gc/cert
+  #   environment:
+  #     GIN_MODE: release
+  #   networks:
+  #     privnet:
+  #       aliases:
+  #         - scp.free5gc.org
+  #   depends_on:
+  #     - free5gc-nrf
+
   free5gc-webui:
     container_name: webui
-    image: free5gc/webui:v4.2.3
+    image: free5gc/webui:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./webui -c ./config/webuicfg.yaml
     expose:
       - "2121"
@@ -280,7 +318,7 @@ services:
 
   ueransim:
     container_name: ueransim
-    image: free5gc/ueransim:latest
+    image: free5gc/ueransim:${FREE5GC_ADDITIONAL_IMAGE_TAG:-latest}
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
@@ -299,7 +337,7 @@ services:
 
   n3iwue:
     container_name: n3iwue
-    image: free5gc/n3iwue:latest
+    image: free5gc/n3iwue:${FREE5GC_ADDITIONAL_IMAGE_TAG:-latest}
     command: bash -c "ip route del default && ip route add default via 10.100.200.1 dev eth0 metric 203 && sleep infinity"
     volumes:
       - ./config/n3uecfg.yaml:/n3iwue/config/n3ue.yaml

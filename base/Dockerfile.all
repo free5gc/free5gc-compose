@@ -1,0 +1,33 @@
+# Build all free5GC network functions and WebConsole in one shared builder.
+ARG BASE_IMAGE=free5gc/base:latest
+FROM ${BASE_IMAGE} AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+ARG MAKE_JOBS=1
+
+# Install WebConsole build dependencies before copying the source so this layer
+# remains reusable when only free5GC source files change.
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends nodejs sudo \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY free5gc/ /go/src/free5gc/
+
+RUN cd /go/src/free5gc \
+    && make -j"${MAKE_JOBS}" all
+
+# Keep the artifact layout compatible with every existing *-base image.
+FROM alpine:3.15
+
+RUN apk add --no-cache tini
+
+WORKDIR /free5gc
+RUN mkdir -p cert/ config/ public/
+
+COPY --from=builder /go/src/free5gc/bin/ ./
+COPY --from=builder /go/src/free5gc/webconsole/bin/webconsole ./webui
+COPY --from=builder /go/src/free5gc/webconsole/public/ ./public/
+COPY --from=builder /go/src/free5gc/config/ ./config/
+COPY --from=builder /go/src/free5gc/cert/ ./cert/
