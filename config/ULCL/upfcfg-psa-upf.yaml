@@ -20,6 +20,13 @@ gtpu:
 dnnList:
   - dnn: internet # Data Network Name
     cidr: 10.60.0.0/16 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+    # Resolve the egress interface from the Docker privnet address visible in the UPF container.
+    natIfCIDR: 10.100.200.0/24
+    ipForwardEnable: true # Add FORWARD rules for this DNN
+    # Optional: select the interface directly; takes precedence over natIfCIDR.
+    # natifname: eth0
+    # Optional: set a fixed MSS; omitted or zero uses --clamp-mss-to-pmtu.
+    # tcpMss: 1400
 
 logger: # log output setting
   enable: true # true or false
