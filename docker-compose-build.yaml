@@ -53,6 +53,11 @@ services:
           - nrf.free5gc.org
     depends_on:
       - db
+    healthcheck:
+      test: ["CMD", "nc", "-z", "-w", "1", "nrf.free5gc.org", "8000"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
 
   free5gc-amf:
     container_name: amf
@@ -75,7 +80,8 @@ services:
         aliases:
           - amf.free5gc.org
     depends_on:
-      - free5gc-nrf
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-ausf:
     container_name: ausf
@@ -97,7 +103,8 @@ services:
         aliases:
           - ausf.free5gc.org
     depends_on:
-      - free5gc-nrf
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-nssf:
     container_name: nssf
@@ -119,7 +126,8 @@ services:
         aliases:
           - nssf.free5gc.org
     depends_on:
-      - free5gc-nrf
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-pcf:
     container_name: pcf
@@ -141,7 +149,8 @@ services:
         aliases:
           - pcf.free5gc.org
     depends_on:
-      - free5gc-nrf
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-smf:
     container_name: smf
@@ -164,8 +173,10 @@ services:
         aliases:
           - smf.free5gc.org
     depends_on:
-      - free5gc-nrf
-      - free5gc-upf
+      free5gc-nrf:
+        condition: service_healthy
+      free5gc-upf:
+        condition: service_started
 
   free5gc-udm:
     container_name: udm
@@ -187,8 +198,10 @@ services:
         aliases:
           - udm.free5gc.org
     depends_on:
-      - db
-      - free5gc-nrf
+      db:
+        condition: service_started
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-udr:
     container_name: udr
@@ -211,8 +224,10 @@ services:
         aliases:
           - udr.free5gc.org
     depends_on:
-      - db
-      - free5gc-nrf
+      db:
+        condition: service_started
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-chf:
     container_name: chf
@@ -236,9 +251,12 @@ services:
         aliases:
           - chf.free5gc.org
     depends_on:
-      - db
-      - free5gc-nrf
-      - free5gc-webui
+      db:
+        condition: service_started
+      free5gc-nrf:
+        condition: service_healthy
+      free5gc-webui:
+        condition: service_started
 
   free5gc-n3iwf:
     container_name: n3iwf
@@ -306,8 +324,10 @@ services:
         aliases:
           - nef.free5gc.org
     depends_on:
-      - db
-      - free5gc-nrf
+      db:
+        condition: service_started
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-bsf:
     container_name: bsf
@@ -329,8 +349,10 @@ services:
         aliases:
           - bsf.free5gc.org
     depends_on:
-      - db
-      - free5gc-nrf
+      db:
+        condition: service_started
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-scp:
     container_name: scp
@@ -352,7 +374,8 @@ services:
         aliases:
           - scp.free5gc.org
     depends_on:
-      - free5gc-nrf
+      free5gc-nrf:
+        condition: service_healthy
 
   free5gc-webui:
     container_name: webui
@@ -376,8 +399,10 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - db
-      - free5gc-nrf
+      db:
+        condition: service_started
+      free5gc-nrf:
+        condition: service_healthy
 
   ueransim:
     container_name: ueransim
