@@ -9,6 +9,7 @@ configuration:
     bindingIPv4: nef.free5gc.org # IP used to bind the service
     port: 8000 # port used to bind the service
     tls: # the local path of TLS key
+      verify: false # Verify outgoing SBI HTTPS certificates
       pem: cert/nef.pem # NEF TLS Certificate
       key: cert/nef.key # NEF TLS Private key
   nrfUri: http://nrf.free5gc.org:8000 # A valid URI of NRF
