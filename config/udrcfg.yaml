@@ -9,6 +9,7 @@ configuration:
     bindingIPv4: udr.free5gc.org  # IP used to bind the service
     port: 8000 # port used to bind the service
     tls: # the local path of TLS key
+      verify: false # Verify outgoing SBI HTTPS certificates
       pem: cert/udr.pem # UDR TLS Certificate
       key: cert/udr.key # UDR TLS Private key
   dbConnectorType: mongodb

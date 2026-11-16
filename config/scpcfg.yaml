@@ -8,6 +8,10 @@ configuration:
     registerIPv4: scp.free5gc.org # address advertised in the NRF NF profile
     bindingIPv4: scp.free5gc.org # address on which the SCP SBI server listens
     port: 8000 # SCP SBI listening port
+    tls:
+      verify: false # Verify outgoing SBI HTTPS certificates
+      pem: cert/scp.pem
+      key: cert/scp.key
   nrfUri: http://nrf.free5gc.org:8000 # NRF endpoint used for SCP registration
   nrfCertPem: cert/nrf.pem # NRF certificate path used when NRF enables OAuth2
   serviceList: # services advertised for this SCP in its NRF NF profile

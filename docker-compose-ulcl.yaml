@@ -233,7 +233,7 @@ services:
 
   free5gc-bsf:
     container_name: bsf
-    image: free5gc/bsf:${FREE5GC_IMAGE_TAG:-latest}
+    image: free5gc/bsf:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./bsf -c ./config/bsfcfg.yaml
     expose:
       - "8000"
@@ -252,7 +252,7 @@ services:
 
   free5gc-scp:
     container_name: scp
-    image: free5gc/scp:${FREE5GC_IMAGE_TAG:-latest}
+    image: free5gc/scp:${FREE5GC_IMAGE_TAG:-v4.3.0}
     command: ./scp -c ./config/scpcfg.yaml
     expose:
       - "8000"

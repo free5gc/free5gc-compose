@@ -10,6 +10,7 @@ configuration:
     bindingIPv4: smf.free5gc.org # IP used to bind the service
     port: 8000 # Port used to bind the service
     tls: # the local path of TLS key
+      verify: false # Verify outgoing SBI HTTPS certificates
       key: cert/smf.key # SMF TLS Certificate
       pem: cert/smf.pem # SMF TLS Private key
   serviceNameList: # the SBI services provided by this SMF, refer to TS 29.502
