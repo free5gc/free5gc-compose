@@ -366,6 +366,7 @@ services:
       - "2121"
     volumes:
       - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
+      - ./cert:/free5gc/cert
     environment:
       - GIN_MODE=release
     networks:
